@@ -136,7 +136,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="SYBanner" largeTitleDisplayMode="always" id="79q-0b-QOo"/>
                     <connections>
-                        <outlet property="defaultBannerButton" destination="BJ9-Gd-ypR" id="rUX-5f-3Lg"/>
+                        <outlet property="defaultBannerButton" destination="bCE-c6-IZg" id="3oq-uK-txk"/>
                         <outlet property="imageBannerButtonTopConstraint" destination="em3-rF-aVw" id="orW-7p-rXT"/>
                     </connections>
                 </viewController>

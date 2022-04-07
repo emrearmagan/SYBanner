@@ -12,6 +12,12 @@ public enum Direction {
     case top
 }
 
+public enum SYBannerType {
+    case custom
+    case float
+    case stick
+}
+
 open class SYBaseBanner: UIView {
     //MARK: Properties
     
@@ -19,6 +25,13 @@ open class SYBaseBanner: UIView {
     internal let screenSize: CGSize = {
         return UIScreen.main.bounds.size
     }()
+    
+    internal lazy var safeArea: UIEdgeInsets? = {
+        return parentView?.safeAreaInsets
+    }()
+    
+    /// Insets of the banner on each size
+    public var bannerInsets: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
     
     /// The direction the notification should appear from
     public private(set) var direction: Direction
@@ -35,8 +48,22 @@ open class SYBaseBanner: UIView {
                     .first?.windows
                     .filter({$0.isKeyWindow}).first?.rootViewController?.view) ?? nil
     }()
+    
     /// Indicates that the notification is currently dismissing
     private var isDismissing: Bool = false
+    
+    internal var bannerType: SYBannerType = .float {
+        didSet {
+            switch bannerType {
+            case .float:
+                self.bannerInsets = .init(top: (self.safeArea?.top ?? 0), left: 10, bottom: (self.safeArea?.bottom ?? 0), right: 10)
+            case .stick:
+                self.bannerInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
+            case .custom:
+                break
+            }
+        }
+    }
     
     /// The view controller to display the banner on. This is useful if you are wanting to display a banner only on one ViewController and not on the whole screen
     public weak var parentViewController: UIViewController?
@@ -55,6 +82,7 @@ open class SYBaseBanner: UIView {
     
     /// Responsible for positioning and auto managing notification banners
     public var bannerQueue: SYBannerQueue = SYBannerQueue.default
+
     
     /// If false, the banner will not be dismissed until the developer programatically dismisses it
     public var autoDismiss: Bool = true {
@@ -67,18 +95,10 @@ open class SYBaseBanner: UIView {
     }
     
     /// If true, notification will dismissed when tapped
-    public var dismissOnTap: Bool = true {
-        didSet {
-            //self.isUserInteractionEnabled = dismissOnTap || dismissOnSwipe
-        }
-    }
+    public var dismissOnTap: Bool = true
     
     /// If true, notification will dismissed when swiped up
-    public var dismissOnSwipe: Bool = true {
-        didSet {
-            //self.isUserInteractionEnabled = dismissOnTap || dismissOnSwipe
-        }
-    }
+    public var dismissOnSwipe: Bool = true
     
     /// Closure that will be executed if the notification banner is swiped up
     public var onSwipe: (() -> Void)?
@@ -97,12 +117,14 @@ open class SYBaseBanner: UIView {
     public var haptic: UIImpactFeedbackGenerator.FeedbackStyle = .medium
     
     //MARK: init
-    init(direction: Direction, on: UIViewController?) {
+    init(direction: Direction, on: UIViewController?, type: SYBannerType = .float) {
+        // Defer to call the didSet method on bannerType
+        defer {
+            self.bannerType = type
+        }
         self.direction = direction
         self.parentViewController = on
         super.init(frame: .zero)
-        
-        self.isUserInteractionEnabled = true
     }
     
     required public init?(coder: NSCoder) {
@@ -118,15 +140,13 @@ open class SYBaseBanner: UIView {
         UIView.animate(withDuration: self.animationDurationShow, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveLinear, .allowUserInteraction]) {
             switch self.direction {
             case .bottom:
-                self.frame.origin.y = UIScreen.main.bounds.size.height - (self.parentView?.safeAreaInsets.bottom ?? 0) - self.frame.size.height
+                self.frame.origin.y = UIScreen.main.bounds.size.height - self.bannerInsets.bottom - self.frame.size.height
             case .top:
-                self.frame.origin.y = (self.parentView?.safeAreaInsets.top ?? 0) + 20
+                self.frame.origin.y = self.bannerInsets.top
             }
         } completion: { _ in
             completion?()
         }
-        
-        
     }
     
     /**
@@ -221,7 +241,7 @@ extension SYBaseBanner {
     /**
      animates the notification banner from the defined direction in
      */
-    private func animateView() {
+    @objc internal func animateView() {
         guard let superView = parentView else {return}
         self.isDisplaying = true
         
@@ -244,7 +264,7 @@ extension SYBaseBanner {
     /**
      dismisses  the notification banner from the opposite of defined direction
      */
-    public func dismissView() {
+    @objc public func dismissView() {
         guard !isDismissing else {return}
         self.isDismissing = true
         DispatchQueue.main.async { [weak self] in

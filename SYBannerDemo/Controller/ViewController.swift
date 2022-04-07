@@ -9,14 +9,12 @@ import UIKit
 import SYBanner
 
 class ViewController: UIViewController {
-    
-    
     @IBOutlet weak var defaultBannerButton: UIButton!
     @IBOutlet weak var imageBannerButtonTopConstraint: NSLayoutConstraint!
     
     private let lightDark = UIColor.init(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
     private let buttonSpacing: CGFloat = 20
-    private let tableViewHeight: CGFloat = 200
+    private let tableViewHeight: CGFloat = 250
   
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -28,17 +26,14 @@ class ViewController: UIViewController {
     private lazy var transparentView: UIView = {
         let view = UIView()
         view.frame =  UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.frame ?? self.view.frame
-       
         view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissTransparentView))
         view.addGestureRecognizer(tapGesture)
         view.alpha = 0
-        
-        
         return view
     }()
     
-    private let defaultBannerOptions: [String] = ["Info", "Warning", "Success", "Custom icon"]
+    private let defaultBannerOptions: [String] = ["Text", "Info", "Warning", "Success", "Custom icon"]
 
     
     override func viewDidLoad() {
@@ -50,7 +45,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showSimpleBanner(_ sender: UIButton) {
-        let banner = SYSimpleBanner("Link copied", backgroundColor: UIColor(named: "whiteLightBlack") ?? .darkGray, textColor: .label, direction: .top)
+        let banner = SYSimpleBanner("Link copied", backgroundColor: UIColor(named: "whiteLightBlack")!, direction: .top)
         banner.animationDurationDisappear = 0.1
         banner.show(queuePosition: .front)
     }
@@ -65,31 +60,31 @@ class ViewController: UIViewController {
     }
     
     @IBAction func imageBanner(_ sender: UIButton) {
-        let banner = SYImageBanner("Large Title", "Some useful info about the image comes here", image: UIImage(named: "NotifcationBanner")!, type: .info, backgroundColor: lightDark.withAlphaComponent(0.95))
+        /*let banner = SYImageBanner("Large Title", "Some useful info about the image comes here", image: UIImage(named: "NotifcationBanner")!, style: .none, backgroundColor: lightDark.withAlphaComponent(0.95))
         banner.animationDurationDisappear = 0.1
-        banner.show()
+        banner.show(queuePosition: .front)*/
     }
     
     @IBAction func showCustomBanner1(_ sender: UIButton) {
-        /*let dismissButton =  SYBannerButton(title: "Dismiss", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss, tintColor: .lightGray) {
+        let dismissButton =  SYCardBannerButton(title: "Dismiss", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss, tintColor: .lightGray) {
             print("tapped dismiss")
         }
         
-        let banner = SYBanner(title: "Large title", subtitle: "A smaller subtitle for additional information", backgroundColor: lightDark, buttons: [dismissButton])
+        let banner = SYCardBanner(title: "Large title", subtitle: "A smaller subtitle for additional information", backgroundColor: lightDark, buttons: [dismissButton])
         
         banner.setBannerOptions([
             .showExitButton(true),
             .customView(customView1())
         ])
         banner.isDismissable = false
-        banner.show(queuePosition: .front)*/
+        banner.show(queuePosition: .front)
     }
     
     @IBAction func showCustomBanner2(_ sender: UIButton) {
-        /*let startButton =  SYBannerButton(title: "Get started", font: .systemFont(ofSize: 14, weight: .semibold), style: .default)
-        let skipButton = SYBannerButton(title: "Skip", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss)
+        let startButton =  SYCardBannerButton(title: "Get started", font: .systemFont(ofSize: 14, weight: .semibold), style: .default)
+        let skipButton = SYCardBannerButton(title: "Skip", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss)
         
-        let banner = SYBanner(title: "How to use", subtitle: "Simple download Notification banner and get started with your own notifcations", backgroundColor: lightDark, buttons: [skipButton, startButton])
+        let banner = SYCardBanner(title: "How to use", subtitle: "Simple download Notification banner and get started with your own notifcations", backgroundColor: lightDark, buttons: [skipButton, startButton])
         
         banner.setBannerOptions([
             .showExitButton(false),
@@ -99,13 +94,13 @@ class ViewController: UIViewController {
             .buttonsHeight(50),
         ])
         banner.isDismissable = false
-        banner.show(queuePosition: .front)*/
+        banner.show(queuePosition: .front)
     }
 
     
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension ViewController {
     @objc private func dismissTransparentView() {
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
@@ -113,7 +108,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.tableView.frame = CGRect(x: self.defaultBannerButton.frame.origin.x, y: self.defaultBannerButton.frame.origin.y + self.defaultBannerButton.frame.height, width: self.defaultBannerButton.frame.width, height: 0)
         }, completion: nil)
     }
-    
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         defaultBannerOptions.count
     }
@@ -134,17 +131,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         var banner: SYDefaultBanner?
         if indexPath.row == 0 {
             //Info banner
-            banner = SYDefaultBanner("Some useful info", type: .info)
-            banner?.messageColor = .white
-        } else if indexPath.row == 1 {
-            //Warning banner
-            banner = SYDefaultBanner("Warning message", type: .warning)
-            banner?.messageColor = .white
+            banner = SYDefaultBanner("A Banner with just a text", direction: .top, style: .none)
+            banner?.backgroundColor = lightDark
+        }
+        
+        else if indexPath.row == 1 {
+            //Info banner
+            banner = SYDefaultBanner("Some useful info", direction: .top, style: .info)
+            
         } else if indexPath.row == 2 {
-            //Success banner
-            banner = SYDefaultBanner("Successfully uploaded", type: .success)
-            banner?.messageColor = .white
+            //Warning banner
+            banner = SYDefaultBanner("Warning message", style: .warning)
         } else if indexPath.row == 3 {
+            //Success banner
+            banner = SYDefaultBanner("Successfully uploaded", style: .success)
+        } else if indexPath.row == 4 {
             //Custom banner
             let image = UIImage(named: "AppIcon60x60")
             let darkColor = UIColor.init(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
@@ -155,11 +156,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             banner?.iconSize = CGSize(width: 80, height: 80)
             banner?.messageFont = .systemFont(ofSize: 18, weight: .semibold)
             banner?.messageInsets.left = 20
-            banner?.imagePadding = 20
-            banner?.messageColor = .white
             banner?.layer.cornerRadius = 20
             banner?.didTap = {
-                let banner = SYSimpleBanner("Yay you tapped me!", backgroundColor: darkColor, textColor: .white, direction: .bottom)
+                let banner = SYSimpleBanner("Yay you tapped me!", backgroundColor: darkColor, direction: .bottom)
                 banner.animationDurationDisappear = 0.1
                 banner.show(queuePosition: .front)
             }
@@ -179,10 +178,13 @@ extension ViewController {
         contentView.layer.cornerRadius = 20
         contentView.layer.masksToBounds = true
         
-        let label = UILabel()
+        /*let label = UILabel()
         label.text = "Content"
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
+        label.font = .systemFont(ofSize: 14, weight: .semibold)*/
         
+        let label = UITextField()
+        label.backgroundColor = .red
+        label.placeholder = "sadas"
         label.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(label)
         NSLayoutConstraint.activate([

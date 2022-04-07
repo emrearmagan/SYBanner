@@ -10,14 +10,16 @@ import UIKit
 
 open class SYSimpleBanner: SYBaseBanner {
     //MARK: Properties
+    internal var contentConstraints: [NSLayoutConstraint] = []
+    
     /// message of the notification
-    private var messageLabel: UILabel = UILabel()
+    internal var messageLabel: UILabel = UILabel()
 
     /// The message of the notification
     public private(set) var message: String
     
     /// Color of the mesage
-    public var textColor: UIColor = .white {
+    public var messageColor: UIColor = .label {
         didSet {
             setupView()
         }
@@ -31,28 +33,24 @@ open class SYSimpleBanner: SYBaseBanner {
     }
     
     /// Insets of the label inside the view
-    public var textInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30) {
+    public var messageInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30) {
         didSet {
             setConstraints()
         }
     }
-    
-    /// Padding of the banner on each size
-    public var padding: CGFloat = 10
-    
+ 
     
     //MARK: Init
-    public convenience init(_ message: String, backgroundColor: UIColor, textColor: UIColor, direction: Direction = .top) {
-        self.init(message, color: backgroundColor, textColor: textColor, direction: direction, on: nil)
+    public convenience init(_ message: String, backgroundColor: UIColor, direction: Direction = .top, on: UIViewController? = nil) {
+        self.init(message, color: backgroundColor, direction: direction, on: on)
     }
     
-    private init(_ message: String, color: UIColor, textColor: UIColor, direction: Direction, on: UIViewController?) {
+    internal init(_ message: String, color: UIColor?, direction: Direction, type: SYBannerType = .float, on: UIViewController?) {
         self.message = message
-        self.textColor = textColor
         
-        super.init(direction: direction, on: on)
+        super.init(direction: direction, on: on, type: type)
         self.backgroundColor = color
-
+        
         setupView()
         setConstraints()
     }
@@ -61,7 +59,6 @@ open class SYSimpleBanner: SYBaseBanner {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     open override func layoutSubviews() {
         super.layoutSubviews()
         self.layer.cornerRadius = self.frame.size.height / 2
@@ -69,28 +66,32 @@ open class SYSimpleBanner: SYBaseBanner {
     }
     
     //MARK: Functions
-    private func setupView() {
+    internal func setupView() {
         //label
         messageLabel.font = messageFont
         messageLabel.text = message
-        messageLabel.textColor = textColor
+        messageLabel.textColor = messageColor
         messageLabel.numberOfLines = 0
+                
+        self.addSubview(messageLabel)
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        
     }
    
     override func postionView() {
-        let labelSize = getLabelSize()
-        
+        let labelSize = getMessageLabelSize()
+    
         var containerRect = CGRect.zero
-        containerRect.size = CGSize(width: labelSize.width + textInsets.left + textInsets.right, height: labelSize.height + textInsets.top + textInsets.bottom)
-        
+        containerRect.size = CGSize(width: labelSize.width + messageInsets.left + messageInsets.right, height: labelSize.height + messageInsets.top + messageInsets.bottom)
+       
         self.frame = containerRect
         self.center.x = screenSize.width / 2
         self.frame.origin.y = self.direction == .top ? -self.frame.size.height : UIScreen.main.bounds.height
     }
  
     
-    private func getLabelSize() -> CGSize {
-        let containerSize = screenSize.width - (padding * 2)
+    internal func getMessageLabelSize() -> CGSize {
+        let containerSize = screenSize.width - (bannerInsets.left + bannerInsets.right)
 
         var constraintRect = CGSize(width: containerSize, height: .greatestFiniteMagnitude)
         let labelHeight = ceil(message.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: messageFont], context: nil).height)
@@ -103,18 +104,17 @@ open class SYSimpleBanner: SYBaseBanner {
     /**
      sets the constraints for the icon and message label
      */
-    private func setConstraints() {
-        messageLabel.removeFromSuperview()
-        self.addSubview(messageLabel)
+     internal func setConstraints() {
+        NSLayoutConstraint.deactivate(contentConstraints)
+     
+        contentConstraints = [
+            messageLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: messageInsets.left),
+            messageLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -messageInsets.right),
+            messageLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: messageInsets.top),
+            messageLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -messageInsets.bottom),
+        ]
         
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            //messageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            messageLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: textInsets.left),
-            messageLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -textInsets.right),
-            messageLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: textInsets.top),
-            messageLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -textInsets.bottom),
-        ])
+        NSLayoutConstraint.activate(contentConstraints)
     }
 }
 

@@ -7,13 +7,16 @@
 
 import UIKit
 
-public enum SYBannerType {
+public enum SYBannerStyle {
+    case none
     case info
     case warning
     case success
     
     var image:UIImage? {
         switch self {
+        case .none:
+            return nil
         case .info:
             return UIImage(systemName: "info.circle")
         case .warning:
@@ -25,6 +28,8 @@ public enum SYBannerType {
     
     var color: UIColor {
         switch self {
+        case .none:
+            return .systemBackground
         case .info:
             return .lightGray
         case .warning:
