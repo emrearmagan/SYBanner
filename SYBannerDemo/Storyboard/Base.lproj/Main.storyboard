@@ -24,7 +24,7 @@
                                     <constraint firstAttribute="height" constant="50" id="vDb-51-8ax"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Image banner">
+                                <state key="normal" title="Custom banner 1">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -33,7 +33,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="imageBanner:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ko3-XU-RtK"/>
+                                    <action selector="showCustomBanner1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XyK-WO-69l"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCE-c6-IZg">
@@ -82,7 +82,7 @@
                                     <constraint firstAttribute="height" constant="50" id="De1-Su-qJF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Custom Banner 1">
+                                <state key="normal" title="Custom banner 2">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -91,7 +91,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="showCustomBanner1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hfp-vW-AYh"/>
+                                    <action selector="showCustomBanner2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BHY-Pv-K6b"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MZh-mg-lAs">
@@ -101,7 +101,7 @@
                                     <constraint firstAttribute="height" constant="50" id="9jP-oB-qGl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Custom Banner 2">
+                                <state key="normal" title="Custom banner 3">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -110,7 +110,45 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="showCustomBanner2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a6O-1V-qG5"/>
+                                    <action selector="showCustomBanner3:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ghb-8U-6Ky"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZY-FT-d29">
+                                <rect key="frame" x="50" y="520" width="314" height="50"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Nhg-9Z-xke"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                <state key="normal" title="Custom banner 4">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="showCustomBanner4:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Pl-Bc-o63"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-Vh-PBy">
+                                <rect key="frame" x="50" y="590" width="314" height="50"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="syq-ZH-pv2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                <state key="normal" title="Custom banner 5">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="showCustomBanner5:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zju-PK-eY2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -118,13 +156,19 @@
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="MZh-mg-lAs" firstAttribute="leading" secondItem="IGh-jg-Bb1" secondAttribute="leading" id="1m1-H3-QWa"/>
+                            <constraint firstItem="WZY-FT-d29" firstAttribute="leading" secondItem="MZh-mg-lAs" secondAttribute="leading" id="5Xr-sh-L7T"/>
                             <constraint firstItem="IGh-jg-Bb1" firstAttribute="leading" secondItem="W33-Hx-kSH" secondAttribute="leading" id="78m-3I-IzI"/>
+                            <constraint firstItem="BnD-Vh-PBy" firstAttribute="leading" secondItem="WZY-FT-d29" secondAttribute="leading" id="A0d-pf-vSf"/>
+                            <constraint firstItem="BnD-Vh-PBy" firstAttribute="trailing" secondItem="WZY-FT-d29" secondAttribute="trailing" id="Do8-gv-VsA"/>
                             <constraint firstItem="W33-Hx-kSH" firstAttribute="trailing" secondItem="bCE-c6-IZg" secondAttribute="trailing" id="Hiu-FW-BCv"/>
+                            <constraint firstItem="BnD-Vh-PBy" firstAttribute="top" secondItem="WZY-FT-d29" secondAttribute="bottom" constant="20" id="Jfj-UP-tkE"/>
+                            <constraint firstItem="WZY-FT-d29" firstAttribute="top" secondItem="MZh-mg-lAs" secondAttribute="bottom" constant="20" id="Vff-i5-hn4"/>
                             <constraint firstItem="W33-Hx-kSH" firstAttribute="leading" secondItem="bCE-c6-IZg" secondAttribute="leading" id="WeU-z7-3aN"/>
                             <constraint firstItem="BJ9-Gd-ypR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="bga-Yu-GS3"/>
                             <constraint firstItem="W33-Hx-kSH" firstAttribute="top" secondItem="bCE-c6-IZg" secondAttribute="bottom" constant="20" id="em3-rF-aVw"/>
                             <constraint firstItem="MZh-mg-lAs" firstAttribute="trailing" secondItem="IGh-jg-Bb1" secondAttribute="trailing" id="eyC-aM-QHL"/>
                             <constraint firstItem="MZh-mg-lAs" firstAttribute="top" secondItem="IGh-jg-Bb1" secondAttribute="bottom" constant="20" id="fyd-fZ-VpQ"/>
+                            <constraint firstItem="WZY-FT-d29" firstAttribute="trailing" secondItem="MZh-mg-lAs" secondAttribute="trailing" id="kLw-7O-xnO"/>
                             <constraint firstItem="BJ9-Gd-ypR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="liN-DM-UTS"/>
                             <constraint firstItem="bCE-c6-IZg" firstAttribute="top" secondItem="BJ9-Gd-ypR" secondAttribute="bottom" constant="20" id="oQN-iO-jQg"/>
                             <constraint firstItem="bCE-c6-IZg" firstAttribute="leading" secondItem="BJ9-Gd-ypR" secondAttribute="leading" id="p4V-J9-nhn"/>

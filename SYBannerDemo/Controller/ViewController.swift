@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var defaultBannerButton: UIButton!
     @IBOutlet weak var imageBannerButtonTopConstraint: NSLayoutConstraint!
     
-    private let lightDark = UIColor.init(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
     private let buttonSpacing: CGFloat = 20
     private let tableViewHeight: CGFloat = 250
   
@@ -59,22 +58,16 @@ class ViewController: UIViewController {
         }, completion: nil)
     }
     
-    @IBAction func imageBanner(_ sender: UIButton) {
-        /*let banner = SYImageBanner("Large Title", "Some useful info about the image comes here", image: UIImage(named: "NotifcationBanner")!, style: .none, backgroundColor: lightDark.withAlphaComponent(0.95))
-        banner.animationDurationDisappear = 0.1
-        banner.show(queuePosition: .front)*/
-    }
-    
     @IBAction func showCustomBanner1(_ sender: UIButton) {
         let dismissButton =  SYCardBannerButton(title: "Dismiss", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss, tintColor: .lightGray) {
             print("tapped dismiss")
         }
         
-        let banner = SYCardBanner(title: "Large title", subtitle: "A smaller subtitle for additional information", backgroundColor: lightDark, buttons: [dismissButton])
-        
+        let banner = SYCardBanner(title: "Large title", subtitle: "A smaller subtitle for additional information", buttons: [dismissButton])
+        banner.backgroundColor = getTraitColor()
         banner.setBannerOptions([
-            .showExitButton(true),
-            .customView(customView1())
+            .showExitButton(false),
+            .customView(customViewDefault())
         ])
         banner.isDismissable = false
         banner.show(queuePosition: .front)
@@ -84,11 +77,11 @@ class ViewController: UIViewController {
         let startButton =  SYCardBannerButton(title: "Get started", font: .systemFont(ofSize: 14, weight: .semibold), style: .default)
         let skipButton = SYCardBannerButton(title: "Skip", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss)
         
-        let banner = SYCardBanner(title: "How to use", subtitle: "Simple download Notification banner and get started with your own notifcations", backgroundColor: lightDark, buttons: [skipButton, startButton])
-        
+        let banner = SYCardBanner(title: "How to use", subtitle: "Simple download Notification banner and get started with your own notifcations", buttons: [skipButton, startButton])
+        banner.backgroundColor = getTraitColor()
         banner.setBannerOptions([
-            .showExitButton(false),
-            .customView(customView2()),
+            .showExitButton(true),
+            .customView(customViewGradient()),
             .buttonAxis(.horizontal),
             .titleFont(UIFont.systemFont(ofSize: 35, weight: .medium)),
             .buttonsHeight(50),
@@ -96,11 +89,78 @@ class ViewController: UIViewController {
         banner.isDismissable = false
         banner.show(queuePosition: .front)
     }
-
     
+    @IBAction func showCustomBanner3(_ sender: UIButton) {
+        let banner = SYCardBanner(title: "Easy to use\n Banners", type: .float)
+        banner.addButton(SYCardBannerButton(title: "Get started", font: .systemFont(ofSize: 18, weight: .semibold), cornerRadius: 15, style: .default, handler: {
+            banner.dismissView()
+        }))
+        banner.backgroundColor = getTraitColor()
+        banner.setBannerOptions([
+            .showExitButton(true),
+            .customView(customViewImage()),
+            .buttonAxis(.horizontal),
+            .titleFont(UIFont.systemFont(ofSize: 35, weight: .medium)),
+            .titleColor(.gray),
+            .buttonsHeight(50),
+            .customViewInsets(.init(top: 20, left: 0, bottom: 40, right: 0)),
+        ])
+ 
+        banner.isDismissable = false
+        banner.show(queuePosition: .front)
+    }
+
+    @IBAction func showCustomBanner4(_ sender: UIButton) {
+        let banner = SYCardBanner(title: "Enter your name", subtitle: "Please enter your name and sign up with us today for great benefits. No Email required.", type: .float)
+        
+        banner.addButton(SYCardBannerButton(title: "Sign up", font: .systemFont(ofSize: 14, weight: .semibold), style: .default) {
+            banner.dismissView()
+        })
+        banner.backgroundColor = getTraitColor()
+        banner.setBannerOptions([
+            .showExitButton(false),
+            .customView(customViewTextField()),
+            .titleFont(UIFont.systemFont(ofSize: 30, weight: .medium)),
+            .subTitleFont(.systemFont(ofSize: 20)),
+            .subTitleColor(.label),
+            .titleColor(.gray),
+            .buttonsHeight(50),
+        ])
+        banner.keyboardSpacing = 10
+        banner.isDismissable = false
+        banner.show(queuePosition: .front)
+    }
+    
+    @IBAction func showCustomBanner5(_ sender: UIButton) {
+        let banner = SYCardBanner(title: "Successfully downloaded", subtitle: "The requested video has been successfully downloaded. Watch it now or later in your gallery.", type: .float)
+        
+        banner.addButton(SYCardBannerButton(title: "Watch video", font: .systemFont(ofSize: 16, weight: .semibold), style: .default, tintColor: .systemGreen) {
+            banner.dismissView()
+        })
+        
+        banner.addButton(SYCardBannerButton(title: "Maybe later", font: .systemFont(ofSize: 12, weight: .semibold), style: .dismiss))
+                      
+        banner.backgroundColor = getTraitColor()
+        banner.setBannerOptions([
+            .showExitButton(false),
+            .customView(customViewSuccess()),
+            .titleFont(UIFont.systemFont(ofSize: 26, weight: .semibold)),
+            .buttonsHeight(50),
+            .buttonAxis(.vertical),
+            .customViewInsets(.init(top: 30, left: 0, bottom: 30, right: 0)),
+        ])
+        banner.contentInsets.bottom = 6
+        banner.show(queuePosition: .front)
+    }
 }
 
 extension ViewController {
+    func getTraitColor() -> UIColor {
+        return UIColor { (traits) -> UIColor in
+            return traits.userInterfaceStyle == .light ? .white : UIColor.init(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
+        }
+    }
+    
     @objc private func dismissTransparentView() {
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
@@ -132,7 +192,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             //Info banner
             banner = SYDefaultBanner("A Banner with just a text", direction: .top, style: .none)
-            banner?.backgroundColor = lightDark
+            banner?.backgroundColor = getTraitColor()
         }
         
         else if indexPath.row == 1 {
@@ -148,8 +208,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.row == 4 {
             //Custom banner
             let image = UIImage(named: "AppIcon60x60")
-            let darkColor = UIColor.init(red: 28/255, green: 27/255, blue: 29/255, alpha: 1)
-            banner = SYDefaultBanner("This is a custom banner with an icon. Try it out yourself 🔥", icon: image, backgroundColor: darkColor , direction: .top)
+            banner = SYDefaultBanner("This is a custom banner with an icon. Try it out yourself 🔥", icon: image, backgroundColor: getTraitColor() , direction: .top)
             banner?.imageView.layer.masksToBounds = false
             banner?.imageView.layer.cornerRadius = 20
             banner?.imageView.clipsToBounds = true
@@ -158,7 +217,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             banner?.messageInsets.left = 20
             banner?.layer.cornerRadius = 20
             banner?.didTap = {
-                let banner = SYSimpleBanner("Yay you tapped me!", backgroundColor: darkColor, direction: .bottom)
+                let banner = SYSimpleBanner("Yay you tapped me!", backgroundColor: self.getTraitColor(), direction: .bottom)
                 banner.animationDurationDisappear = 0.1
                 banner.show(queuePosition: .front)
             }
@@ -170,21 +229,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
-extension ViewController {
-    
-    private func customView1() -> UIView {
-        let contentView = UIView(frame: .zero)
-        contentView.frame.size.height = 200
+//MARK: - Custom views
+extension ViewController: UITextFieldDelegate {
+    private func customViewDefault() -> UIView {
+        let contentView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 200)))
         contentView.layer.cornerRadius = 20
         contentView.layer.masksToBounds = true
         
-        /*let label = UILabel()
+        let label = UILabel()
         label.text = "Content"
-        label.font = .systemFont(ofSize: 14, weight: .semibold)*/
-        
-        let label = UITextField()
-        label.backgroundColor = .red
-        label.placeholder = "sadas"
+        label.font = .systemFont(ofSize: 14, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(label)
         NSLayoutConstraint.activate([
@@ -196,9 +250,8 @@ extension ViewController {
         return contentView
     }
     
-    private func customView2() -> UIView {
-        let contentView = UIView(frame: .zero)
-        contentView.frame.size.height = 200
+    private func customViewGradient() -> UIView {
+        let contentView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 200)))
         contentView.layer.cornerRadius = 20
         contentView.layer.masksToBounds = true
         
@@ -210,12 +263,80 @@ extension ViewController {
         gradientLayer.colors = [colorTop, colorMiddle, colorBottom]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        gradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: 500, height: 200))
+        gradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: 400, height: 200))
         
         contentView.layer.insertSublayer(gradientLayer, at:0)
         
         return contentView
     }
+    
+    private func customViewImage() -> UIView {
+        let contentView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 150, height: 150)))
+        
+        contentView.layer.cornerRadius = 20
+        contentView.layer.masksToBounds = true
+        contentView.backgroundColor = .init(red: 117/255, green: 85/255, blue: 202/255, alpha: 0.5)
+        
+        let label = UILabel()
+        label.text = "👻"
+        label.font = .systemFont(ofSize: 80, weight: .semibold)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        ])
+        
+        return contentView
+    }
+
+    private func customViewSuccess() -> UIView {
+        let contentView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 150, height: 150)))
+
+        let imageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+        imageView.tintColor = .systemGreen
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: contentView.frame.width),
+            imageView.heightAnchor.constraint(equalToConstant: contentView.frame.height),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        ])
+        
+        return contentView
+    }
+    
+    private func customViewTextField() -> UIView {
+        let contentView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 50)))
+  
+        let txtField = UITextField()
+        txtField.placeholder = "Enter your name"
+        txtField.layer.borderWidth = 1.0
+        txtField.layer.cornerRadius = 5
+        txtField.font = .systemFont(ofSize: 16, weight: .semibold)
+        
+        txtField.delegate = self
+
+        txtField.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(txtField)
+        NSLayoutConstraint.activate([
+            txtField.widthAnchor.constraint(equalToConstant: 300),
+            txtField.heightAnchor.constraint(equalToConstant: 50),
+            txtField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            txtField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        ])
+        
+        return contentView
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 }
 
 

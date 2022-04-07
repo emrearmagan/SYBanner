@@ -46,7 +46,7 @@ public class SYDefaultBanner: SYSimpleBanner {
         self.customIcon = icon
         self.customBackgroundColor = color
         
-        super.init(message, color: color, direction: direction, type: .stick, on: on)
+        super.init(message, color: color, direction: direction, type: type, on: on)
         self.messageInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
