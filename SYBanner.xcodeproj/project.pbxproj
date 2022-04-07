@@ -24,6 +24,14 @@
 		D055F35227FF013500675E9D /* SYBanner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D055F31C27FEFE6600675E9D /* SYBanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D055F35827FF062200675E9D /* SYCardBannerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F35727FF062200675E9D /* SYCardBannerButton.swift */; };
 		D055F35A27FF067A00675E9D /* SYCardBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F35927FF067A00675E9D /* SYCardBanner.swift */; };
+		D055F36427FF5F7100675E9D /* simple.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F35D27FF5F7000675E9D /* simple.gif */; };
+		D055F36527FF5F7100675E9D /* default.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F35E27FF5F7100675E9D /* default.gif */; };
+		D055F36627FF5F7100675E9D /* gradient.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F35F27FF5F7100675E9D /* gradient.gif */; };
+		D055F36727FF5F7100675E9D /* image.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F36027FF5F7100675E9D /* image.gif */; };
+		D055F36827FF5F7100675E9D /* content.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F36127FF5F7100675E9D /* content.gif */; };
+		D055F36927FF5F7100675E9D /* success.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F36227FF5F7100675E9D /* success.gif */; };
+		D055F36A27FF5F7100675E9D /* textfield.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F36327FF5F7100675E9D /* textfield.gif */; };
+		D055F36C27FF635300675E9D /* signup.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F36B27FF635300675E9D /* signup.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +77,15 @@
 		D055F34927FEFFE400675E9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D055F35727FF062200675E9D /* SYCardBannerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYCardBannerButton.swift; sourceTree = "<group>"; };
 		D055F35927FF067A00675E9D /* SYCardBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYCardBanner.swift; sourceTree = "<group>"; };
+		D055F35B27FF572E00675E9D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D055F35D27FF5F7000675E9D /* simple.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = simple.gif; sourceTree = "<group>"; };
+		D055F35E27FF5F7100675E9D /* default.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = default.gif; sourceTree = "<group>"; };
+		D055F35F27FF5F7100675E9D /* gradient.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gradient.gif; sourceTree = "<group>"; };
+		D055F36027FF5F7100675E9D /* image.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = image.gif; sourceTree = "<group>"; };
+		D055F36127FF5F7100675E9D /* content.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = content.gif; sourceTree = "<group>"; };
+		D055F36227FF5F7100675E9D /* success.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = success.gif; sourceTree = "<group>"; };
+		D055F36327FF5F7100675E9D /* textfield.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = textfield.gif; sourceTree = "<group>"; };
+		D055F36B27FF635300675E9D /* signup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = signup.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +114,7 @@
 				D055F33A27FEFFDA00675E9D /* SYBannerDemo */,
 				D055F31D27FEFE6600675E9D /* Products */,
 				D055F35027FF013500675E9D /* Frameworks */,
+				D055F35B27FF572E00675E9D /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,6 +174,7 @@
 		D055F34E27FF002000675E9D /* SupportFIles */ = {
 			isa = PBXGroup;
 			children = (
+				D055F35C27FF5F6600675E9D /* Preview */,
 				D055F34427FEFFE400675E9D /* Assets.xcassets */,
 				D055F34927FEFFE400675E9D /* Info.plist */,
 			);
@@ -184,6 +203,21 @@
 				D055F35927FF067A00675E9D /* SYCardBanner.swift */,
 			);
 			path = SYCardBanner;
+			sourceTree = "<group>";
+		};
+		D055F35C27FF5F6600675E9D /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				D055F36B27FF635300675E9D /* signup.gif */,
+				D055F36127FF5F7100675E9D /* content.gif */,
+				D055F35E27FF5F7100675E9D /* default.gif */,
+				D055F35F27FF5F7100675E9D /* gradient.gif */,
+				D055F36027FF5F7100675E9D /* image.gif */,
+				D055F35D27FF5F7000675E9D /* simple.gif */,
+				D055F36227FF5F7100675E9D /* success.gif */,
+				D055F36327FF5F7100675E9D /* textfield.gif */,
+			);
+			path = Preview;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,9 +321,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D055F36627FF5F7100675E9D /* gradient.gif in Resources */,
+				D055F36427FF5F7100675E9D /* simple.gif in Resources */,
+				D055F36827FF5F7100675E9D /* content.gif in Resources */,
+				D055F36527FF5F7100675E9D /* default.gif in Resources */,
+				D055F36A27FF5F7100675E9D /* textfield.gif in Resources */,
 				D055F34827FEFFE400675E9D /* LaunchScreen.storyboard in Resources */,
 				D055F34527FEFFE400675E9D /* Assets.xcassets in Resources */,
 				D055F34327FEFFDA00675E9D /* Main.storyboard in Resources */,
+				D055F36927FF5F7100675E9D /* success.gif in Resources */,
+				D055F36727FF5F7100675E9D /* image.gif in Resources */,
+				D055F36C27FF635300675E9D /* signup.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

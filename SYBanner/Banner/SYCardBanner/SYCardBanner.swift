@@ -27,9 +27,6 @@ public enum SYCardBannerOptions {
 
 public class SYCardBanner: SYBaseBanner {
     //MARK: Properties
-    var titleSubTitleSpacing: CGFloat = 16
-
-    
     ///Constraints for the content
     private var labelConstraints: [NSLayoutConstraint] = []
     private var customViewConstraints: [NSLayoutConstraint] = []
@@ -79,20 +76,25 @@ public class SYCardBanner: SYBaseBanner {
     private(set) var buttonsStackView = UIStackView()
 
     private lazy var exitButtonReact: CGRect = {
-        return CGRect(origin: CGPoint(x: self.frame.width - 21 - exitButtonButtonSize.width, y: 16 + exitButtonButtonSize.height), size: exitButtonButtonSize)
+        return CGRect(origin: CGPoint(x: self.frame.width - 21 - exitButtonSize.width, y: 16 + exitButtonSize.height), size: exitButtonSize)
     }()
+    
+    /// Spacing between the title and subtitle
+    public var titleSubtitleSpacing: CGFloat = 16 {
+        didSet {
+            refreshView()
+        }
+    }
     
     /// The spacing between the view and the keyboard if shown
     public var keyboardSpacing: CGFloat = 10
     
     /// The number of drag necessary for the view to be dismissed. Only works if isDismissable is set to true
-    public var dismissableOrigin: CGFloat = 50
+    public var dismissableOrigin: CGFloat = 100
     
     //TODO: Maye specify a bound
     /// If true, the banner can be moved around.
     public var isDraggable: Bool = true
-    ///  If true, the banner will be dismissed when the amount of drag specified in dismissableOrigin has been reached
-    public var isDismissable: Bool = true
     
     /// If set to true, a exit button will be drawn on the top right corner
     public var addExitButton: Bool = false {
@@ -102,7 +104,7 @@ public class SYCardBanner: SYBaseBanner {
     }
     
     /// The size of the top right exit button. Only visible if addExitButton is true
-    public var exitButtonButtonSize = CGSize(width: 9, height: 9) {
+    public var exitButtonSize = CGSize(width: 9, height: 9) {
         didSet {
             self.setNeedsDisplay()
         }
@@ -195,7 +197,7 @@ public class SYCardBanner: SYBaseBanner {
         let titleHeight = ceil((title as NSString).boundingRect(with: labelRect, options: .usesLineFragmentOrigin, attributes: [.font: self.titleFont], context: nil).height)
         let subTitleHeight = ceil((subtitle as NSString).boundingRect(with: labelRect, options: .usesLineFragmentOrigin, attributes: [.font: self.subtitleFont], context: nil).height)
         
-        let headerHeight = _contentInsets.top + (titleHeight + subTitleHeight) + titleSubTitleSpacing
+        let headerHeight = _contentInsets.top + (titleHeight + subTitleHeight) + titleSubtitleSpacing
         
         let totalHeight = headerHeight + _customViewInsets.top + (self.customView?.frame.size.height ?? 0) + _customViewInsets.bottom + _stackHeight + _contentInsets.bottom
         var containerRect = CGRect.zero
@@ -220,10 +222,19 @@ public class SYCardBanner: SYBaseBanner {
         super.animateView()
     }
     
-    override public func dismissView() {
+    override public func dismissView(_ completion: (() -> ())? = nil) {
         self.transparentView.alpha = 0
         self.transparentView.removeFromSuperview()
-        super.dismissView()
+        super.dismissView(completion)
+    }
+    
+    override internal func addSwipegesture() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(gesture:)))
+        // change to false to immediately listen on gesture movement
+        panGesture.delaysTouchesBegan = false
+        panGesture.delaysTouchesEnded = false
+        self.addGestureRecognizer(panGesture)
+        
     }
 }
 
@@ -251,7 +262,6 @@ extension SYCardBanner {
         buttonsStackView.distribution = .fillEqually
     
         refreshView()
-        setupPanGesture()
     }
     
     private func refreshView() {
@@ -273,7 +283,7 @@ extension SYCardBanner {
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self._contentInsets.left),
             titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self._contentInsets.right),
 
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleSubTitleSpacing),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleSubtitleSpacing),
             subtitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self._contentInsets.left),
             subtitleLabel.trailingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor),
         ]
@@ -334,7 +344,7 @@ extension SYCardBanner {
         
         if let touch = touches.first {
             let point = touch.location(in: self)
-            let size = self.exitButtonButtonSize
+            let size = self.exitButtonSize
             let validReact = self.exitButtonReact.inset(by: UIEdgeInsets(top: -size.height, left: -size.width, bottom: -size.height, right: -size.width))
             if validReact.contains(point) {
                 self.dismissView()
@@ -381,14 +391,6 @@ extension SYCardBanner {
 
 //MARK: - Pangesture
 extension SYCardBanner {
-    func setupPanGesture() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(gesture:)))
-        // change to false to immediately listen on gesture movement
-        panGesture.delaysTouchesBegan = false
-        panGesture.delaysTouchesEnded = false
-        self.addGestureRecognizer(panGesture)
-    }
-    
     //TODO: Handle banners from top direction
     @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
         guard isDraggable else {return}
@@ -417,8 +419,8 @@ extension SYCardBanner {
                 //self.layoutIfNeeded()
             }
         case .ended:
-            //1: If new origin is below the default, dismiss view
-            if newOrigin > defaultOrigin + dismissableOrigin && isDismissable {
+            //1: If new origin is below the default and dismiss is true, dismiss view
+            if newOrigin > defaultOrigin + dismissableOrigin && dismissOnSwipe {
                 self.dismissView()
             }
             // 2: If new origin is below default, animate back to default
@@ -429,6 +431,7 @@ extension SYCardBanner {
             else if newOrigin > defaultOrigin - dismissableOrigin && !isDraggingDown {
                 self.positionAnimation()
             }
+           
             break
         default:
             break
@@ -468,7 +471,7 @@ extension SYCardBanner {
             case .isDraggable(let value):
                 self.isDraggable = value
             case .isDismissable(let value):
-                self.isDismissable = value
+                self.dismissOnSwipe = value
             case .dismissableOrigin(let value):
                 self.dismissableOrigin = value
             }

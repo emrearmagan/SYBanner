@@ -69,7 +69,7 @@ class ViewController: UIViewController {
             .showExitButton(false),
             .customView(customViewDefault())
         ])
-        banner.isDismissable = false
+        banner.dismissOnSwipe = false
         banner.show(queuePosition: .front)
     }
     
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
             .titleFont(UIFont.systemFont(ofSize: 35, weight: .medium)),
             .buttonsHeight(50),
         ])
-        banner.isDismissable = false
+        banner.dismissOnSwipe = false
         banner.show(queuePosition: .front)
     }
     
@@ -106,7 +106,7 @@ class ViewController: UIViewController {
             .customViewInsets(.init(top: 20, left: 0, bottom: 40, right: 0)),
         ])
  
-        banner.isDismissable = false
+        banner.dismissOnSwipe = false
         banner.show(queuePosition: .front)
     }
 
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
             .buttonsHeight(50),
         ])
         banner.keyboardSpacing = 10
-        banner.isDismissable = false
+        banner.dismissOnSwipe = false
         banner.show(queuePosition: .front)
     }
     
@@ -148,8 +148,33 @@ class ViewController: UIViewController {
             .buttonsHeight(50),
             .buttonAxis(.vertical),
             .customViewInsets(.init(top: 30, left: 0, bottom: 30, right: 0)),
+            .isDismissable(true),
         ])
         banner.contentInsets.bottom = 6
+        banner.show(queuePosition: .front)
+    }
+    
+    
+    @IBAction func showCustomBanner6(_ sender: UIButton) {
+        let banner = SYCardBanner(title: "Welcome 👋", subtitle: "Sign in or create a new account with us.", type: .float)
+        
+        banner.addButton(SYCardBannerButton(title: "Sign in", font: .systemFont(ofSize: 16, weight: .semibold), style: .default) {
+            banner.dismissView()
+        })
+        
+        banner.addButton(SYCardBannerButton(title: "Sign up", font: .systemFont(ofSize: 16, weight: .semibold), style: .dismiss) {
+            banner.dismissView()
+        })
+             
+        banner.backgroundColor = getTraitColor()
+        banner.setBannerOptions([
+            .showExitButton(false),
+            .titleFont(UIFont.systemFont(ofSize: 26, weight: .semibold)),
+            .buttonsHeight(50),
+            .buttonAxis(.vertical),
+            .isDismissable(false),
+            //.customViewInsets(.init(top: 0, left: 0, bottom: 0, right: 0))
+        ])
         banner.show(queuePosition: .front)
     }
 }
@@ -198,22 +223,25 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         else if indexPath.row == 1 {
             //Info banner
             banner = SYDefaultBanner("Some useful info", direction: .top, style: .info)
-            
+            banner?.messageColor = .white
         } else if indexPath.row == 2 {
             //Warning banner
             banner = SYDefaultBanner("Warning message", style: .warning)
+            banner?.messageColor = .white
         } else if indexPath.row == 3 {
             //Success banner
             banner = SYDefaultBanner("Successfully uploaded", style: .success)
+            banner?.messageColor = .white
         } else if indexPath.row == 4 {
             //Custom banner
             let image = UIImage(named: "AppIcon60x60")
-            banner = SYDefaultBanner("This is a custom banner with an icon. Try it out yourself 🔥", icon: image, backgroundColor: getTraitColor() , direction: .top)
+            banner = SYDefaultBanner("This is a custom banner with an icon. Try it out yourself 🔥", icon: image, backgroundColor: UIColor.init(red: 28/255, green: 27/255, blue: 29/255, alpha: 1) , direction: .top)
+            banner?.messageColor = .white
             banner?.imageView.layer.masksToBounds = false
             banner?.imageView.layer.cornerRadius = 20
             banner?.imageView.clipsToBounds = true
             banner?.iconSize = CGSize(width: 80, height: 80)
-            banner?.messageFont = .systemFont(ofSize: 18, weight: .semibold)
+            banner?.messageFont = .systemFont(ofSize: 16, weight: .semibold)
             banner?.messageInsets.left = 20
             banner?.layer.cornerRadius = 20
             banner?.didTap = {

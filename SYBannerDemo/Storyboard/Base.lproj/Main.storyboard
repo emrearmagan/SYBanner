@@ -151,6 +151,25 @@
                                     <action selector="showCustomBanner5:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zju-PK-eY2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgf-0u-hz7">
+                                <rect key="frame" x="50" y="660" width="314" height="50"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="djj-xh-SRn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                <state key="normal" title="Custom banner 6">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="showCustomBanner6:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7sY-vl-6he"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="backgroundColor"/>
@@ -160,8 +179,11 @@
                             <constraint firstItem="IGh-jg-Bb1" firstAttribute="leading" secondItem="W33-Hx-kSH" secondAttribute="leading" id="78m-3I-IzI"/>
                             <constraint firstItem="BnD-Vh-PBy" firstAttribute="leading" secondItem="WZY-FT-d29" secondAttribute="leading" id="A0d-pf-vSf"/>
                             <constraint firstItem="BnD-Vh-PBy" firstAttribute="trailing" secondItem="WZY-FT-d29" secondAttribute="trailing" id="Do8-gv-VsA"/>
+                            <constraint firstItem="Jgf-0u-hz7" firstAttribute="trailing" secondItem="BnD-Vh-PBy" secondAttribute="trailing" id="GGK-r5-tJv"/>
                             <constraint firstItem="W33-Hx-kSH" firstAttribute="trailing" secondItem="bCE-c6-IZg" secondAttribute="trailing" id="Hiu-FW-BCv"/>
                             <constraint firstItem="BnD-Vh-PBy" firstAttribute="top" secondItem="WZY-FT-d29" secondAttribute="bottom" constant="20" id="Jfj-UP-tkE"/>
+                            <constraint firstItem="Jgf-0u-hz7" firstAttribute="leading" secondItem="BnD-Vh-PBy" secondAttribute="leading" id="T4G-Vi-gUu"/>
+                            <constraint firstItem="Jgf-0u-hz7" firstAttribute="top" secondItem="BnD-Vh-PBy" secondAttribute="bottom" constant="20" id="V0c-ew-PqL"/>
                             <constraint firstItem="WZY-FT-d29" firstAttribute="top" secondItem="MZh-mg-lAs" secondAttribute="bottom" constant="20" id="Vff-i5-hn4"/>
                             <constraint firstItem="W33-Hx-kSH" firstAttribute="leading" secondItem="bCE-c6-IZg" secondAttribute="leading" id="WeU-z7-3aN"/>
                             <constraint firstItem="BJ9-Gd-ypR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="bga-Yu-GS3"/>

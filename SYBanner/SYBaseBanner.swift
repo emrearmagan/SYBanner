@@ -196,7 +196,7 @@ open class SYBaseBanner: UIView {
     /**
      Add a SwipeGesture to the View depending on the direction
      */
-    private func addSwipegesture() {
+    internal func addSwipegesture() {
         if dismissOnSwipe {
             let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeGestureRecognizer))
             swipeUpGesture.direction = (self.direction == .bottom) ? .down : .up
@@ -207,7 +207,7 @@ open class SYBaseBanner: UIView {
     /**
      Called when a notification banner is swiped up
      */
-    @objc private dynamic func onSwipeGestureRecognizer() {
+    @objc internal dynamic func onSwipeGestureRecognizer() {
         guard isDisplaying else {return}
         didTap?()
         self.dismissView()
@@ -264,7 +264,7 @@ extension SYBaseBanner {
     /**
      dismisses  the notification banner from the opposite of defined direction
      */
-    @objc public func dismissView() {
+    @objc public func dismissView(_ completion: (() -> ())? = nil) {
         guard !isDismissing else {return}
         self.isDismissing = true
         DispatchQueue.main.async { [weak self] in
@@ -285,6 +285,7 @@ extension SYBaseBanner {
                 self.isDisplaying = false
                 self.delegate?.notificationBannerDidDisappear(self)
                 self.removeFromSuperview()
+                completion?()
             }
         }
     }
