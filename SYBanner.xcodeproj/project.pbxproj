@@ -157,7 +157,7 @@
 				D055F33D27FEFFDA00675E9D /* SceneDelegate.swift */,
 				D055F34D27FF001700675E9D /* Storyboard */,
 				D055F34F27FF002E00675E9D /* Controller */,
-				D055F34E27FF002000675E9D /* SupportFIles */,
+				D055F34E27FF002000675E9D /* SupportFiles */,
 			);
 			path = SYBannerDemo;
 			sourceTree = "<group>";
@@ -171,14 +171,14 @@
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
-		D055F34E27FF002000675E9D /* SupportFIles */ = {
+		D055F34E27FF002000675E9D /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
 				D055F35C27FF5F6600675E9D /* Preview */,
 				D055F34427FEFFE400675E9D /* Assets.xcassets */,
 				D055F34927FEFFE400675E9D /* Info.plist */,
 			);
-			path = SupportFIles;
+			path = SupportFiles;
 			sourceTree = "<group>";
 		};
 		D055F34F27FF002E00675E9D /* Controller */ = {
