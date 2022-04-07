@@ -1,7 +1,7 @@
 ## SYBanner
 </div>
 
-![Commit](https://img.shields.io/github/last-commit/emrearmagan/SimpleCharts)
+![Commit](https://img.shields.io/github/last-commit/emrearmagan/SYBanner)
 ![Platform](https://img.shields.io/badge/platform-ios-lightgray.svg)
 ![Swift 5.0](https://img.shields.io/badge/Swift-5.0-orange.svg)
 ![iOS 13.0+](https://img.shields.io/badge/iOS-13.0%2B-blue.svg)
