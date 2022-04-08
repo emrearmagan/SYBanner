@@ -205,6 +205,7 @@ public class SYCardBanner: SYBaseBanner {
         
         self.frame = containerRect.inset(by: .init(top: 0, left: bannerInsets.left, bottom: 0, right: -bannerInsets.right))
         self.frame.origin.y = self.direction == .top ? -self.frame.size.height : UIScreen.main.bounds.height
+        //TODO: Check for top or bottom position
         self.defaultOrigin = self.frame.origin.y - self.frame.height
     }
     
@@ -384,7 +385,7 @@ extension SYCardBanner {
 
     @objc func keyboardWillHide(notification: NSNotification) {
         if self.frame.origin.y != defaultOrigin {
-            self.frame.origin.y = defaultOrigin
+            self.positionAnimation()
         }
     }
 }

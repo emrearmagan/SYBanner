@@ -140,7 +140,7 @@ open class SYBaseBanner: UIView {
         UIView.animate(withDuration: self.animationDurationShow, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveLinear, .allowUserInteraction]) {
             switch self.direction {
             case .bottom:
-                self.frame.origin.y = UIScreen.main.bounds.size.height - self.bannerInsets.bottom - self.frame.size.height
+                self.frame.origin.y = self.screenSize.height - self.bannerInsets.bottom - self.frame.size.height
             case .top:
                 self.frame.origin.y = self.bannerInsets.top
             }
