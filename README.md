@@ -202,21 +202,18 @@ SYCardBanner:
 
 
 ### Requirements
-- Xcode 11 or LineChartEntryModel
+- Xcode 11
 - iOS 13 or later
 - Swift 5 or later
 
 
-### Getting started
+### Installation
 
-##### Swift Package Manager Install <a name="packageManager"></a>
-Swift Package Manager
+##### CocoaPods
 
-```swift
-dependencies: [
-    .package(url: "https://github.com/emrearmagan/SYBanner.git")
-]
-```
+You can use CocoaPods to install SYBanner by adding it to your Podfile:
+
+    pod 'SYBanner'
 
 ##### Installing SYBanner manually
 1. Download SYBanner.zip from the last release and extract its content in your project's folder.
