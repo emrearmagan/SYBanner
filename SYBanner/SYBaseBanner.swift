@@ -10,6 +10,8 @@ import UIKit
 public enum Direction {
     case bottom
     case top
+    case left
+    case right
 }
 
 public enum SYBannerType {
@@ -143,6 +145,10 @@ open class SYBaseBanner: UIView {
                 self.frame.origin.y = self.screenSize.height - self.bannerInsets.bottom - self.frame.size.height
             case .top:
                 self.frame.origin.y = self.bannerInsets.top
+            case .left:
+                self.frame.origin.x = self.bannerInsets.left
+            case .right:
+                self.frame.origin.x = self.screenSize.width - self.bannerInsets.left - self.frame.size.width
             }
         } completion: { _ in
             completion?()
@@ -274,9 +280,13 @@ extension SYBaseBanner {
                 guard self.isDisplaying else {return}
                 switch self.direction {
                 case .bottom:
-                    self.frame.origin.y = UIScreen.main.bounds.size.height + self.frame.size.height
+                    self.frame.origin.y = self.screenSize.height + self.frame.size.height
                 case .top:
                     self.frame.origin.y = -self.frame.size.height
+                case .left:
+                    self.frame.origin.x = -self.frame.size.width
+                case .right:
+                    self.frame.origin.x = self.frame.size.width + self.screenSize.width
                 }
                 
                 

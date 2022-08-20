@@ -85,8 +85,15 @@ open class SYSimpleBanner: SYBaseBanner {
         containerRect.size = CGSize(width: labelSize.width + messageInsets.left + messageInsets.right, height: labelSize.height + messageInsets.top + messageInsets.bottom)
        
         self.frame = containerRect
-        self.center.x = screenSize.width / 2
-        self.frame.origin.y = self.direction == .top ? -self.frame.size.height : UIScreen.main.bounds.height
+        switch self.direction {
+        case .top, .bottom:
+            self.center.x = screenSize.width / 2
+            self.frame.origin.y = direction == .top ? -self.frame.size.height : screenSize.height
+        case .left, .right:
+            self.center.y = screenSize.height / 2
+            self.frame.origin.x = direction == .left ? -self.frame.size.width : screenSize.width
+        }
+        
     }
  
     

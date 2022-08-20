@@ -44,7 +44,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showSimpleBanner(_ sender: UIButton) {
-        let banner = SYSimpleBanner("Link copied", backgroundColor: UIColor(named: "whiteLightBlack")!, direction: .top)
+        print("HERE")
+        let banner = SYSimpleBanner("Link copied", backgroundColor: UIColor(named: "whiteLightBlack")!, direction: .left)
         banner.animationDurationDisappear = 0.1
         banner.show(queuePosition: .front)
     }
