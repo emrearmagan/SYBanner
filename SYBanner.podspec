@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'SYBanner'
-  spec.version          = '0.0.1'
+  spec.version          = '0.0.2'
   spec.summary          = 'A minimalistic looking banner library for iOS. It supports multiple customizable kinds of Banner types'
   spec.homepage         = 'https://github.com/emrearmagan/SYBanner'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
