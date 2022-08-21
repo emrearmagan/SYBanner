@@ -44,9 +44,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showSimpleBanner(_ sender: UIButton) {
-        print("HERE")
-        let banner = SYSimpleBanner("Link copied", backgroundColor: UIColor(named: "whiteLightBlack")!, direction: .left)
+        let banner = SYSimpleBanner("Link copied", backgroundColor: UIColor(named: "whiteLightBlack")!, direction: .top)
         banner.animationDurationDisappear = 0.1
+        banner.appearanceDuration = 10
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            print("updating")
+            banner.message = " alksjd askldj askldj askl"
+        }
         banner.show(queuePosition: .front)
     }
     

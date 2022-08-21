@@ -385,7 +385,7 @@ extension SYCardBanner {
 
     @objc func keyboardWillHide(notification: NSNotification) {
         if self.frame.origin.y != defaultOrigin {
-            self.positionAnimation()
+            self.positionFinalFrame()
         }
     }
 }
@@ -426,11 +426,11 @@ extension SYCardBanner {
             }
             // 2: If new origin is below default, animate back to default
             else if newOrigin > defaultOrigin {
-                self.positionAnimation()
+                self.positionFinalFrame()
             }
             // 3: If new origin is above the origin and going up, set to back to default
             else if newOrigin > defaultOrigin - dismissableOrigin && !isDraggingDown {
-                self.positionAnimation()
+                self.positionFinalFrame()
             }
            
             break

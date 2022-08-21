@@ -138,8 +138,8 @@ open class SYBaseBanner: UIView {
         fatalError("postionView(): has not been implemented for BaseNotificationBanner")
     }
     
-    internal func positionAnimation(completion: (() -> ())? = nil) {
-        UIView.animate(withDuration: self.animationDurationShow, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveLinear, .allowUserInteraction]) {
+    internal func positionFinalFrame(_ animate: Bool = true, completion: (() -> ())? = nil) {
+        UIView.animate(withDuration: animate ? self.animationDurationShow : 0, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveLinear, .allowUserInteraction]) {
             switch self.direction {
             case .bottom:
                 self.frame.origin.y = self.screenSize.height - self.bannerInsets.bottom - self.frame.size.height
@@ -258,7 +258,7 @@ extension SYBaseBanner {
             
             UIImpactFeedbackGenerator(style: self.haptic).impactOccurred()
             
-            self.positionAnimation {
+            self.positionFinalFrame {
                 self.addTapGesture()
                 self.addSwipegesture()
                 self.delegate?.notificationBannerDidAppear(self)

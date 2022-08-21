@@ -16,19 +16,23 @@ open class SYSimpleBanner: SYBaseBanner {
     internal var messageLabel: UILabel = UILabel()
 
     /// The message of the notification
-    public private(set) var message: String
+    public var message: String {
+        didSet {
+            updateLabel()
+        }
+    }
     
     /// Color of the mesage
     public var messageColor: UIColor = .label {
         didSet {
-            setupView()
+            updateLabel()
         }
     }
     
     /// Font of the message
     public var messageFont: UIFont = .systemFont(ofSize: 16) {
         didSet {
-            setupView()
+            updateLabel()
         }
     }
     
@@ -66,25 +70,37 @@ open class SYSimpleBanner: SYBaseBanner {
     }
     
     //MARK: Functions
-    internal func setupView() {
-        //label
+    internal func updateLabel() {
         messageLabel.font = messageFont
         messageLabel.text = message
         messageLabel.textColor = messageColor
         messageLabel.numberOfLines = 0
+        
+        self.postionView()
+        if self.isDisplaying {
+            self.positionFinalFrame(false)
+        }
+    }
+    
+    internal func setupView() {
+        if !messageLabel.isDescendant(of: self) {
+            self.addSubview(messageLabel)
+        }
+        updateLabel()
                 
-        self.addSubview(messageLabel)
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         
     }
-   
+ 
     override func postionView() {
         let labelSize = getMessageLabelSize()
     
         var containerRect = CGRect.zero
         containerRect.size = CGSize(width: labelSize.width + messageInsets.left + messageInsets.right, height: labelSize.height + messageInsets.top + messageInsets.bottom)
-       
         self.frame = containerRect
+        
+        self.center.x = screenSize.width / 2
+        
         switch self.direction {
         case .top, .bottom:
             self.center.x = screenSize.width / 2
