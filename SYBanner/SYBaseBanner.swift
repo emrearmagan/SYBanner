@@ -168,7 +168,6 @@ open class SYBaseBanner: UIView {
     public func show(placeOnQueue: Bool, queuePosition: QueuePosition = .back) {
         self.postionView()
         guard !isDisplaying else {return}
-        
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
         } else {
@@ -293,6 +292,7 @@ extension SYBaseBanner {
             } completion: { _ in
                 self.bannerQueue.removeBanner(self)
                 self.isDisplaying = false
+                self.isDismissing = false
                 self.delegate?.notificationBannerDidDisappear(self)
                 self.removeFromSuperview()
                 completion?()

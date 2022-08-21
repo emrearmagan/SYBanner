@@ -48,8 +48,8 @@ open class SYSimpleBanner: SYBaseBanner {
     public convenience init(_ message: String, backgroundColor: UIColor, direction: Direction = .top, on: UIViewController? = nil) {
         self.init(message, color: backgroundColor, direction: direction, on: on)
     }
-    
-    internal init(_ message: String, color: UIColor?, direction: Direction, type: SYBannerType = .float, on: UIViewController?) {
+ 
+    public init(_ message: String, color: UIColor?, direction: Direction, type: SYBannerType = .float, on: UIViewController?) {
         self.message = message
         
         super.init(direction: direction, on: on, type: type)

@@ -41,7 +41,7 @@ public class SYDefaultBanner: SYSimpleBanner {
         self.init(message, icon: UIImage(named: iconName), color: nil, direction: direction, style: style, type: type, on: on)
     }
     
-    internal init(_ message: String, icon: UIImage? = nil, color: UIColor?, direction: Direction, style: SYBannerStyle, type: SYBannerType, on: UIViewController?) {
+    public init(_ message: String, icon: UIImage? = nil, color: UIColor?, direction: Direction, style: SYBannerStyle, type: SYBannerType, on: UIViewController?) {
         self.style = style
         self.customIcon = icon
         self.customBackgroundColor = color
