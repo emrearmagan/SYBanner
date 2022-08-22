@@ -15,11 +15,13 @@ public enum SYCardBannerOptions {
     case titleColor(UIColor)
     case subTitleFont(UIFont)
     case subTitleColor(UIColor)
+    case subTitleSpacing(CGFloat)
     case customView(UIView)
     case customViewInsets(UIEdgeInsets)
     case contentInsets(UIEdgeInsets)
     case isDraggable(Bool)
     case isDismissable(Bool)
+    case dismissOnTransparentView(Bool)
     case dismissableOrigin(CGFloat)
     case showExitButton(Bool)
     case buttonAxis(NSLayoutConstraint.Axis)
@@ -68,11 +70,16 @@ public class SYCardBanner: SYBaseBanner {
     }
     
     private var _stackHeight: CGFloat {
-        return buttonsStackView.axis == .vertical ? (buttonsHeight * CGFloat(buttonCount) + buttonsStackView.spacing) : buttonsHeight
+        if hasButtons {
+            return buttonsStackView.axis == .vertical ? (buttonsHeight * CGFloat(buttonCount) + buttonsStackView.spacing) : buttonsHeight
+        }
+        
+        return 0
     }
     
-    private(set) var titleLabel = UILabel()
-    private(set) var subtitleLabel = UILabel()
+    public private(set) var titleLabel = UILabel()
+    public private(set) var subtitleLabel = UILabel()
+    
     private(set) var buttonsStackView = UIStackView()
 
     private lazy var exitButtonReact: CGRect = {
@@ -91,6 +98,9 @@ public class SYCardBanner: SYBaseBanner {
     
     /// The number of drag necessary for the view to be dismissed. Only works if isDismissable is set to true
     public var dismissableOrigin: CGFloat = 100
+    
+    ///
+    public var dismissOnTapTransparentView: Bool = true { didSet { setupTransparentView() } }
     
     //TODO: Maye specify a bound
     /// If true, the banner can be moved around.
@@ -194,22 +204,28 @@ public class SYCardBanner: SYBaseBanner {
         let containerSize = screenSize.width - (bannerInsets.left + bannerInsets.right)
         
         let labelRect = CGSize(width: containerSize - (_contentInsets.left + _contentInsets.right), height: .greatestFiniteMagnitude)
-        let titleHeight = ceil((title as NSString).boundingRect(with: labelRect, options: .usesLineFragmentOrigin, attributes: [.font: self.titleFont], context: nil).height)
-        let subTitleHeight = ceil((subtitle as NSString).boundingRect(with: labelRect, options: .usesLineFragmentOrigin, attributes: [.font: self.subtitleFont], context: nil).height)
+        let labelHeight = getLabelHeights(with: labelRect)
         
-        let headerHeight = _contentInsets.top + (titleHeight + subTitleHeight) + titleSubtitleSpacing
+        let headerHeight = _contentInsets.top + labelHeight + titleSubtitleSpacing
         
-        let totalHeight = headerHeight + _customViewInsets.top + (self.customView?.frame.size.height ?? 0) + _customViewInsets.bottom + _stackHeight + _contentInsets.bottom
+        let totalHeight = headerHeight + _customViewInsets.top + (self.customView?.frame.size.height ?? 0) + _stackHeight + _contentInsets.bottom + _customViewInsets.bottom
+        
         var containerRect = CGRect.zero
         containerRect.size = CGSize(width: containerSize, height: totalHeight)
-        
+
         self.frame = containerRect.inset(by: .init(top: 0, left: bannerInsets.left, bottom: 0, right: -bannerInsets.right))
         self.frame.origin.y = self.direction == .top ? -self.frame.size.height : UIScreen.main.bounds.height
         //TODO: Check for top or bottom position
         self.defaultOrigin = self.frame.origin.y - self.frame.height
     }
     
-
+    private func getLabelHeights(with rect: CGSize) -> CGFloat {
+        let titleHeight = ceil((title as? NSString)?.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [.font: self.titleFont], context: nil).height ?? 0)
+        let subTitleHeight = ceil((subtitle as? NSString)?.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [.font: self.subtitleFont], context: nil).height ?? 0)
+        
+        return titleHeight + subTitleHeight
+    }
+    
     override func animateView() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
@@ -235,8 +251,12 @@ public class SYCardBanner: SYBaseBanner {
         panGesture.delaysTouchesBegan = false
         panGesture.delaysTouchesEnded = false
         self.addGestureRecognizer(panGesture)
-        
     }
+  
+    @objc private func didTapTransparentView() {
+        self.dismissView()
+    }
+    
 }
 
 //MARK: - UI
@@ -263,7 +283,20 @@ extension SYCardBanner {
         buttonsStackView.distribution = .fillEqually
     
         refreshView()
+        setupTransparentView()
     }
+    
+    
+    
+    private func setupTransparentView() {
+        if self.dismissOnTapTransparentView {
+            self.transparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTransparentView)))
+            return
+        }
+        
+        transparentView.gestureRecognizers.flatMap({$0})?.forEach({transparentView.removeGestureRecognizer($0)})
+    }
+    
     
     private func refreshView() {
         updateLabelConstraints()
@@ -328,7 +361,7 @@ extension SYCardBanner {
         stackConstraints = [
             buttonsStackView.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
             buttonsStackView.trailingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor),
-            buttonsStackView.heightAnchor.constraint(equalToConstant: hasButtons ? _stackHeight: 0),
+            buttonsStackView.heightAnchor.constraint(equalToConstant: _stackHeight),
             buttonsStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -self._contentInsets.bottom),
             buttonsStackView.topAnchor.constraint(equalTo: _customViewContainer.bottomAnchor, constant: self._customViewInsets.bottom)
         ]
@@ -457,6 +490,8 @@ extension SYCardBanner {
                 self.subtitleFont = font
             case .subTitleColor(let color):
                 self.subtitleTextColor = color
+            case .subTitleSpacing(let spacing):
+                self.titleSubtitleSpacing = spacing
             case .contentInsets(let insets):
                 self.contentInsets = insets
             case .cornerRounding(let cornerRadius):
@@ -475,6 +510,8 @@ extension SYCardBanner {
                 self.dismissOnSwipe = value
             case .dismissableOrigin(let value):
                 self.dismissableOrigin = value
+            case .dismissOnTransparentView(let value):
+                self.dismissOnTapTransparentView = value
             }
             
         }
@@ -486,8 +523,8 @@ extension SYCardBanner {
         set { titleLabel.font = newValue }
     }
     
-    @objc public dynamic var title: String {
-        get { return titleLabel.text ?? "" }
+    @objc public dynamic var title: String? {
+        get { return titleLabel.text }
     }
     
     /// Title text color
@@ -502,8 +539,8 @@ extension SYCardBanner {
         set { subtitleLabel.font = newValue }
     }
     
-    @objc public dynamic var subtitle: String {
-        get { return subtitleLabel.text ?? "" }
+    @objc public dynamic var subtitle: String? {
+        get { return subtitleLabel.text}
 
     }
     
