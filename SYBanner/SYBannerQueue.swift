@@ -13,6 +13,7 @@ public enum QueuePosition: Int {
 
 open class SYBannerQueue: NSObject {
     //MARK: Properties
+    @objc(defaultQueue)
     public static let `default` = SYBannerQueue()
     
     ///The banners currently placed in the queue
