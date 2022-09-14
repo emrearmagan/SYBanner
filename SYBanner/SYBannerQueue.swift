@@ -91,7 +91,7 @@ open class SYBannerQueue: NSObject {
     /**
      Removes all banners from the queuea
      */
-    public func removeAll() {
+    @objc public func removeAll() {
         banners.removeAll()
     }
 }
