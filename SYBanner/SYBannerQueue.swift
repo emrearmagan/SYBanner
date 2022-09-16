@@ -6,7 +6,7 @@
 //
 import Foundation
 
-@objc
+@objc(SYBannerQueuePosition)
 public enum QueuePosition: Int {
     case back
     case front

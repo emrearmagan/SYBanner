@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc
+@objc(SYBannerDirection)
 public enum Direction : Int {
     case bottom
     case top
