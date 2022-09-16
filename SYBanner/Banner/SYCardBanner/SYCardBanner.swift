@@ -27,6 +27,7 @@ public enum SYCardBannerOptions {
     case buttonAxis(NSLayoutConstraint.Axis)
 }
 
+@objc
 public class SYCardBanner: SYBaseBanner {
     //MARK: Properties
     ///Constraints for the content
@@ -77,16 +78,17 @@ public class SYCardBanner: SYBaseBanner {
         return 0
     }
     
-    public private(set) var titleLabel = UILabel()
-    public private(set) var subtitleLabel = UILabel()
+    @objc public private(set) var titleLabel = UILabel()
+    @objc public private(set) var subtitleLabel = UILabel()
     
-    private(set) var buttonsStackView = UIStackView()
+    @objc private(set) var buttonsStackView = UIStackView()
 
     private lazy var exitButtonReact: CGRect = {
         return CGRect(origin: CGPoint(x: self.frame.width - 21 - exitButtonSize.width, y: 16 + exitButtonSize.height), size: exitButtonSize)
     }()
     
     /// Spacing between the title and subtitle
+    @objc
     public var titleSubtitleSpacing: CGFloat = 16 {
         didSet {
             refreshView()
@@ -94,19 +96,24 @@ public class SYCardBanner: SYBaseBanner {
     }
     
     /// The spacing between the view and the keyboard if shown
+    @objc
     public var keyboardSpacing: CGFloat = 10
     
     /// The number of drag necessary for the view to be dismissed. Only works if isDismissable is set to true
+    @objc
     public var dismissableOrigin: CGFloat = 100
     
     ///
+    @objc
     public var dismissOnTapTransparentView: Bool = true { didSet { setupTransparentView() } }
     
-    //TODO: Maye specify a bound
+    //TODO: Maybe specify a bound
     /// If true, the banner can be moved around.
+    @objc
     public var isDraggable: Bool = true
     
     /// If set to true, a exit button will be drawn on the top right corner
+    @objc
     public var addExitButton: Bool = false {
         didSet {
             self.setNeedsDisplay()
@@ -114,6 +121,7 @@ public class SYCardBanner: SYBaseBanner {
     }
     
     /// The size of the top right exit button. Only visible if addExitButton is true
+    @objc
     public var exitButtonSize = CGSize(width: 9, height: 9) {
         didSet {
             self.setNeedsDisplay()
@@ -121,6 +129,7 @@ public class SYCardBanner: SYBaseBanner {
     }
     
     /// The custom view in the banner
+    @objc
     public var customView: UIView? {
         didSet {
             if let oldValue = oldValue {
@@ -131,11 +140,12 @@ public class SYCardBanner: SYBaseBanner {
     }
     
     /// Closure that will be executed if a button is tapped
-    public var didTapButton: ((_ : SYCardBannerButton) -> ())?
+    @objc public var didTapButton: ((_ : SYCardBannerButton) -> ())?
     /// Closure that will be executed if the exit button is tapped
-    public var didTapExitButton: (() -> ())?
+    @objc public var didTapExitButton: (() -> ())?
     
     //MARK: Lifecycle
+    @objc
     public convenience init(title: String? = nil, subtitle: String? = nil, direction: Direction = .bottom, type: SYBannerType = .stick, autoDismiss: Bool = false, buttons: [SYCardBannerButton] = []) {
         self.init(title, subtitle: subtitle, direction: direction, type: type, autoDismiss: autoDismiss, buttons: buttons, on: nil)
     }
@@ -168,12 +178,14 @@ public class SYCardBanner: SYBaseBanner {
     }
 
     //MARK: Functions
+    @objc
     public func setTitle(_ title: String?) {
         if let title = title {
             self.titleLabel.text = title
         }
     }
     
+    @objc
     public func setSubTitle(_ subTitle: String?) {
         if let subTitle = subTitle {
             self.subtitleLabel.text = subTitle
@@ -187,6 +199,7 @@ public class SYCardBanner: SYBaseBanner {
         refreshView()
     }
     
+    @objc
     public func addButton(_ button: SYCardBannerButton) {
         button.addTarget(self, action: #selector(self.didTapButton(_:)), for: .touchUpInside)
         buttonsStackView.addArrangedSubview(button)
@@ -372,6 +385,7 @@ extension SYCardBanner {
 
 //MARK: - Exit button
 extension SYCardBanner {
+    @objc
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         guard addExitButton else {return}
@@ -388,6 +402,7 @@ extension SYCardBanner {
         }
     }
     
+    @objc
     public override func draw(_ rect: CGRect) {
         super.draw(rect)
         guard addExitButton else {return}
