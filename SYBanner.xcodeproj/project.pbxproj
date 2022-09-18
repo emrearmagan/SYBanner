@@ -87,6 +87,7 @@
 		D055F36327FF5F7100675E9D /* textfield.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = textfield.gif; sourceTree = "<group>"; };
 		D055F36B27FF635300675E9D /* signup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = signup.gif; sourceTree = "<group>"; };
 		D0952395280346D8008A7E01 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		EA07D8AF28D1EF2D00D47650 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +112,7 @@
 		D055F31227FEFE6600675E9D = {
 			isa = PBXGroup;
 			children = (
+				EA07D8AF28D1EF2D00D47650 /* Package.swift */,
 				D055F31E27FEFE6600675E9D /* SYBanner */,
 				D055F33A27FEFFDA00675E9D /* SYBannerDemo */,
 				D055F31D27FEFE6600675E9D /* Products */,

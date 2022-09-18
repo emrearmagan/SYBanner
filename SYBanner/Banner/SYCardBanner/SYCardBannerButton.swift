@@ -7,12 +7,15 @@
 
 import UIKit
 
+
+@objc
 public class SYCardBannerButton: UIButton {
+    @objc(SYCardBannerButtonStyle)
     public enum Style : Int {
         case `default` = 0
         case dismiss = 1
     }
-    
+
     var title: String?
     var font: UIFont?
     var _tintColor: UIColor?
@@ -25,11 +28,12 @@ public class SYCardBannerButton: UIButton {
     }
     /// Closure that will be executed if the button is tapped
     var handler: (() -> ())?
-    private(set) var style: SYCardBannerButton.Style = .default
+    @objc private(set) var style: SYCardBannerButton.Style = .default
     
     /// currently selected index
-    public private(set) var selectedIndex : Int = 0
+    @objc public private(set) var selectedIndex : Int = 0
     
+    @objc
     public convenience init(title: String, font: UIFont = .systemFont(ofSize: 16), cornerRadius: CGFloat = 10, style: SYCardBannerButton.Style, tintColor: UIColor? = nil, handler: (() -> ())? = nil) {
         self.init(frame: .zero)
         self.title = title
