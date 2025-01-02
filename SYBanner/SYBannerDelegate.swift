@@ -8,8 +8,15 @@
 import Foundation
 
 public protocol SYBannerDelegate: AnyObject {
-    func notificationBannerWillAppear(_ banner: SYBaseBanner)
-    func notificationBannerDidAppear(_ banner: SYBaseBanner)
-    func notificationBannerWillDisappear(_ banner: SYBaseBanner)
-    func notificationBannerDidDisappear(_ banner: SYBaseBanner)
+    func bannerWillAppear(_ banner: SYBaseBanner)
+    func bannerDidAppear(_ banner: SYBaseBanner)
+    func bannerWillDisappear(_ banner: SYBaseBanner)
+    func bannerDidDisappear(_ banner: SYBaseBanner)
+}
+
+extension SYBannerDelegate {
+    func bannerWillAppear(_ banner: SYBaseBanner) {}
+    func bannerDidAppear(_ banner: SYBaseBanner) {}
+    func bannerWillDisappear(_ banner: SYBaseBanner) {}
+    func bannerDidDisappear(_ banner: SYBaseBanner) {}
 }

@@ -230,17 +230,14 @@ public extension SYBaseBanner {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             superView.addSubview(self)
-            if let willAppear = self.delegate?.notificationBannerWillAppear {
-                willAppear(self)
-            }
+            self.delegate?.bannerWillAppear(self)
+
             UIImpactFeedbackGenerator(style: self.haptic).impactOccurred()
 
             self.positionFinalFrame {
                 self.addTapGesture()
                 self.addSwipegesture()
-                if let didAppear = self.delegate?.notificationBannerDidAppear {
-                    didAppear(self)
-                }
+                self.delegate?.bannerDidAppear(self)
                 self.hasBeenSeen = true
             }
         }
@@ -252,9 +249,8 @@ public extension SYBaseBanner {
         isDismissing = true
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            if let willDisappear = self.delegate?.notificationBannerWillDisappear {
-                willDisappear(self)
-            }
+            self.delegate?.bannerWillDisappear(self)
+
             UIView.animate(withDuration: self.animationDurationDisappear, delay: 0, options: [.curveLinear, .allowUserInteraction]) {
                 guard self.isDisplaying else { return }
                 switch self.direction {
@@ -272,9 +268,7 @@ public extension SYBaseBanner {
                 self.bannerQueue.removeBanner(self)
                 self.isDisplaying = false
                 self.isDismissing = false
-                if let didDisappear = self.delegate?.notificationBannerDidDisappear {
-                    didDisappear(self)
-                }
+                self.delegate?.bannerDidDisappear(self)
                 self.removeFromSuperview()
                 completion?()
             }
