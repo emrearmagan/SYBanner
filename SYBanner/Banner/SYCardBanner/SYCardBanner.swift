@@ -29,15 +29,16 @@ public enum SYCardBannerOptions {
 
 @objc
 public class SYCardBanner: SYBaseBanner {
-    //MARK: Properties
-    ///Constraints for the content
+    // MARK: Properties
+
+    /// Constraints for the content
     private var labelConstraints: [NSLayoutConstraint] = []
     private var customViewConstraints: [NSLayoutConstraint] = []
     private var stackConstraints: [NSLayoutConstraint] = []
-    
+
     /// The default origin of the view. Will be set once the view has been positioned
     private var defaultOrigin: CGFloat = 0
-    
+
     /// Transparent view for the background
     private lazy var transparentView: UIView = {
         let view = UIView()
@@ -45,48 +46,46 @@ public class SYCardBanner: SYBaseBanner {
         view.alpha = 0
         return view
     }()
-    
+
     private var _buttonsHeight: CGFloat = 45 {
         didSet { refreshView() }
     }
-    
-    private var _customViewInsets: UIEdgeInsets = UIEdgeInsets(top: 21, left: 0, bottom: 21, right: 0) {
+
+    private var _customViewInsets: UIEdgeInsets = .init(top: 21, left: 0, bottom: 21, right: 0) {
         didSet { refreshView() }
     }
-    
-    private var _contentInsets: UIEdgeInsets = UIEdgeInsets(top: 38, left: 21, bottom: 38, right: 28) {
+
+    private var _contentInsets: UIEdgeInsets = .init(top: 38, left: 21, bottom: 38, right: 28) {
         didSet { refreshView() }
     }
 
     private var _customViewContainer = UIView()
-    
+
     private var buttonCount: Int {
         guard buttonsStackView.isDescendant(of: self) else { return 0 }
         return buttonsStackView.arrangedSubviews.count
     }
-    
+
     private var hasButtons: Bool {
         guard buttonsStackView.isDescendant(of: self) else { return false }
         return !buttonsStackView.arrangedSubviews.isEmpty
     }
-    
+
     private var _stackHeight: CGFloat {
         if hasButtons {
             return buttonsStackView.axis == .vertical ? (buttonsHeight * CGFloat(buttonCount) + buttonsStackView.spacing) : buttonsHeight
         }
-        
+
         return 0
     }
-    
+
     @objc public private(set) var titleLabel = UILabel()
     @objc public private(set) var subtitleLabel = UILabel()
-    
+
     @objc private(set) var buttonsStackView = UIStackView()
 
-    private lazy var exitButtonReact: CGRect = {
-        return CGRect(origin: CGPoint(x: self.frame.width - 21 - exitButtonSize.width, y: 16 + exitButtonSize.height), size: exitButtonSize)
-    }()
-    
+    private lazy var exitButtonReact: CGRect = .init(origin: CGPoint(x: self.frame.width - 21 - exitButtonSize.width, y: 16 + exitButtonSize.height), size: exitButtonSize)
+
     /// Spacing between the title and subtitle
     @objc
     public var titleSubtitleSpacing: CGFloat = 16 {
@@ -94,40 +93,40 @@ public class SYCardBanner: SYBaseBanner {
             refreshView()
         }
     }
-    
+
     /// The spacing between the view and the keyboard if shown
     @objc
     public var keyboardSpacing: CGFloat = 10
-    
+
     /// The number of drag necessary for the view to be dismissed. Only works if isDismissable is set to true
     @objc
     public var dismissableOrigin: CGFloat = 100
-    
+
     ///
     @objc
     public var dismissOnTapTransparentView: Bool = true { didSet { setupTransparentView() } }
-    
-    //TODO: Maybe specify a bound
+
+    // TODO: Maybe specify a bound
     /// If true, the banner can be moved around.
     @objc
     public var isDraggable: Bool = true
-    
+
     /// If set to true, a exit button will be drawn on the top right corner
     @objc
     public var addExitButton: Bool = false {
         didSet {
-            self.setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
-    
+
     /// The size of the top right exit button. Only visible if addExitButton is true
     @objc
     public var exitButtonSize = CGSize(width: 9, height: 9) {
         didSet {
-            self.setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
-    
+
     /// The custom view in the banner
     @objc
     public var customView: UIView? {
@@ -138,223 +137,219 @@ public class SYCardBanner: SYBaseBanner {
             refreshView()
         }
     }
-    
+
     /// Closure that will be executed if a button is tapped
-    @objc public var didTapButton: ((_ : SYCardBannerButton) -> ())?
+    @objc public var didTapButton: ((_: SYCardBannerButton) -> Void)?
     /// Closure that will be executed if the exit button is tapped
-    @objc public var didTapExitButton: (() -> ())?
-    
-    //MARK: Lifecycle
+    @objc public var didTapExitButton: (() -> Void)?
+
+    // MARK: Lifecycle
+
     @objc
     public convenience init(title: String? = nil, subtitle: String? = nil, direction: Direction = .bottom, type: SYBannerType = .stick, autoDismiss: Bool = false, buttons: [SYCardBannerButton] = []) {
         self.init(title, subtitle: subtitle, direction: direction, type: type, autoDismiss: autoDismiss, buttons: buttons, on: nil)
     }
-    
+
     private init(_ title: String?, subtitle: String?, direction: Direction, type: SYBannerType, autoDismiss: Bool, buttons: [SYCardBannerButton], on: UIViewController?) {
         super.init(direction: direction, on: on, type: type)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        self.setTitle(title)
-        self.setSubTitle(subtitle)
-        buttons.forEach { b in
-            b.addTarget(self, action: #selector(self.didTapButton(_:)), for: .touchUpInside)
+
+        setTitle(title)
+        setSubTitle(subtitle)
+        for b in buttons {
+            b.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
             buttonsStackView.addArrangedSubview(b)
         }
-        
+
         self.autoDismiss = autoDismiss
-        self.layer.cornerRadius = 20
+        layer.cornerRadius = 20
         setupUI()
     }
-    
-    required public init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    open override func layoutSubviews() {
+
+    override open func layoutSubviews() {
         super.layoutSubviews()
-        self.layer.cornerRadius = cornerRadius
-        self.layer.masksToBounds = true
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = true
     }
 
-    //MARK: Functions
+    // MARK: Functions
+
     @objc
     public func setTitle(_ title: String?) {
         if let title = title {
-            self.titleLabel.text = title
+            titleLabel.text = title
         }
     }
-    
+
     @objc
     public func setSubTitle(_ subTitle: String?) {
         if let subTitle = subTitle {
-            self.subtitleLabel.text = subTitle
+            subtitleLabel.text = subTitle
         }
     }
-    
+
     func setCustomView(_ customView: UIView?) {
         guard let customView = customView else { return }
         self.customView = customView
-        self.addSubview(customView)
+        addSubview(customView)
         refreshView()
     }
-    
+
     @objc
     public func addButton(_ button: SYCardBannerButton) {
-        button.addTarget(self, action: #selector(self.didTapButton(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
         buttonsStackView.addArrangedSubview(button)
         refreshView()
     }
-    
+
     @objc private func didTapButton(_ button: SYCardBannerButton) {
         if button.style == .dismiss {
-            self.dismissView()
+            dismissView()
         }
         didTapButton?(button)
     }
-    
+
     override func postionView() {
         let containerSize = screenSize.width - (bannerInsets.left + bannerInsets.right)
-        
+
         let labelRect = CGSize(width: containerSize - (_contentInsets.left + _contentInsets.right), height: .greatestFiniteMagnitude)
         let labelHeight = getLabelHeights(with: labelRect)
-        
+
         let headerHeight = _contentInsets.top + labelHeight + titleSubtitleSpacing
-        
-        let totalHeight = headerHeight + _customViewInsets.top + (self.customView?.frame.size.height ?? 0) + _stackHeight + _contentInsets.bottom + _customViewInsets.bottom
-        
+
+        let totalHeight = headerHeight + _customViewInsets.top + (customView?.frame.size.height ?? 0) + _stackHeight + _contentInsets.bottom + _customViewInsets.bottom
+
         var containerRect = CGRect.zero
         containerRect.size = CGSize(width: containerSize, height: totalHeight)
 
-        self.frame = containerRect.inset(by: .init(top: 0, left: bannerInsets.left, bottom: 0, right: -bannerInsets.right))
-        self.frame.origin.y = self.direction == .top ? -self.frame.size.height : UIScreen.main.bounds.height
-        //TODO: Check for top or bottom position
-        self.defaultOrigin = self.frame.origin.y - self.frame.height
+        frame = containerRect.inset(by: .init(top: 0, left: bannerInsets.left, bottom: 0, right: -bannerInsets.right))
+        frame.origin.y = direction == .top ? -frame.size.height : UIScreen.main.bounds.height
+        // TODO: Check for top or bottom position
+        defaultOrigin = frame.origin.y - frame.height
     }
-    
+
     private func getLabelHeights(with rect: CGSize) -> CGFloat {
-        let titleHeight = ceil((title as? NSString)?.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [.font: self.titleFont], context: nil).height ?? 0)
-        let subTitleHeight = ceil((subtitle as? NSString)?.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [.font: self.subtitleFont], context: nil).height ?? 0)
-        
+        let titleHeight = ceil((title as? NSString)?.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [.font: titleFont], context: nil).height ?? 0)
+        let subTitleHeight = ceil((subtitle as? NSString)?.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [.font: subtitleFont], context: nil).height ?? 0)
+
         return titleHeight + subTitleHeight
     }
-    
+
     override func animateView() {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else {return}
-            guard let parentView = self.parentView else {return}
-            
-            self.transparentView.frame =  parentView.frame
+            guard let self = self else { return }
+            guard let parentView = self.parentView else { return }
+
+            self.transparentView.frame = parentView.frame
             parentView.addSubview(self.transparentView)
             self.transparentView.alpha = 0.7
         }
-        
+
         super.animateView()
     }
-    
-    override public func dismissView(_ completion: (() -> ())? = nil) {
-        self.transparentView.alpha = 0
-        self.transparentView.removeFromSuperview()
+
+    override public func dismissView(_ completion: (() -> Void)? = nil) {
+        transparentView.alpha = 0
+        transparentView.removeFromSuperview()
         super.dismissView(completion)
     }
-    
-    override internal func addSwipegesture() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(gesture:)))
+
+    override func addSwipegesture() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(gesture:)))
         // change to false to immediately listen on gesture movement
         panGesture.delaysTouchesBegan = false
         panGesture.delaysTouchesEnded = false
-        self.addGestureRecognizer(panGesture)
+        addGestureRecognizer(panGesture)
     }
-  
+
     @objc private func didTapTransparentView() {
-        self.dismissView()
+        dismissView()
     }
-    
 }
 
-//MARK: - UI
+// MARK: - UI
+
 extension SYCardBanner {
     private func setupUI() {
-        self.addSubview(buttonsStackView)
-        self.addSubview(titleLabel)
-        self.addSubview(subtitleLabel)
-        self.addSubview(_customViewContainer)
-   
-        
+        addSubview(buttonsStackView)
+        addSubview(titleLabel)
+        addSubview(subtitleLabel)
+        addSubview(_customViewContainer)
+
         titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
         titleLabel.textColor = .label
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
-        
+
         subtitleLabel.font = .systemFont(ofSize: 13, weight: .medium)
         subtitleLabel.textColor = .gray
         subtitleLabel.numberOfLines = 0
         subtitleLabel.textAlignment = .center
-        
+
         buttonsStackView.axis = .horizontal
         buttonsStackView.spacing = 8
         buttonsStackView.distribution = .fillEqually
-    
+
         refreshView()
         setupTransparentView()
     }
-    
-    
-    
+
     private func setupTransparentView() {
-        if self.dismissOnTapTransparentView {
-            self.transparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTransparentView)))
+        if dismissOnTapTransparentView {
+            transparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTransparentView)))
             return
         }
-        
-        transparentView.gestureRecognizers.flatMap({$0})?.forEach({transparentView.removeGestureRecognizer($0)})
+
+        transparentView.gestureRecognizers.flatMap { $0 }?.forEach { transparentView.removeGestureRecognizer($0) }
     }
-    
-    
+
     private func refreshView() {
         updateLabelConstraints()
         updateCustomViewConstraints()
         updateButtonsStackViewConstraints()
     }
-    
+
     private func updateLabelConstraints() {
         NSLayoutConstraint.deactivate(labelConstraints)
         guard titleLabel.isDescendant(of: self), subtitleLabel.isDescendant(of: self) else { return }
-        
-        
+
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-       
+
         labelConstraints = [
-            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: self._contentInsets.top),
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self._contentInsets.left),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self._contentInsets.right),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: _contentInsets.top),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: _contentInsets.left),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -_contentInsets.right),
 
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleSubtitleSpacing),
-            subtitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self._contentInsets.left),
-            subtitleLabel.trailingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor),
+            subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: _contentInsets.left),
+            subtitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
         ]
-        
-        
+
         NSLayoutConstraint.activate(labelConstraints)
     }
-    
-    
+
     private func updateCustomViewConstraints() {
-        //guard let customView = customView else { return }
+        // guard let customView = customView else { return }
         NSLayoutConstraint.deactivate(customViewConstraints)
-        
+
         _customViewContainer.translatesAutoresizingMaskIntoConstraints = false
 
         customViewConstraints = [
-            _customViewContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self._contentInsets.left + self._customViewInsets.left),
-            _customViewContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self._contentInsets.right +  self._customViewInsets.right),
-            _customViewContainer.topAnchor.constraint(equalTo: self.subtitleLabel.bottomAnchor, constant:  self._customViewInsets.top),
+            _customViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: _contentInsets.left + _customViewInsets.left),
+            _customViewContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -_contentInsets.right + _customViewInsets.right),
+            _customViewContainer.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: _customViewInsets.top)
         ]
         if let customView = customView {
             _customViewContainer.addSubview(customView)
             customView.translatesAutoresizingMaskIntoConstraints = false
-            
+
             customViewConstraints.append(contentsOf: [
                 customView.centerXAnchor.constraint(equalTo: _customViewContainer.centerXAnchor),
                 customView.centerYAnchor.constraint(equalTo: _customViewContainer.centerYAnchor),
@@ -362,58 +357,58 @@ extension SYCardBanner {
                 customView.heightAnchor.constraint(equalToConstant: customView.frame.height)
             ])
         }
-        
+
         NSLayoutConstraint.activate(customViewConstraints)
     }
-    
+
     private func updateButtonsStackViewConstraints() {
         NSLayoutConstraint.deactivate(stackConstraints)
-        
+
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         stackConstraints = [
-            buttonsStackView.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
-            buttonsStackView.trailingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor),
+            buttonsStackView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            buttonsStackView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             buttonsStackView.heightAnchor.constraint(equalToConstant: _stackHeight),
-            buttonsStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -self._contentInsets.bottom),
-            buttonsStackView.topAnchor.constraint(equalTo: _customViewContainer.bottomAnchor, constant: self._customViewInsets.bottom)
+            buttonsStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -_contentInsets.bottom),
+            buttonsStackView.topAnchor.constraint(equalTo: _customViewContainer.bottomAnchor, constant: _customViewInsets.bottom)
         ]
-        
+
         NSLayoutConstraint.activate(stackConstraints)
     }
 }
 
-//MARK: - Exit button
-extension SYCardBanner {
+// MARK: - Exit button
+
+public extension SYCardBanner {
     @objc
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        guard addExitButton else {return}
-        
+        guard addExitButton else { return }
+
         if let touch = touches.first {
             let point = touch.location(in: self)
-            let size = self.exitButtonSize
-            let validReact = self.exitButtonReact.inset(by: UIEdgeInsets(top: -size.height, left: -size.width, bottom: -size.height, right: -size.width))
+            let size = exitButtonSize
+            let validReact = exitButtonReact.inset(by: UIEdgeInsets(top: -size.height, left: -size.width, bottom: -size.height, right: -size.width))
             if validReact.contains(point) {
-                self.dismissView()
-                self.didTapExitButton?()
+                dismissView()
+                didTapExitButton?()
             }
-            
         }
     }
-    
+
     @objc
-    public override func draw(_ rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         super.draw(rect)
-        guard addExitButton else {return}
+        guard addExitButton else { return }
         let aPath = UIBezierPath()
-        
-        aPath.move(to: CGPoint(x: self.exitButtonReact.minX, y: self.exitButtonReact.minY))
-        aPath.addLine(to: CGPoint(x: self.exitButtonReact.maxX, y: self.exitButtonReact.maxY))
+
+        aPath.move(to: CGPoint(x: exitButtonReact.minX, y: exitButtonReact.minY))
+        aPath.addLine(to: CGPoint(x: exitButtonReact.maxX, y: exitButtonReact.maxY))
         aPath.close()
-        
-        aPath.move(to: CGPoint(x: self.exitButtonReact.maxX, y: self.exitButtonReact.minY))
-        aPath.addLine(to: CGPoint(x: self.exitButtonReact.minX, y: self.exitButtonReact.maxY))
+
+        aPath.move(to: CGPoint(x: exitButtonReact.maxX, y: exitButtonReact.minY))
+        aPath.addLine(to: CGPoint(x: exitButtonReact.minX, y: exitButtonReact.maxY))
         aPath.close()
 
         UIColor.gray.set()
@@ -423,193 +418,189 @@ extension SYCardBanner {
     }
 }
 
-//MARK: - Keyboard
+// MARK: - Keyboard
+
 extension SYCardBanner {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.frame.origin.y -= (keyboardSize.height + keyboardSpacing)
+            frame.origin.y -= (keyboardSize.height + keyboardSpacing)
         }
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.frame.origin.y != defaultOrigin {
-            self.positionFinalFrame()
+    @objc func keyboardWillHide(notification _: NSNotification) {
+        if frame.origin.y != defaultOrigin {
+            positionFinalFrame()
         }
     }
 }
 
-//MARK: - Pangesture
+// MARK: - Pangesture
+
 extension SYCardBanner {
-    //TODO: Handle banners from top direction
+    // TODO: Handle banners from top direction
     @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        guard isDraggable else {return}
+        guard isDraggable else { return }
         let translation = gesture.translation(in: self)
         gesture.setTranslation(CGPoint.zero, in: self)
-        
+
         var isDraggingDown = false
         // get drag direction
         if translation.y != 0 {
             isDraggingDown = translation.y > 0
         }
-        //print("\(translation.y) - \(isDraggingDown ? "going down" : "going up")")
-        
-        let originY = self.frame.origin.y
-        let newOrigin = originY + translation.y
-     
-        switch gesture.state {
-        case .changed:
-            let originUp: CGFloat = defaultOrigin - dismissableOrigin
+        // print("\(translation.y) - \(isDraggingDown ? "going down" : "going up")")
 
-            if (newOrigin > originUp && !isDraggingDown) {
-                self.frame.origin.y = newOrigin
-                //self.layoutIfNeeded()
-            } else if isDraggingDown {
-                self.frame.origin.y = newOrigin
-                //self.layoutIfNeeded()
-            }
-        case .ended:
-            //1: If new origin is below the default and dismiss is true, dismiss view
-            if newOrigin > defaultOrigin + dismissableOrigin && dismissOnSwipe {
-                self.dismissView()
-            }
-            // 2: If new origin is below default, animate back to default
-            else if newOrigin > defaultOrigin {
-                self.positionFinalFrame()
-            }
-            // 3: If new origin is above the origin and going up, set to back to default
-            else if newOrigin > defaultOrigin - dismissableOrigin && !isDraggingDown {
-                self.positionFinalFrame()
-            }
-           
-            break
-        default:
-            break
+        let originY = frame.origin.y
+        let newOrigin = originY + translation.y
+
+        switch gesture.state {
+            case .changed:
+                let originUp: CGFloat = defaultOrigin - dismissableOrigin
+
+                if newOrigin > originUp, !isDraggingDown {
+                    frame.origin.y = newOrigin
+                    // self.layoutIfNeeded()
+                } else if isDraggingDown {
+                    frame.origin.y = newOrigin
+                    // self.layoutIfNeeded()
+                }
+
+            case .ended:
+                // 1: If new origin is below the default and dismiss is true, dismiss view
+                if newOrigin > defaultOrigin + dismissableOrigin, dismissOnSwipe {
+                    dismissView()
+                }
+                // 2: If new origin is below default, animate back to default
+                else if newOrigin > defaultOrigin {
+                    positionFinalFrame()
+                }
+                // 3: If new origin is above the origin and going up, set to back to default
+                else if newOrigin > defaultOrigin - dismissableOrigin, !isDraggingDown {
+                    positionFinalFrame()
+                }
+
+            default:
+                break
         }
     }
 }
 
 // MARK: - Appearance
-extension SYCardBanner {
-    public func setBannerOptions(_ options: [SYCardBannerOptions]) {
+
+public extension SYCardBanner {
+    func setBannerOptions(_ options: [SYCardBannerOptions]) {
         for option in options {
             switch option {
-            case .backgroundColor(let color):
-                self.backgroundColor = color
-            case .showExitButton(let value):
-                self.addExitButton = value
-            case .titleFont(let font):
-                self.titleFont = font
-            case .titleColor(let color):
-                self.titleTextColor = color
-            case .subTitleFont(let font):
-                self.subtitleFont = font
-            case .subTitleColor(let color):
-                self.subtitleTextColor = color
-            case .subTitleSpacing(let spacing):
-                self.titleSubtitleSpacing = spacing
-            case .contentInsets(let insets):
-                self.contentInsets = insets
-            case .cornerRounding(let cornerRadius):
-                self.cornerRadius = cornerRadius
-            case .customView(let view):
-                self.customView = view
-            case .customViewInsets(let insets):
-                self.customViewInsets = insets
-            case .buttonsHeight(let height):
-                self._buttonsHeight = height
-            case .buttonAxis(let value):
-                self.buttonsAxis = value
-            case .isDraggable(let value):
-                self.isDraggable = value
-            case .isDismissable(let value):
-                self.dismissOnSwipe = value
-            case .dismissableOrigin(let value):
-                self.dismissableOrigin = value
-            case .dismissOnTransparentView(let value):
-                self.dismissOnTapTransparentView = value
+                case let .backgroundColor(color):
+                    backgroundColor = color
+                case let .showExitButton(value):
+                    addExitButton = value
+                case let .titleFont(font):
+                    titleFont = font
+                case let .titleColor(color):
+                    titleTextColor = color
+                case let .subTitleFont(font):
+                    subtitleFont = font
+                case let .subTitleColor(color):
+                    subtitleTextColor = color
+                case let .subTitleSpacing(spacing):
+                    titleSubtitleSpacing = spacing
+                case let .contentInsets(insets):
+                    contentInsets = insets
+                case let .cornerRounding(cornerRadius):
+                    self.cornerRadius = cornerRadius
+                case let .customView(view):
+                    customView = view
+                case let .customViewInsets(insets):
+                    customViewInsets = insets
+                case let .buttonsHeight(height):
+                    _buttonsHeight = height
+                case let .buttonAxis(value):
+                    buttonsAxis = value
+                case let .isDraggable(value):
+                    isDraggable = value
+                case let .isDismissable(value):
+                    dismissOnSwipe = value
+                case let .dismissableOrigin(value):
+                    dismissableOrigin = value
+                case let .dismissOnTransparentView(value):
+                    dismissOnTapTransparentView = value
             }
-            
         }
     }
 
     /// Title font
-    @objc public dynamic var titleFont: UIFont {
+    @objc dynamic var titleFont: UIFont {
         get { return titleLabel.font }
         set { titleLabel.font = newValue }
     }
-    
-    @objc public dynamic var title: String? {
-        get { return titleLabel.text }
-    }
-    
+
+    @objc dynamic var title: String? { return titleLabel.text }
+
     /// Title text color
-    @objc public dynamic var titleTextColor: UIColor {
+    @objc dynamic var titleTextColor: UIColor {
         get { return titleLabel.textColor }
         set { titleLabel.textColor = newValue }
     }
 
     /// Subtitle font
-    @objc public dynamic var subtitleFont: UIFont {
+    @objc dynamic var subtitleFont: UIFont {
         get { return subtitleLabel.font }
         set { subtitleLabel.font = newValue }
     }
-    
-    @objc public dynamic var subtitle: String? {
-        get { return subtitleLabel.text}
 
-    }
-    
+    @objc dynamic var subtitle: String? { return subtitleLabel.text }
+
     /// Subtitle text color
-    @objc public dynamic var subtitleTextColor: UIColor {
+    @objc dynamic var subtitleTextColor: UIColor {
         get { return subtitleLabel.textColor }
         set { subtitleLabel.textColor = newValue }
     }
-    
+
     /// height of the buttons
-    @objc public dynamic var contentInsets: UIEdgeInsets {
+    @objc dynamic var contentInsets: UIEdgeInsets {
         get { return _contentInsets }
         set { _contentInsets = newValue }
     }
-    
+
     /// Dialog view corner radius
-    @objc public dynamic var cornerRadius: CGFloat {
+    @objc dynamic var cornerRadius: CGFloat {
         get { return layer.cornerRadius }
         set { layer.cornerRadius = newValue }
     }
-    
-    
+
     /// inset of the CustomView
-    @objc public dynamic var customViewInsets: UIEdgeInsets {
+    @objc dynamic var customViewInsets: UIEdgeInsets {
         get { return _customViewInsets }
         set { _customViewInsets = newValue }
     }
-    
+
     /// height of the buttons
-    @objc public dynamic var buttonsHeight: CGFloat {
+    @objc dynamic var buttonsHeight: CGFloat {
         get { return _buttonsHeight }
         set { _buttonsHeight = newValue }
     }
-    
+
     /// Margin inset between buttons
-    @objc public dynamic var buttonsSpace: CGFloat {
+    @objc dynamic var buttonsSpace: CGFloat {
         get { return buttonsStackView.spacing }
         set { buttonsStackView.spacing = newValue }
     }
-    
+
     /// Buttons distribution in stack view
-    @objc public dynamic var buttonsDistribution: UIStackView.Distribution {
+    @objc dynamic var buttonsDistribution: UIStackView.Distribution {
         get { return buttonsStackView.distribution }
         set { buttonsStackView.distribution = newValue }
     }
-    
+
     /// Buttons aligns in stack view
-    @objc public dynamic var buttonsAligment: UIStackView.Alignment {
+    @objc dynamic var buttonsAligment: UIStackView.Alignment {
         get { return buttonsStackView.alignment }
         set { buttonsStackView.alignment = newValue }
     }
-    
+
     /// Buttons axis in stack view
-    @objc public dynamic var buttonsAxis: NSLayoutConstraint.Axis {
+    @objc dynamic var buttonsAxis: NSLayoutConstraint.Axis {
         get { return buttonsStackView.axis }
         set {
             buttonsStackView.axis = newValue

@@ -9,8 +9,8 @@ import Foundation
 
 @objc
 public protocol SYBannerDelegate: AnyObject {
-    @objc optional func notificationBannerWillAppear(_ banner: SYBaseBanner)
-    @objc optional func notificationBannerDidAppear(_ banner: SYBaseBanner)
-    @objc optional func notificationBannerWillDisappear(_ banner: SYBaseBanner)
-    @objc optional func notificationBannerDidDisappear(_ banner: SYBaseBanner)
+    @objc func notificationBannerWillAppear(_ banner: SYBaseBanner)
+    @objc func notificationBannerDidAppear(_ banner: SYBaseBanner)
+    @objc func notificationBannerWillDisappear(_ banner: SYBaseBanner)
+    @objc func notificationBannerDidDisappear(_ banner: SYBaseBanner)
 }

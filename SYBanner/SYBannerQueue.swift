@@ -13,42 +13,42 @@ public enum QueuePosition: Int {
 }
 
 open class SYBannerQueue: NSObject {
-    //MARK: Properties
+    // MARK: Properties
+
     @objc(defaultQueue)
     public static let `default` = SYBannerQueue()
-    
-    ///The banners currently placed in the queue
+
+    /// The banners currently placed in the queue
     @objc
     private(set) var banners: [SYBaseBanner] = []
-    
+
     /// Number of banners that can be visible at the same time
     @objc
     private(set) var maxBannersOnScreenSimultaneously: Int = 1
-    
+
     /// The number of notification banners in the queue
     @objc
     public var numberOfBanners: Int {
         return banners.count
     }
-    
-    //MARK: Init
+
+    // MARK: Init
+
     @objc
     public init(maxBannersOnScreen: Int = 1) {
-        self.maxBannersOnScreenSimultaneously = maxBannersOnScreen
+        maxBannersOnScreenSimultaneously = maxBannersOnScreen
     }
-    
-    //MARK: Functions
-    
-    /**
-     Adds a banner to the queue
-     */
+
+    // MARK: Functions
+
+    /// Adds a banner to the queue
     @objc
     func addBanner(_ banner: SYBaseBanner, queuePosition: QueuePosition) {
-        let currentBannersCount = banners.filter{$0.isDisplaying}.count
-        
+        let currentBannersCount = banners.filter { $0.isDisplaying }.count
+
         if queuePosition == .back {
             banners.append(banner)
-            
+
             if currentBannersCount < maxBannersOnScreenSimultaneously {
                 banner.show(placeOnQueue: false)
             }
@@ -63,15 +63,14 @@ open class SYBannerQueue: NSObject {
             }
         }
     }
-    
+
     @objc
     func getFirstDisplayedBanner() -> SYBaseBanner? {
-        return banners.filter{$0.isDisplaying}.first
+        return banners.filter { $0.isDisplaying }.first
     }
-    /**
-     Removes a banner from the queue
-     -parameter banner: A notification banner to remove from the queue.
-     */
+
+    /// Removes a banner from the queue
+    /// -parameter banner: A notification banner to remove from the queue.
     @objc
     func removeBanner(_ banner: SYBaseBanner) {
         if let index = banners.firstIndex(of: banner) {
@@ -79,28 +78,22 @@ open class SYBannerQueue: NSObject {
         }
         showNext()
     }
-    
-    /**
-     Shows the next notificaiton banner on the queue if one exists
-     */
+
+    /// Shows the next notificaiton banner on the queue if one exists
     @objc
     func showNext() {
         if let banner = firstNotDisplayedBanner() {
             banner.show(placeOnQueue: false)
         }
     }
-    
-    /**
-     Returns the first banner that is currently not displaying
-     */
+
+    /// Returns the first banner that is currently not displaying
     @objc
     func firstNotDisplayedBanner() -> SYBaseBanner? {
         return banners.filter { !$0.isDisplaying }.first
     }
-    
-    /**
-     Removes all banners from the queuea
-     */
+
+    /// Removes all banners from the queuea
     @objc
     public func removeAll() {
         banners.removeAll()
