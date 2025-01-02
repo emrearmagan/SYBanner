@@ -27,7 +27,6 @@ public enum SYCardBannerOptions {
     case buttonAxis(NSLayoutConstraint.Axis)
 }
 
-@objc
 public class SYCardBanner: SYBaseBanner {
     // MARK: Properties
 
@@ -79,15 +78,15 @@ public class SYCardBanner: SYBaseBanner {
         return 0
     }
 
-    @objc public private(set) var titleLabel = UILabel()
-    @objc public private(set) var subtitleLabel = UILabel()
+    public private(set) var titleLabel = UILabel()
+    public private(set) var subtitleLabel = UILabel()
 
-    @objc private(set) var buttonsStackView = UIStackView()
+    private(set) var buttonsStackView = UIStackView()
 
     private lazy var exitButtonReact: CGRect = .init(origin: CGPoint(x: self.frame.width - 21 - exitButtonSize.width, y: 16 + exitButtonSize.height), size: exitButtonSize)
 
     /// Spacing between the title and subtitle
-    @objc
+
     public var titleSubtitleSpacing: CGFloat = 16 {
         didSet {
             refreshView()
@@ -95,24 +94,24 @@ public class SYCardBanner: SYBaseBanner {
     }
 
     /// The spacing between the view and the keyboard if shown
-    @objc
+
     public var keyboardSpacing: CGFloat = 10
 
     /// The number of drag necessary for the view to be dismissed. Only works if isDismissable is set to true
-    @objc
+
     public var dismissableOrigin: CGFloat = 100
 
     ///
-    @objc
+
     public var dismissOnTapTransparentView: Bool = true { didSet { setupTransparentView() } }
 
     // TODO: Maybe specify a bound
     /// If true, the banner can be moved around.
-    @objc
+
     public var isDraggable: Bool = true
 
     /// If set to true, a exit button will be drawn on the top right corner
-    @objc
+
     public var addExitButton: Bool = false {
         didSet {
             setNeedsDisplay()
@@ -120,7 +119,7 @@ public class SYCardBanner: SYBaseBanner {
     }
 
     /// The size of the top right exit button. Only visible if addExitButton is true
-    @objc
+
     public var exitButtonSize = CGSize(width: 9, height: 9) {
         didSet {
             setNeedsDisplay()
@@ -128,7 +127,7 @@ public class SYCardBanner: SYBaseBanner {
     }
 
     /// The custom view in the banner
-    @objc
+
     public var customView: UIView? {
         didSet {
             if let oldValue = oldValue {
@@ -139,13 +138,12 @@ public class SYCardBanner: SYBaseBanner {
     }
 
     /// Closure that will be executed if a button is tapped
-    @objc public var didTapButton: ((_: SYCardBannerButton) -> Void)?
+    public var didTapButton: ((_: SYCardBannerButton) -> Void)?
     /// Closure that will be executed if the exit button is tapped
-    @objc public var didTapExitButton: (() -> Void)?
+    public var didTapExitButton: (() -> Void)?
 
     // MARK: Lifecycle
 
-    @objc
     public convenience init(title: String? = nil, subtitle: String? = nil, direction: Direction = .bottom, type: SYBannerType = .stick, autoDismiss: Bool = false, buttons: [SYCardBannerButton] = []) {
         self.init(title, subtitle: subtitle, direction: direction, type: type, autoDismiss: autoDismiss, buttons: buttons, on: nil)
     }
@@ -180,14 +178,12 @@ public class SYCardBanner: SYBaseBanner {
 
     // MARK: Functions
 
-    @objc
     public func setTitle(_ title: String?) {
         if let title = title {
             titleLabel.text = title
         }
     }
 
-    @objc
     public func setSubTitle(_ subTitle: String?) {
         if let subTitle = subTitle {
             subtitleLabel.text = subTitle
@@ -201,7 +197,6 @@ public class SYCardBanner: SYBaseBanner {
         refreshView()
     }
 
-    @objc
     public func addButton(_ button: SYCardBannerButton) {
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
         buttonsStackView.addArrangedSubview(button)
@@ -381,7 +376,6 @@ extension SYCardBanner {
 // MARK: - Exit button
 
 public extension SYCardBanner {
-    @objc
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         guard addExitButton else { return }
@@ -397,7 +391,6 @@ public extension SYCardBanner {
         }
     }
 
-    @objc
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         guard addExitButton else { return }
@@ -530,77 +523,77 @@ public extension SYCardBanner {
     }
 
     /// Title font
-    @objc dynamic var titleFont: UIFont {
+    dynamic var titleFont: UIFont {
         get { return titleLabel.font }
         set { titleLabel.font = newValue }
     }
 
-    @objc dynamic var title: String? { return titleLabel.text }
+    dynamic var title: String? { return titleLabel.text }
 
     /// Title text color
-    @objc dynamic var titleTextColor: UIColor {
+    dynamic var titleTextColor: UIColor {
         get { return titleLabel.textColor }
         set { titleLabel.textColor = newValue }
     }
 
     /// Subtitle font
-    @objc dynamic var subtitleFont: UIFont {
+    dynamic var subtitleFont: UIFont {
         get { return subtitleLabel.font }
         set { subtitleLabel.font = newValue }
     }
 
-    @objc dynamic var subtitle: String? { return subtitleLabel.text }
+    dynamic var subtitle: String? { return subtitleLabel.text }
 
     /// Subtitle text color
-    @objc dynamic var subtitleTextColor: UIColor {
+    dynamic var subtitleTextColor: UIColor {
         get { return subtitleLabel.textColor }
         set { subtitleLabel.textColor = newValue }
     }
 
     /// height of the buttons
-    @objc dynamic var contentInsets: UIEdgeInsets {
+    dynamic var contentInsets: UIEdgeInsets {
         get { return _contentInsets }
         set { _contentInsets = newValue }
     }
 
     /// Dialog view corner radius
-    @objc dynamic var cornerRadius: CGFloat {
+    dynamic var cornerRadius: CGFloat {
         get { return layer.cornerRadius }
         set { layer.cornerRadius = newValue }
     }
 
     /// inset of the CustomView
-    @objc dynamic var customViewInsets: UIEdgeInsets {
+    dynamic var customViewInsets: UIEdgeInsets {
         get { return _customViewInsets }
         set { _customViewInsets = newValue }
     }
 
     /// height of the buttons
-    @objc dynamic var buttonsHeight: CGFloat {
+    dynamic var buttonsHeight: CGFloat {
         get { return _buttonsHeight }
         set { _buttonsHeight = newValue }
     }
 
     /// Margin inset between buttons
-    @objc dynamic var buttonsSpace: CGFloat {
+    dynamic var buttonsSpace: CGFloat {
         get { return buttonsStackView.spacing }
         set { buttonsStackView.spacing = newValue }
     }
 
     /// Buttons distribution in stack view
-    @objc dynamic var buttonsDistribution: UIStackView.Distribution {
+    dynamic var buttonsDistribution: UIStackView.Distribution {
         get { return buttonsStackView.distribution }
         set { buttonsStackView.distribution = newValue }
     }
 
     /// Buttons aligns in stack view
-    @objc dynamic var buttonsAligment: UIStackView.Alignment {
+    dynamic var buttonsAligment: UIStackView.Alignment {
         get { return buttonsStackView.alignment }
         set { buttonsStackView.alignment = newValue }
     }
 
     /// Buttons axis in stack view
-    @objc dynamic var buttonsAxis: NSLayoutConstraint.Axis {
+    dynamic var buttonsAxis: NSLayoutConstraint.Axis {
         get { return buttonsStackView.axis }
         set {
             buttonsStackView.axis = newValue

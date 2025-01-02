@@ -7,7 +7,6 @@
 
 import UIKit
 
-@objc
 public enum SYBannerStyle: Int {
     case none
     case info

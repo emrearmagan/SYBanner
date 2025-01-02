@@ -7,7 +7,6 @@
 
 import UIKit
 
-@objc(SYBannerDirection)
 public enum Direction: Int {
     case bottom
     case top
@@ -15,14 +14,12 @@ public enum Direction: Int {
     case right
 }
 
-@objc
 public enum SYBannerType: Int {
     case custom
     case float
     case stick
 }
 
-@objc
 open class SYBaseBanner: UIView {
     // MARK: Properties
 
@@ -35,12 +32,11 @@ open class SYBaseBanner: UIView {
     public var bannerInsets: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
 
     /// The direction the notification should appear from
-    @objc
     public private(set) var direction: Direction
     /// Indicates wheter the notification is currently displaying
-    @objc public private(set) var isDisplaying = false
+    public private(set) var isDisplaying = false
     /// Indicates wheter the notification has been already shown
-    @objc public private(set) var hasBeenSeen = false
+    public private(set) var hasBeenSeen = false
 
     /// The main window of the application which banner views are placed on
     private weak var appWindow: UIView? = (UIApplication.shared.connectedScenes
@@ -66,29 +62,25 @@ open class SYBaseBanner: UIView {
     }
 
     /// The view controller to display the banner on. This is useful if you are wanting to display a banner only on one ViewController and not on the whole screen
-    @objc
-    public weak var parentViewController: UIViewController?
+    weak var parentViewController: UIViewController?
 
     /// The delegate of the notification banner
-    @objc
     public weak var delegate: SYBannerDelegate?
 
     /// animation duration of the notification for appearing
-    @objc
     public var animationDurationShow: CGFloat = 0.5
 
     /// animation duration of the notification for disappearing
-    @objc
     public var animationDurationDisappear: CGFloat = 0.5
 
     /// duration for whole long the notification should appear on the screen
-    @objc public var appearanceDuration: TimeInterval = 5
+    public var appearanceDuration: TimeInterval = 5
 
     /// Responsible for positioning and auto managing notification banners
-    @objc public var bannerQueue: SYBannerQueue = .default
+    public var bannerQueue: SYBannerQueue = .default
 
     /// If false, the banner will not be dismissed until the developer programatically dismisses it
-    @objc public var autoDismiss: Bool = true {
+    public var autoDismiss: Bool = true {
         didSet {
             if !autoDismiss {
                 dismissOnTap = false
@@ -98,30 +90,30 @@ open class SYBaseBanner: UIView {
     }
 
     /// If true, notification will dismissed when tapped
-    @objc public var dismissOnTap: Bool = true
+    public var dismissOnTap: Bool = true
 
     /// If true, notification will dismissed when swiped up
-    @objc public var dismissOnSwipe: Bool = true
+    public var dismissOnSwipe: Bool = true
 
     /// Closure that will be executed if the notification banner is swiped up
-    @objc public var onSwipe: (() -> Void)?
+    public var onSwipe: (() -> Void)?
 
     /// Closure that will be executed if the notification banner is tapped
-    @objc public var didTap: (() -> Void)?
+    public var didTap: (() -> Void)?
 
     /// The transparency of the background of the notification banner
-    @objc public var transparency: CGFloat = 1 {
+    public var transparency: CGFloat = 1 {
         didSet {
             backgroundColor = backgroundColor?.withAlphaComponent(transparency)
         }
     }
 
     /// The type of haptic to generate when a banner is displayed
-    @objc public var haptic: UIImpactFeedbackGenerator.FeedbackStyle = .medium
+    public var haptic: UIImpactFeedbackGenerator.FeedbackStyle = .medium
 
     // MARK: init
 
-    @objc init(direction: Direction, on: UIViewController?, type: SYBannerType = .float) {
+    init(direction: Direction, on: UIViewController?, type: SYBannerType = .float) {
         // Defer to call the didSet method on bannerType
         defer {
             self.bannerType = type
@@ -160,14 +152,12 @@ open class SYBaseBanner: UIView {
     }
 
     /// Places a NotificationBanner on the queue and shows it if its the first one in the queue
-    @objc
-    public func show(queuePosition: QueuePosition = .back) {
+    public func show(queuePosition: SYBannerQueue.QueuePosition = .back) {
         show(placeOnQueue: true, queuePosition: queuePosition)
     }
 
     /// Places a NotificationBanner on the queue if option is selected otherwise shows it immediately
-    @objc
-    public func show(placeOnQueue: Bool, queuePosition: QueuePosition = .back) {
+    public func show(placeOnQueue: Bool, queuePosition: SYBannerQueue.QueuePosition = .back) {
         postionView()
         guard !isDisplaying else { return }
         if placeOnQueue {
@@ -183,7 +173,6 @@ open class SYBaseBanner: UIView {
     }
 
     /// Removes the NotificationBanner from the queue if not displaying
-    @objc
     public func remove() {
         guard !isDisplaying else { return }
         bannerQueue.removeBanner(self)
@@ -207,7 +196,7 @@ open class SYBaseBanner: UIView {
     }
 
     /// Called when a notification banner is swiped up
-    @objc dynamic func onSwipeGestureRecognizer() {
+    @objc func onSwipeGestureRecognizer() {
         guard isDisplaying else { return }
         didTap?()
         dismissView()
@@ -225,7 +214,7 @@ open class SYBaseBanner: UIView {
 
 public extension SYBaseBanner {
     /// the parent view to display the banner
-    @objc
+
     dynamic var parentView: UIView? {
         if let vc = parentViewController {
             return vc.view

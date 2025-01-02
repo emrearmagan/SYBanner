@@ -16,7 +16,7 @@ open class SYSimpleBanner: SYBaseBanner {
     var messageLabel: UILabel = .init()
 
     /// The message of the notification
-    @objc
+
     public var message: String {
         didSet {
             updateLabel()
@@ -24,7 +24,7 @@ open class SYSimpleBanner: SYBaseBanner {
     }
 
     /// Color of the mesage
-    @objc
+
     public var messageColor: UIColor = .label {
         didSet {
             updateLabel()
@@ -32,7 +32,7 @@ open class SYSimpleBanner: SYBaseBanner {
     }
 
     /// Font of the message
-    @objc
+
     public var messageFont: UIFont = .systemFont(ofSize: 16) {
         didSet {
             updateLabel()
@@ -40,7 +40,7 @@ open class SYSimpleBanner: SYBaseBanner {
     }
 
     /// Insets of the label inside the view
-    @objc
+
     public var messageInsets: UIEdgeInsets = .init(top: 10, left: 30, bottom: 10, right: 30) {
         didSet {
             setConstraints()
@@ -49,12 +49,10 @@ open class SYSimpleBanner: SYBaseBanner {
 
     // MARK: Init
 
-    @objc
     public convenience init(_ message: String, backgroundColor: UIColor, direction: Direction = .top, on: UIViewController? = nil) {
         self.init(message, color: backgroundColor, direction: direction, on: on)
     }
 
-    @objc
     public init(_ message: String, color: UIColor?, direction: Direction, type: SYBannerType = .float, on: UIViewController?) {
         self.message = message
 

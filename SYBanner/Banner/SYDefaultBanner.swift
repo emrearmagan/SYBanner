@@ -11,7 +11,7 @@ public class SYDefaultBanner: SYSimpleBanner {
     // MARK: Properties
 
     /// icon of the notification
-    @objc
+
     public var imageView: UIImageView = .init()
 
     /// Custom icon for the notification. If none is set the icon of the Notification type will be selected
@@ -21,7 +21,7 @@ public class SYDefaultBanner: SYSimpleBanner {
     var customBackgroundColor: UIColor?
 
     /// Size of the icon
-    @objc
+
     public var iconSize: CGSize = .init(width: 30, height: 30) {
         didSet {
             setConstraints()
@@ -33,22 +33,18 @@ public class SYDefaultBanner: SYSimpleBanner {
 
     // MARK: Init
 
-    @objc
     public convenience init(_ message: String, icon: UIImage?, backgroundColor: UIColor, direction: Direction = .bottom, type: SYBannerType = .float) {
         self.init(message, icon: icon, color: backgroundColor, direction: direction, style: .success, type: type, on: nil)
     }
 
-    @objc
     public convenience init(_ message: String, direction: Direction = .bottom, style: SYBannerStyle, type: SYBannerType = .float, on: UIViewController? = nil) {
         self.init(message, icon: nil, color: nil, direction: direction, style: style, type: type, on: on)
     }
 
-    @objc
     public convenience init(_ message: String, iconName: String, direction: Direction, style: SYBannerStyle, type: SYBannerType = .float, on: UIViewController? = nil) {
         self.init(message, icon: UIImage(named: iconName), color: nil, direction: direction, style: style, type: type, on: on)
     }
 
-    @objc
     public init(_ message: String, icon: UIImage? = nil, color: UIColor?, direction: Direction, style: SYBannerStyle, type: SYBannerType, on: UIViewController?) {
         self.style = style
         customIcon = icon
@@ -59,7 +55,7 @@ public class SYDefaultBanner: SYSimpleBanner {
     }
 
     @available(*, unavailable)
-    @objc
+
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

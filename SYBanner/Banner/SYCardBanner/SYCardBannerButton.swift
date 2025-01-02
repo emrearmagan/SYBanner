@@ -7,9 +7,7 @@
 
 import UIKit
 
-@objc
 public class SYCardBannerButton: UIButton {
-    @objc(SYCardBannerButtonStyle)
     public enum Style: Int {
         case `default` = 0
         case dismiss = 1
@@ -28,12 +26,11 @@ public class SYCardBannerButton: UIButton {
 
     /// Closure that will be executed if the button is tapped
     var handler: (() -> Void)?
-    @objc private(set) var style: SYCardBannerButton.Style = .default
+    private(set) var style: SYCardBannerButton.Style = .default
 
     /// currently selected index
-    @objc public private(set) var selectedIndex: Int = 0
+    public private(set) var selectedIndex: Int = 0
 
-    @objc
     public convenience init(title: String, font: UIFont = .systemFont(ofSize: 16), cornerRadius: CGFloat = 10, style: SYCardBannerButton.Style, tintColor: UIColor? = nil, handler: (() -> Void)? = nil) {
         self.init(frame: .zero)
         self.title = title
