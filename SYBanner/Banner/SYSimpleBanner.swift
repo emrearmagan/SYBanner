@@ -7,61 +7,93 @@
 
 import UIKit
 
+/// A simple banner implementation that displays a customizable text message.
+/// `SYSimpleBanner` is lightweight and versatile, allowing you to customize the text, font, color, and layout.
+///
+/// Example usage:
+/// ```swift
+/// let banner = SYSimpleBanner(
+///     "Welcome to SYBanner!",
+///     backgroundColor: .systemBlue,
+///     direction: .top,
+///     type: .float(.all(10)),
+///     on: self
+/// )
+///
+/// banner.present()
+/// ```
 open class SYSimpleBanner: SYBaseBanner {
     // MARK: Properties
 
+    /// Constraints for the content within the banner.
     var contentConstraints: [NSLayoutConstraint] = []
 
-    /// message of the notification
-    var messageLabel: UILabel = .init()
+    /// The label used to display the message text within the banner.
+    open var titleLabel = UILabel()
 
-    /// The message of the notification
+    /// Insets applied around the content of the banner.
+    open var contentInsets: UIEdgeInsets = .vertical(10) + .horizontal(30) {
+        didSet { configureConstraints() }
+    }
 
-    public var message: String {
-        didSet {
-            updateLabel()
+    /// The message text displayed in the banner.
+    open var text: String? {
+        get { titleLabel.text }
+        set {
+            titleLabel.text = newValue
+            setNeedsBannerDisplay()
         }
     }
 
-    /// Color of the mesage
-
-    public var messageColor: UIColor = .label {
-        didSet {
-            updateLabel()
-        }
+    /// The color of the message text.
+    open var textColor: UIColor {
+        get { titleLabel.textColor }
+        set { titleLabel.textColor = newValue }
     }
 
-    /// Font of the message
-
-    public var messageFont: UIFont = .systemFont(ofSize: 16) {
-        didSet {
-            updateLabel()
-        }
-    }
-
-    /// Insets of the label inside the view
-
-    public var messageInsets: UIEdgeInsets = .init(top: 10, left: 30, bottom: 10, right: 30) {
-        didSet {
-            setConstraints()
+    /// The font used for the message text.
+    open var textFont: UIFont {
+        get { titleLabel.font }
+        set {
+            titleLabel.font = newValue
+            setNeedsBannerDisplay()
         }
     }
 
     // MARK: Init
 
-    public convenience init(_ message: String, backgroundColor: UIColor, direction: Direction = .top, on: UIViewController? = nil) {
-        self.init(message, color: backgroundColor, direction: direction, on: on)
+    /// Initializes a new `SYSimpleBanner` with customizable properties.
+    ///
+    /// - Parameters:
+    ///   - message: The message to display in the banner.
+    ///   - backgroundColor: The background color of the banner.
+    ///   - direction: The direction from which the banner will appear. Defaults to `.bottom`.
+    ///   - type: The banner's presentation type (e.g., `.stick` or `.float`). Defaults to `.float`.
+    ///   - parent: The parent view controller where the banner will be displayed. Defaults to `nil`.
+    ///   - queue: The queue managing the banner. Defaults to `.default`.
+    public init(
+        _ message: String,
+        backgroundColor: UIColor = .syDefaultColor,
+        direction: SYBannerDirection = .bottom,
+        presenter: SYBannerPresenter = SYDefaultPresenter(),
+        type: SYBannerType = .float(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)),
+        on parent: UIViewController? = nil,
+        queue: SYBannerQueue = .default
+    ) {
+        super.init(direction: direction, presentation: presenter, queue: queue, on: parent)
+        bannerType = type
+
+        self.backgroundColor = backgroundColor
+        text = message
+        setupUI()
     }
 
-    public init(_ message: String, color: UIColor?, direction: Direction, type: SYBannerType = .float, on: UIViewController?) {
-        self.message = message
-
-        super.init(direction: direction, on: on, type: type)
-        backgroundColor = color
-
-        setupView()
-        setConstraints()
+    @available(*, unavailable)
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: Lifecycle
 
     override open func layoutSubviews() {
         super.layoutSubviews()
@@ -69,71 +101,31 @@ open class SYSimpleBanner: SYBaseBanner {
         layer.masksToBounds = true
     }
 
-    // MARK: Functions
+    // MARK: Methods
 
-    func updateLabel() {
-        messageLabel.font = messageFont
-        messageLabel.text = message
-        messageLabel.textColor = messageColor
-        messageLabel.numberOfLines = 0
-
-        postionView()
-        if isDisplaying {
-            positionFinalFrame(false)
+    /// Sets up the banner's user interface.
+    open func setupUI() {
+        if !titleLabel.isDescendant(of: self) {
+            addSubview(titleLabel)
         }
+
+        titleLabel.numberOfLines = 0
+        configureConstraints()
     }
 
-    func setupView() {
-        if !messageLabel.isDescendant(of: self) {
-            addSubview(messageLabel)
-        }
-        updateLabel()
+    private func configureConstraints() {
+        guard titleLabel.isDescendant(of: self) else { return }
 
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    override func postionView() {
-        let labelSize = getMessageLabelSize()
-
-        var containerRect = CGRect.zero
-        containerRect.size = CGSize(width: labelSize.width + messageInsets.left + messageInsets.right, height: labelSize.height + messageInsets.top + messageInsets.bottom)
-        frame = containerRect
-
-        center.x = screenSize.width / 2
-
-        switch direction {
-            case .bottom, .top:
-                center.x = screenSize.width / 2
-                frame.origin.y = direction == .top ? -frame.size.height : screenSize.height
-
-            case .left, .right:
-                center.y = screenSize.height / 2
-                frame.origin.x = direction == .left ? -frame.size.width : screenSize.width
-        }
-    }
-
-    func getMessageLabelSize() -> CGSize {
-        let containerSize = screenSize.width - (bannerInsets.left + bannerInsets.right)
-
-        var constraintRect = CGSize(width: containerSize, height: .greatestFiniteMagnitude)
-        let labelHeight = ceil(message.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: messageFont], context: nil).height)
-
-        constraintRect = CGSize(width: .greatestFiniteMagnitude, height: labelHeight)
-        let labelWidth = ceil(message.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: messageFont], context: nil).width)
-        return CGSize(width: labelWidth, height: labelHeight)
-    }
-
-    /// sets the constraints for the icon and message label
-    func setConstraints() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.deactivate(contentConstraints)
-
         contentConstraints = [
-            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: messageInsets.left),
-            messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -messageInsets.right),
-            messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: messageInsets.top),
-            messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -messageInsets.bottom)
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: contentInsets.left),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -contentInsets.right),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: contentInsets.top),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -contentInsets.bottom)
         ]
 
         NSLayoutConstraint.activate(contentConstraints)
+        setNeedsBannerDisplay()
     }
 }
