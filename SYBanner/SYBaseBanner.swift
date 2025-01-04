@@ -109,7 +109,7 @@ open class SYBaseBanner: UIControl {
                 presentation: SYBannerPresenter = SYDefaultPresenter(),
                 queue: SYBannerQueue = .default,
                 on parent: UIViewController? = nil) {
-        self.direction = .top
+        self.direction = direction
         presenter = presentation
         parentViewController = parent
         bannerQueue = queue
@@ -311,7 +311,7 @@ extension SYBaseBanner {
 
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-         highlighter?.stopHighlight(self)
+        highlighter?.stopHighlight(self)
 
         guard presentationState == .presented,
               let touch = touches.first,
