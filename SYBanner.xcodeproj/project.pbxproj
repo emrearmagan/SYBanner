@@ -49,6 +49,7 @@
 		D06A7D552D294447006C2548 /* UndoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D542D294444006C2548 /* UndoBanner.swift */; };
 		D06A7D572D294468006C2548 /* ReminderBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D562D294462006C2548 /* ReminderBanner.swift */; };
 		D06A7D592D295087006C2548 /* ApprovalBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D582D295083006C2548 /* ApprovalBanner.swift */; };
+		D06A7D5B2D296DE9006C2548 /* SYCardBanner+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D5A2D296DE4006C2548 /* SYCardBanner+Options.swift */; };
 		D06A7D5F2D298064006C2548 /* SYScalePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D5E2D298060006C2548 /* SYScalePresenter.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +122,7 @@
 		D06A7D542D294444006C2548 /* UndoBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoBanner.swift; sourceTree = "<group>"; };
 		D06A7D562D294462006C2548 /* ReminderBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderBanner.swift; sourceTree = "<group>"; };
 		D06A7D582D295083006C2548 /* ApprovalBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovalBanner.swift; sourceTree = "<group>"; };
+		D06A7D5A2D296DE4006C2548 /* SYCardBanner+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SYCardBanner+Options.swift"; sourceTree = "<group>"; };
 		D06A7D5E2D298060006C2548 /* SYScalePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYScalePresenter.swift; sourceTree = "<group>"; };
 		D0952395280346D8008A7E01 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EA07D8AF28D1EF2D00D47650 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -181,7 +183,6 @@
 				D055F32A27FEFEBB00675E9D /* SYBannerQueue.swift */,
 				D055F32627FEFE9600675E9D /* Banner */,
 				D055F31F27FEFE6600675E9D /* SYBanner.h */,
-				D055F32927FEFEBB00675E9D /* SYBaseBanner.swift */,
 			);
 			path = SYBanner;
 			sourceTree = "<group>";
@@ -249,6 +250,7 @@
 			children = (
 				D055F35727FF062200675E9D /* SYCardBannerButton.swift */,
 				D055F35927FF067A00675E9D /* SYCardBanner.swift */,
+				D06A7D5A2D296DE4006C2548 /* SYCardBanner+Options.swift */,
 			);
 			path = SYCardBanner;
 			sourceTree = "<group>";
@@ -465,6 +467,7 @@
 				D055F35A27FF067A00675E9D /* SYCardBanner.swift in Sources */,
 				D06A7D342D285CAE006C2548 /* SYBouncePresenter.swift in Sources */,
 				D06A7D4D2D29117C006C2548 /* SYBanner+BackgroundColor.swift in Sources */,
+				D06A7D5B2D296DE9006C2548 /* SYCardBanner+Options.swift in Sources */,
 				D055F32E27FEFEBC00675E9D /* SYBannerQueue.swift in Sources */,
 				D06A7D262D26F016006C2548 /* UIEdgeInsets+SYBanner.swift in Sources */,
 				D055F33427FEFF6800675E9D /* SYSimpleBanner.swift in Sources */,

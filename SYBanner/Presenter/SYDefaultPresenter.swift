@@ -30,16 +30,17 @@ open class SYDefaultPresenter: SYBannerPresenter {
     }
 
     public func present(banner: SYBaseBanner, in view: UIView, completion: (() -> Void)?) {
-        cancel()
-        state = .presenting
+        guard state == .idle || state == .dismissing else {
+            completion?()
+            return
+        }
 
-        if !banner.isDescendant(of: view) {
-            // we still remove it first in case the superView was previously some other window
-            banner.removeFromSuperview()
-            view.addSubview(banner)
-            view.bringSubviewToFront(banner)
+        cancel()
+        if state == .idle {
             prepare(banner: banner, in: view)
         }
+
+        state = .presenting
 
         presentBanner(banner, in: view) { [weak self] in
             self?.state = .presented
@@ -47,21 +48,14 @@ open class SYDefaultPresenter: SYBannerPresenter {
         }
     }
 
-    public func dismiss(banner: SYBaseBanner, completion: (() -> Void)?) {
+    public func dismiss(banner: SYBaseBanner, in view: UIView, completion: (() -> Void)?) {
         cancel()
         state = .dismissing
 
-        if let superview = banner.superview {
-            dismissBanner(banner, in: superview) { [weak self] in
-                self?.state = .idle
-                banner.removeFromSuperview()
-                completion?()
-            }
-            return
+        dismissBanner(banner, in: view) { [weak self] in
+            self?.state = .idle
+            completion?()
         }
-
-        state = .idle
-        completion?()
     }
 
     public func cancel() {

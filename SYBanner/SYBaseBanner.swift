@@ -12,6 +12,8 @@ import UIKit
 open class SYBaseBanner: UIControl {
     // MARK: Properties
 
+    let customLayoutGuide = UILayoutGuide()
+
     /// The haptic feedback to be triggered when the banner is presented. See `SYBannerFeedback` for more
     /// - Default: `.impact(style: .light)`
     public var feedback: SYBannerFeedback = .impact(style: .light)
@@ -162,18 +164,22 @@ open class SYBaseBanner: UIControl {
         }
 
         guard let superview = parentView else { return }
-
         invalidateContentSize()
+
+        if !isDescendant(of: superview) {
+            removeFromSuperview() // we still remove it first in case the superView was previously some other window
+            superview.addSubview(self)
+            superview.bringSubviewToFront(self)
+        }
+
         delegate?.bannerWillAppear(self)
         feedback.generate()
-
         presenter.present(banner: self, in: superview) { [weak self] in
             guard let self = self else { return }
-
-            self.delegate?.bannerDidAppear(self)
             self.addGestureRecognizers()
             self.hasBeenSeen = true
             self.scheduleAutoDismiss()
+            self.delegate?.bannerDidAppear(self)
             completion?()
         }
     }
@@ -192,11 +198,18 @@ open class SYBaseBanner: UIControl {
 
         delegate?.bannerWillDisappear(self)
         bannerQueue.removeBanner(self, showNextInQueue: showNext)
-        presenter.dismiss(banner: self) { [weak self] in
-            defer { completion?() }
-            guard let self = self else { return }
-            self.delegate?.bannerDidDisappear(self)
+
+        if let superview = superview {
+            presenter.dismiss(banner: self, in: superview) { [weak self] in
+                defer { completion?() }
+                guard let self = self else { return }
+                self.removeFromSuperview()
+                self.delegate?.bannerDidDisappear(self)
+            }
+            return
         }
+
+        delegate?.bannerDidDisappear(self)
     }
 
     /// Returns the preferred content size for the banner. Default is the auto layout size.

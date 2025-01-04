@@ -39,12 +39,12 @@ public class SYDefaultHighlighter: SYBannerHighlighter {
     ///
     /// - Defaults:
     ///   - `tracklocation`: `false`
-    ///   - `animationScale`: `0.95`
+    ///   - `animationScale`: `0.98`
     ///   - `animationDuration`: `0.2`
     ///   - `highlightedAlpha`: `0.8`
     public convenience init() {
         self.init(tracklocation: true,
-                  animationScale: 0.95,
+                  animationScale: 0.98,
                   animationDuration: 0.2)
     }
 

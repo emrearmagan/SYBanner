@@ -35,7 +35,7 @@ public protocol SYBannerPresenter {
     ///   - banner: The banner to dismiss.
     ///   - completion: A closure called when the dismissal animation is complete.
     @MainActor
-    func dismiss(banner: SYBaseBanner, completion: (() -> Void)?)
+    func dismiss(banner: SYBaseBanner, in view: UIView, completion: (() -> Void)?)
 
     /// Cancels any ongoing animations for the banner.
     func cancel()
