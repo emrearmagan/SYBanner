@@ -12,13 +12,13 @@ import UIKit
 /// A banner presenter manages the animation and lifecycle of banners during presentation and dismissal.
 public protocol SYBannerPresenter {
     /// Duration of the animation for presenting and dismissing banners.
-    var animationDuration: CGFloat { get set }
+    var animationDuration: TimeInterval { get set }
 
     /// The current state of the banner during its lifecycle.
     var state: SYBannerState { get }
 
     /// Required initializer for all banner presenters.
-    init(animationDuration: CGFloat)
+    init(animationDuration: TimeInterval)
 
     /// Presents the banner in the specified view.
     ///
@@ -100,7 +100,7 @@ public extension SYBannerPresenter {
     /// - Returns: The calculated offset.
     func offsetForBanners(banner: SYBaseBanner, direction: SYBannerDirection) -> CGFloat {
         let banners = banner.bannerQueue.banners
-            .filter { $0.direction == direction }.filter { $0.state == .presented || $0.state == .presenting }
+            .filter { $0.direction == direction }.filter { $0.presentationState == .presented || $0.presentationState == .presenting }
 
         let index = banners.firstIndex(of: banner) ?? banners.count
         return banners.prefix(index).reduce(0) { totalOffset, banner in

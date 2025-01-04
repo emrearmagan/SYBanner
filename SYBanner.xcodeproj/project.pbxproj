@@ -9,14 +9,13 @@
 /* Begin PBXBuildFile section */
 		D055F32027FEFE6600675E9D /* SYBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = D055F31F27FEFE6600675E9D /* SYBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D055F32B27FEFEBB00675E9D /* SYBannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F32727FEFEBB00675E9D /* SYBannerDelegate.swift */; };
-		D055F32C27FEFEBC00675E9D /* SYBannerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F32827FEFEBB00675E9D /* SYBannerStyle.swift */; };
 		D055F32D27FEFEBC00675E9D /* SYBaseBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F32927FEFEBB00675E9D /* SYBaseBanner.swift */; };
 		D055F32E27FEFEBC00675E9D /* SYBannerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F32A27FEFEBB00675E9D /* SYBannerQueue.swift */; };
-		D055F33327FEFF6800675E9D /* SYDefaultBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F33027FEFF6800675E9D /* SYDefaultBanner.swift */; };
+		D055F33327FEFF6800675E9D /* SYBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F33027FEFF6800675E9D /* SYBanner.swift */; };
 		D055F33427FEFF6800675E9D /* SYSimpleBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F33127FEFF6800675E9D /* SYSimpleBanner.swift */; };
 		D055F33C27FEFFDA00675E9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F33B27FEFFDA00675E9D /* AppDelegate.swift */; };
 		D055F33E27FEFFDA00675E9D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F33D27FEFFDA00675E9D /* SceneDelegate.swift */; };
-		D055F34027FEFFDA00675E9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F33F27FEFFDA00675E9D /* ViewController.swift */; };
+		D055F34027FEFFDA00675E9D /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D055F33F27FEFFDA00675E9D /* ExampleViewController.swift */; };
 		D055F34327FEFFDA00675E9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D055F34127FEFFDA00675E9D /* Main.storyboard */; };
 		D055F34527FEFFE400675E9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D055F34427FEFFE400675E9D /* Assets.xcassets */; };
 		D055F34827FEFFE400675E9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D055F34627FEFFE400675E9D /* LaunchScreen.storyboard */; };
@@ -32,6 +31,26 @@
 		D055F36927FF5F7100675E9D /* success.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F36227FF5F7100675E9D /* success.gif */; };
 		D055F36A27FF5F7100675E9D /* textfield.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F36327FF5F7100675E9D /* textfield.gif */; };
 		D055F36C27FF635300675E9D /* signup.gif in Resources */ = {isa = PBXBuildFile; fileRef = D055F36B27FF635300675E9D /* signup.gif */; };
+		D06A7D1A2D26E82F006C2548 /* SYBannerDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D192D26E82A006C2548 /* SYBannerDirection.swift */; };
+		D06A7D1C2D26E843006C2548 /* SYBannerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D1B2D26E83F006C2548 /* SYBannerType.swift */; };
+		D06A7D212D26EC06006C2548 /* SYDefaultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D202D26EBFD006C2548 /* SYDefaultPresenter.swift */; };
+		D06A7D232D26EC25006C2548 /* SYBannerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D222D26EC22006C2548 /* SYBannerState.swift */; };
+		D06A7D262D26F016006C2548 /* UIEdgeInsets+SYBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D252D26F012006C2548 /* UIEdgeInsets+SYBanner.swift */; };
+		D06A7D282D2827CF006C2548 /* SYFadePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D272D2827C8006C2548 /* SYFadePresenter.swift */; };
+		D06A7D302D28504C006C2548 /* UIColor+SYBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D2F2D28504A006C2548 /* UIColor+SYBanner.swift */; };
+		D06A7D322D2851CD006C2548 /* SYBannerFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D312D2851C4006C2548 /* SYBannerFeedback.swift */; };
+		D06A7D342D285CAE006C2548 /* SYBouncePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D332D285CAA006C2548 /* SYBouncePresenter.swift */; };
+		D06A7D362D286570006C2548 /* SYBannerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D352D28656B006C2548 /* SYBannerPresenter.swift */; };
+		D06A7D3B2D28835A006C2548 /* SYFullWidthBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D3A2D288352006C2548 /* SYFullWidthBanner.swift */; };
+		D06A7D3D2D28FE3A006C2548 /* SYBanner+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D3C2D28FE33006C2548 /* SYBanner+CornerRadius.swift */; };
+		D06A7D3F2D28FE50006C2548 /* SYBanner+IconSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D3E2D28FE47006C2548 /* SYBanner+IconSource.swift */; };
+		D06A7D412D28FEAF006C2548 /* SYBanner+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D402D28FEA8006C2548 /* SYBanner+Configuration.swift */; };
+		D06A7D452D290A0D006C2548 /* SYBannerBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D442D290A05006C2548 /* SYBannerBackgroundView.swift */; };
+		D06A7D492D290A82006C2548 /* SYBanner+GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D482D290A7F006C2548 /* SYBanner+GradientLayer.swift */; };
+		D06A7D4B2D290AA7006C2548 /* SYBanner.GradientDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D4A2D290A9D006C2548 /* SYBanner.GradientDirection.swift */; };
+		D06A7D4D2D29117C006C2548 /* SYBanner+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D4C2D291172006C2548 /* SYBanner+BackgroundColor.swift */; };
+		D06A7D502D291569006C2548 /* SYBannerHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D4F2D291563006C2548 /* SYBannerHighlighter.swift */; };
+		D06A7D522D291598006C2548 /* SYDefaultHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D512D291594006C2548 /* SYDefaultHighlighter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,15 +81,14 @@
 		D055F31C27FEFE6600675E9D /* SYBanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SYBanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D055F31F27FEFE6600675E9D /* SYBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYBanner.h; sourceTree = "<group>"; };
 		D055F32727FEFEBB00675E9D /* SYBannerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYBannerDelegate.swift; sourceTree = "<group>"; };
-		D055F32827FEFEBB00675E9D /* SYBannerStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYBannerStyle.swift; sourceTree = "<group>"; };
 		D055F32927FEFEBB00675E9D /* SYBaseBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYBaseBanner.swift; sourceTree = "<group>"; };
 		D055F32A27FEFEBB00675E9D /* SYBannerQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYBannerQueue.swift; sourceTree = "<group>"; };
-		D055F33027FEFF6800675E9D /* SYDefaultBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYDefaultBanner.swift; sourceTree = "<group>"; };
+		D055F33027FEFF6800675E9D /* SYBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYBanner.swift; sourceTree = "<group>"; };
 		D055F33127FEFF6800675E9D /* SYSimpleBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYSimpleBanner.swift; sourceTree = "<group>"; };
 		D055F33927FEFFDA00675E9D /* SYBannerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYBannerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D055F33B27FEFFDA00675E9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D055F33D27FEFFDA00675E9D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D055F33F27FEFFDA00675E9D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D055F33F27FEFFDA00675E9D /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		D055F34227FEFFDA00675E9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D055F34427FEFFE400675E9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D055F34727FEFFE400675E9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -86,6 +104,26 @@
 		D055F36227FF5F7100675E9D /* success.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = success.gif; sourceTree = "<group>"; };
 		D055F36327FF5F7100675E9D /* textfield.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = textfield.gif; sourceTree = "<group>"; };
 		D055F36B27FF635300675E9D /* signup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = signup.gif; sourceTree = "<group>"; };
+		D06A7D192D26E82A006C2548 /* SYBannerDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBannerDirection.swift; sourceTree = "<group>"; };
+		D06A7D1B2D26E83F006C2548 /* SYBannerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBannerType.swift; sourceTree = "<group>"; };
+		D06A7D202D26EBFD006C2548 /* SYDefaultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYDefaultPresenter.swift; sourceTree = "<group>"; };
+		D06A7D222D26EC22006C2548 /* SYBannerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBannerState.swift; sourceTree = "<group>"; };
+		D06A7D252D26F012006C2548 /* UIEdgeInsets+SYBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+SYBanner.swift"; sourceTree = "<group>"; };
+		D06A7D272D2827C8006C2548 /* SYFadePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYFadePresenter.swift; sourceTree = "<group>"; };
+		D06A7D2F2D28504A006C2548 /* UIColor+SYBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+SYBanner.swift"; sourceTree = "<group>"; };
+		D06A7D312D2851C4006C2548 /* SYBannerFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBannerFeedback.swift; sourceTree = "<group>"; };
+		D06A7D332D285CAA006C2548 /* SYBouncePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBouncePresenter.swift; sourceTree = "<group>"; };
+		D06A7D352D28656B006C2548 /* SYBannerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBannerPresenter.swift; sourceTree = "<group>"; };
+		D06A7D3A2D288352006C2548 /* SYFullWidthBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYFullWidthBanner.swift; sourceTree = "<group>"; };
+		D06A7D3C2D28FE33006C2548 /* SYBanner+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SYBanner+CornerRadius.swift"; sourceTree = "<group>"; };
+		D06A7D3E2D28FE47006C2548 /* SYBanner+IconSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SYBanner+IconSource.swift"; sourceTree = "<group>"; };
+		D06A7D402D28FEA8006C2548 /* SYBanner+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SYBanner+Configuration.swift"; sourceTree = "<group>"; };
+		D06A7D442D290A05006C2548 /* SYBannerBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBannerBackgroundView.swift; sourceTree = "<group>"; };
+		D06A7D482D290A7F006C2548 /* SYBanner+GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SYBanner+GradientLayer.swift"; sourceTree = "<group>"; };
+		D06A7D4A2D290A9D006C2548 /* SYBanner.GradientDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBanner.GradientDirection.swift; sourceTree = "<group>"; };
+		D06A7D4C2D291172006C2548 /* SYBanner+BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SYBanner+BackgroundColor.swift"; sourceTree = "<group>"; };
+		D06A7D4F2D291563006C2548 /* SYBannerHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBannerHighlighter.swift; sourceTree = "<group>"; };
+		D06A7D512D291594006C2548 /* SYDefaultHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYDefaultHighlighter.swift; sourceTree = "<group>"; };
 		D0952395280346D8008A7E01 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EA07D8AF28D1EF2D00D47650 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,12 +172,17 @@
 		D055F31E27FEFE6600675E9D /* SYBanner */ = {
 			isa = PBXGroup;
 			children = (
-				D055F32927FEFEBB00675E9D /* SYBaseBanner.swift */,
+				D06A7D4E2D29155D006C2548 /* Highlighter */,
+				D06A7D312D2851C4006C2548 /* SYBannerFeedback.swift */,
+				D06A7D242D26F00A006C2548 /* Extension */,
+				D06A7D1D2D26E9BC006C2548 /* Presenter */,
+				D06A7D1B2D26E83F006C2548 /* SYBannerType.swift */,
+				D06A7D192D26E82A006C2548 /* SYBannerDirection.swift */,
 				D055F32727FEFEBB00675E9D /* SYBannerDelegate.swift */,
 				D055F32A27FEFEBB00675E9D /* SYBannerQueue.swift */,
-				D055F32827FEFEBB00675E9D /* SYBannerStyle.swift */,
 				D055F32627FEFE9600675E9D /* Banner */,
 				D055F31F27FEFE6600675E9D /* SYBanner.h */,
+				D055F32927FEFEBB00675E9D /* SYBaseBanner.swift */,
 			);
 			path = SYBanner;
 			sourceTree = "<group>";
@@ -147,9 +190,10 @@
 		D055F32627FEFE9600675E9D /* Banner */ = {
 			isa = PBXGroup;
 			children = (
+				D06A7D3A2D288352006C2548 /* SYFullWidthBanner.swift */,
+				D06A7D372D286F0D006C2548 /* SYBanner */,
 				D055F35627FF060C00675E9D /* SYCardBanner */,
 				D055F33127FEFF6800675E9D /* SYSimpleBanner.swift */,
-				D055F33027FEFF6800675E9D /* SYDefaultBanner.swift */,
 			);
 			path = Banner;
 			sourceTree = "<group>";
@@ -188,7 +232,7 @@
 		D055F34F27FF002E00675E9D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D055F33F27FEFFDA00675E9D /* ViewController.swift */,
+				D055F33F27FEFFDA00675E9D /* ExampleViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -222,6 +266,59 @@
 				D055F36327FF5F7100675E9D /* textfield.gif */,
 			);
 			path = Preview;
+			sourceTree = "<group>";
+		};
+		D06A7D1D2D26E9BC006C2548 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				D06A7D352D28656B006C2548 /* SYBannerPresenter.swift */,
+				D06A7D332D285CAA006C2548 /* SYBouncePresenter.swift */,
+				D06A7D272D2827C8006C2548 /* SYFadePresenter.swift */,
+				D06A7D222D26EC22006C2548 /* SYBannerState.swift */,
+				D06A7D202D26EBFD006C2548 /* SYDefaultPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		D06A7D242D26F00A006C2548 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D06A7D2F2D28504A006C2548 /* UIColor+SYBanner.swift */,
+				D06A7D252D26F012006C2548 /* UIEdgeInsets+SYBanner.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		D06A7D372D286F0D006C2548 /* SYBanner */ = {
+			isa = PBXGroup;
+			children = (
+				D06A7D462D290A41006C2548 /* Background */,
+				D06A7D402D28FEA8006C2548 /* SYBanner+Configuration.swift */,
+				D06A7D3E2D28FE47006C2548 /* SYBanner+IconSource.swift */,
+				D055F33027FEFF6800675E9D /* SYBanner.swift */,
+			);
+			path = SYBanner;
+			sourceTree = "<group>";
+		};
+		D06A7D462D290A41006C2548 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				D06A7D4C2D291172006C2548 /* SYBanner+BackgroundColor.swift */,
+				D06A7D3C2D28FE33006C2548 /* SYBanner+CornerRadius.swift */,
+				D06A7D4A2D290A9D006C2548 /* SYBanner.GradientDirection.swift */,
+				D06A7D482D290A7F006C2548 /* SYBanner+GradientLayer.swift */,
+				D06A7D442D290A05006C2548 /* SYBannerBackgroundView.swift */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
+		D06A7D4E2D29155D006C2548 /* Highlighter */ = {
+			isa = PBXGroup;
+			children = (
+				D06A7D512D291594006C2548 /* SYDefaultHighlighter.swift */,
+				D06A7D4F2D291563006C2548 /* SYBannerHighlighter.swift */,
+			);
+			path = Highlighter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,13 +443,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D055F32C27FEFEBC00675E9D /* SYBannerStyle.swift in Sources */,
+				D06A7D452D290A0D006C2548 /* SYBannerBackgroundView.swift in Sources */,
+				D06A7D522D291598006C2548 /* SYDefaultHighlighter.swift in Sources */,
+				D06A7D362D286570006C2548 /* SYBannerPresenter.swift in Sources */,
+				D06A7D1C2D26E843006C2548 /* SYBannerType.swift in Sources */,
 				D055F32B27FEFEBB00675E9D /* SYBannerDelegate.swift in Sources */,
-				D055F33327FEFF6800675E9D /* SYDefaultBanner.swift in Sources */,
+				D06A7D1A2D26E82F006C2548 /* SYBannerDirection.swift in Sources */,
+				D06A7D3D2D28FE3A006C2548 /* SYBanner+CornerRadius.swift in Sources */,
+				D06A7D302D28504C006C2548 /* UIColor+SYBanner.swift in Sources */,
+				D06A7D412D28FEAF006C2548 /* SYBanner+Configuration.swift in Sources */,
+				D06A7D4B2D290AA7006C2548 /* SYBanner.GradientDirection.swift in Sources */,
+				D055F33327FEFF6800675E9D /* SYBanner.swift in Sources */,
+				D06A7D3F2D28FE50006C2548 /* SYBanner+IconSource.swift in Sources */,
+				D06A7D232D26EC25006C2548 /* SYBannerState.swift in Sources */,
 				D055F35827FF062200675E9D /* SYCardBannerButton.swift in Sources */,
+				D06A7D502D291569006C2548 /* SYBannerHighlighter.swift in Sources */,
+				D06A7D322D2851CD006C2548 /* SYBannerFeedback.swift in Sources */,
+				D06A7D492D290A82006C2548 /* SYBanner+GradientLayer.swift in Sources */,
 				D055F35A27FF067A00675E9D /* SYCardBanner.swift in Sources */,
+				D06A7D342D285CAE006C2548 /* SYBouncePresenter.swift in Sources */,
+				D06A7D4D2D29117C006C2548 /* SYBanner+BackgroundColor.swift in Sources */,
 				D055F32E27FEFEBC00675E9D /* SYBannerQueue.swift in Sources */,
+				D06A7D262D26F016006C2548 /* UIEdgeInsets+SYBanner.swift in Sources */,
 				D055F33427FEFF6800675E9D /* SYSimpleBanner.swift in Sources */,
+				D06A7D282D2827CF006C2548 /* SYFadePresenter.swift in Sources */,
+				D06A7D212D26EC06006C2548 /* SYDefaultPresenter.swift in Sources */,
+				D06A7D3B2D28835A006C2548 /* SYFullWidthBanner.swift in Sources */,
 				D055F32D27FEFEBC00675E9D /* SYBaseBanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,7 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D055F34027FEFFDA00675E9D /* ViewController.swift in Sources */,
+				D055F34027FEFFDA00675E9D /* ExampleViewController.swift in Sources */,
 				D055F33C27FEFFDA00675E9D /* AppDelegate.swift in Sources */,
 				D055F33E27FEFFDA00675E9D /* SceneDelegate.swift in Sources */,
 			);

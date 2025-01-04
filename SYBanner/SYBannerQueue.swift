@@ -28,7 +28,7 @@ open class SYBannerQueue: NSObject {
 
     /// Banners that are currently being presented or being presented.
     private var presentedBanners: [SYBaseBanner] {
-        return banners.filter { $0.state == .presented || $0.state == .presenting }
+        return banners.filter { $0.presentationState == .presented || $0.presentationState == .presenting }
     }
 
     /// The maximum number of banners that can be visible on the screen simultaneously.
@@ -59,7 +59,7 @@ open class SYBannerQueue: NSObject {
         // Ensure the banner is not already in the queue.
         removeBanner(banner, showNextInQueue: false)
 
-        let currentBannersCount = banners.filter { $0.state == .presented || $0.state == .presenting }.count
+        let currentBannersCount = banners.filter { $0.presentationState == .presented || $0.presentationState == .presenting }.count
         let maxBannersCapped = currentBannersCount >= maxBannersOnScreenSimultaneously
 
         if queuePosition == .back {
@@ -129,13 +129,13 @@ open class SYBannerQueue: NSObject {
     ///
     /// - Returns: The first displayed banner, if any.
     public func firstDisplayedBanner() -> SYBaseBanner? {
-        banners.filter { $0.state == .presented || $0.state == .presenting }.first
+        banners.filter { $0.presentationState == .presented || $0.presentationState == .presenting }.first
     }
 
     /// Returns the first banner in the queue that is not currently displayed.
     ///
     /// - Returns: The first non-displayed banner, if any.
     private func firstNotDisplayedBanner() -> SYBaseBanner? {
-        return banners.filter { $0.state == .idle }.first
+        return banners.filter { $0.presentationState == .idle }.first
     }
 }

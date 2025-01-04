@@ -16,7 +16,7 @@ import UIKit
 /// - The presentation animation uses a `UIViewPropertyAnimator` with a `.linear` curve.
 /// - The dismissal animation uses a `UIViewPropertyAnimator` with a `.linear` curve.
 open class SYDefaultPresenter: SYBannerPresenter {
-    public var animationDuration: CGFloat
+    public var animationDuration: TimeInterval
     public var state: SYBannerState = .idle
 
     /// Animator responsible for running animations.
@@ -25,7 +25,7 @@ open class SYDefaultPresenter: SYBannerPresenter {
     /// Initializes a new instance of `SYDefaultPresenter`.
     ///
     /// - Parameter animationDuration: The duration of the animation, in seconds.
-    public required init(animationDuration: CGFloat = 0.3) {
+    public required init(animationDuration: TimeInterval = 0.3) {
         self.animationDuration = animationDuration
     }
 
