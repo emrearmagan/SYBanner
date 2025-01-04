@@ -50,7 +50,12 @@ banner.present()
 ```
 
 ##### SYCardBanner
-<img src="./SYBannerDemo/SupportFiles/Preview/gradient.gif" width= 23%>
+<img src="./SYBannerDemo/SupportFiles/Preview/cardView.png" width= 23%>
+
+The `SYCardBanner` provides a customizable and visually appealing card-style banner that can include titles, subtitles, buttons, and custom views. It is designed to offer a clean and engaging way to present information or actions to users. However, it's important to note that this is still a banner and can be dismissed by the user at any time. Your app should not depend on the `SYCardBanner` for critical actions or information. If you need to present a modal page where the user cannot leave, please check out [ModalKit](https://github.com/emrearmagan/ModalKit) which may be more suited.
+
+> **⚠️ Experimental**  
+> The `SYCardBanner` is currently experimental and should not be used in production. Feel free to contribute and help improve this feature!
 
 ```swift
 let banner = SYCardBanner(title: "How to use", subtitle: "Simply download the notification banner and get started with your own notifications.")
