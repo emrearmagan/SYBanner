@@ -14,6 +14,8 @@ extension SYBanner {
     /// The configuration provides a centralized way to customize the appearance and behavior of banners,
     /// including text styles, background colors, icons, alignments, and corner radius.
     public struct Configuration {
+        public static let `default` = Configuration()
+
         /// The color of the title text.
         public var titleColor: UIColor
 
@@ -47,20 +49,31 @@ extension SYBanner {
         /// The spacing between the title and subtitle text.
         public var titleSubtitleSpacing: CGFloat
 
-        /// Default configuration with standard appearance settings.
-        public static let `default` = Configuration(
-            titleColor: .label,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
-            subtitleColor: .secondaryLabel,
-            subtitleFont: .systemFont(ofSize: 14, weight: .regular),
-            backgroundColor: .default(.syDefaultColor),
-            icon: nil,
-            cornerRadius: .rounded,
-            textAlignment: .center,
-            contentAlignment: .center,
-            imagePadding: 4,
-            titleSubtitleSpacing: 0
-        )
+        public init(
+            titleColor: UIColor = .label,
+            titleFont: UIFont = .systemFont(ofSize: 17, weight: .medium),
+            subtitleColor: UIColor = .secondaryLabel,
+            subtitleFont: UIFont = .systemFont(ofSize: 14, weight: .regular),
+            backgroundColor: SYBannerBackgroundView.BackgroundColor = .default(.syDefaultColor),
+            icon: IconSource? = nil,
+            cornerRadius: SYBannerBackgroundView.CornerRadius = .rounded,
+            textAlignment: UIStackView.Alignment = .center,
+            contentAlignment: UIStackView.Alignment = .center,
+            imagePadding: CGFloat = 8,
+            titleSubtitleSpacing: CGFloat = 0
+        ) {
+            self.titleColor = titleColor
+            self.titleFont = titleFont
+            self.subtitleColor = subtitleColor
+            self.subtitleFont = subtitleFont
+            self.backgroundColor = backgroundColor
+            self.icon = icon
+            self.cornerRadius = cornerRadius
+            self.textAlignment = textAlignment
+            self.contentAlignment = contentAlignment
+            self.imagePadding = imagePadding
+            self.titleSubtitleSpacing = titleSubtitleSpacing
+        }
     }
 }
 
@@ -69,16 +82,13 @@ extension SYBanner.Configuration {
     public static func info() -> SYBanner.Configuration {
         SYBanner.Configuration(
             titleColor: .white,
-            titleFont: .systemFont(ofSize: 17, weight: .semibold),
             subtitleColor: .white,
             subtitleFont: .systemFont(ofSize: 14),
             backgroundColor: .default(UIColor(red: 85 / 255, green: 159 / 255, blue: 255 / 255, alpha: 1)),
             icon: SYBanner.IconSource(image: UIImage(systemName: "info.circle.fill"), tintColor: .white),
             cornerRadius: .radius(10),
             textAlignment: .leading,
-            contentAlignment: .top,
-            imagePadding: 4,
-            titleSubtitleSpacing: 0
+            contentAlignment: .center
         )
     }
 
@@ -86,16 +96,13 @@ extension SYBanner.Configuration {
     public static func success() -> SYBanner.Configuration {
         SYBanner.Configuration(
             titleColor: .white,
-            titleFont: .systemFont(ofSize: 17, weight: .semibold),
             subtitleColor: .white,
             subtitleFont: .systemFont(ofSize: 14),
             backgroundColor: .default(UIColor(red: 42 / 255, green: 187 / 255, blue: 143 / 255, alpha: 1)),
             icon: SYBanner.IconSource(image: UIImage(systemName: "checkmark.circle.fill"), tintColor: .white),
             cornerRadius: .radius(10),
             textAlignment: .leading,
-            contentAlignment: .top,
-            imagePadding: 4,
-            titleSubtitleSpacing: 0
+            contentAlignment: .center
         )
     }
 
@@ -103,16 +110,13 @@ extension SYBanner.Configuration {
     public static func warning() -> SYBanner.Configuration {
         SYBanner.Configuration(
             titleColor: .white,
-            titleFont: .systemFont(ofSize: 17, weight: .semibold),
             subtitleColor: .white,
             subtitleFont: .systemFont(ofSize: 14),
             backgroundColor: .default(UIColor(red: 216 / 255, green: 92 / 255, blue: 90 / 255, alpha: 1)),
             icon: SYBanner.IconSource(image: UIImage(systemName: "exclamationmark.circle.fill"), tintColor: .white),
             cornerRadius: .radius(10),
             textAlignment: .leading,
-            contentAlignment: .top,
-            imagePadding: 4,
-            titleSubtitleSpacing: 0
+            contentAlignment: .center
         )
     }
 }

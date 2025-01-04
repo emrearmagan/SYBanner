@@ -103,13 +103,27 @@ open class SYSimpleBanner: SYBaseBanner {
 
     // MARK: Methods
 
+    override open func preferredContentSize() -> CGSize {
+        return systemLayoutSizeFitting(prefferedContainerSize)
+    }
+
+    // Auto-Layout does cannot calculate the size of an multline label therefore we define the maxWidth here
+    override open func systemLayoutSizeFitting(_ targetSize: CGSize) -> CGSize {
+        titleLabel.preferredMaxLayoutWidth = targetSize.width
+        titleLabel.invalidateIntrinsicContentSize()
+        return super.systemLayoutSizeFitting(targetSize)
+    }
+
     /// Sets up the banner's user interface.
     open func setupUI() {
         if !titleLabel.isDescendant(of: self) {
             addSubview(titleLabel)
         }
 
+        titleLabel.font = .systemFont(ofSize: 17, weight: .medium)
         titleLabel.numberOfLines = 0
+        titleLabel.isUserInteractionEnabled = false
+
         configureConstraints()
     }
 

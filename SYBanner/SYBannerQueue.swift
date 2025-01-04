@@ -76,8 +76,7 @@ open class SYBannerQueue: NSObject {
             }
             banners.insert(banner, at: 0)
             banner.present(placeOnQueue: false)
-            // TODO: Might need to filter out the banner that is presenting now .filter {$0 != banner}
-            layoutPresentedBannersIfNeeded()
+            layoutPresentedBannersIfNeeded(banner)
         }
     }
 
@@ -98,10 +97,10 @@ open class SYBannerQueue: NSObject {
     }
 
     /// Repositions all currently presented banners.
-    open func layoutPresentedBannersIfNeeded() {
+    open func layoutPresentedBannersIfNeeded(_ exclude: SYBaseBanner? = nil) {
         // Instead of reusing the `present(placeOnQueue: false)` function, we directly adjust positions to ensure consistent animations
         // across all banners without triggering additional presentation logic or animations.
-        for banner in presentedBanners {
+        for banner in presentedBanners.filter({ $0 != exclude }) {
             if let superview = banner.superview {
                 banner.presenter.adjustPosition(for: banner, in: superview)
             }

@@ -22,7 +22,7 @@ open class SYBaseBanner: UIControl {
 
     /// Indicates whether the banner should automatically dismiss itself after a specified interval.
     /// - Default: `true`
-    public var autoDismiss: Bool = true
+    public var autoDismiss: Bool = false
 
     /// The time interval after which the banner will automatically dismiss itself, if `autoDismiss` is enabled.
     /// - Default: `2 seconds`
@@ -109,13 +109,12 @@ open class SYBaseBanner: UIControl {
                 presentation: SYBannerPresenter = SYDefaultPresenter(),
                 queue: SYBannerQueue = .default,
                 on parent: UIViewController? = nil) {
-        self.direction = direction
+        self.direction = .top
         presenter = presentation
         parentViewController = parent
         bannerQueue = queue
 
         super.init(frame: .zero)
-
         insetsLayoutMarginsFromSafeArea = false
     }
 
@@ -174,6 +173,7 @@ open class SYBaseBanner: UIControl {
             self.delegate?.bannerDidAppear(self)
             self.addGestureRecognizers()
             self.hasBeenSeen = true
+            self.scheduleAutoDismiss()
             completion?()
         }
     }
@@ -201,7 +201,9 @@ open class SYBaseBanner: UIControl {
 
     /// Returns the preferred content size for the banner. Default is the auto layout size.
     open func preferredContentSize() -> CGSize {
-        let autoLayoutSize = systemLayoutSizeFitting(prefferedContainerSize)
+        let autoLayoutSize = systemLayoutSizeFitting(prefferedContainerSize,
+                                                     withHorizontalFittingPriority: .required,
+                                                     verticalFittingPriority: .fittingSizeLevel)
         return autoLayoutSize
     }
 
@@ -265,21 +267,8 @@ extension SYBaseBanner {
 extension SYBaseBanner {
     /// Adds gesture recognizers for interaction with the banner.
     private func addGestureRecognizers() {
-        removeTarget(self, action: nil, for: .allEvents)
-        addTarget(self, action: #selector(tapped(_:)), for: .touchUpInside)
-
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeGestureRecognizer(sender:)))
         addGestureRecognizer(swipeUpGesture)
-    }
-
-    @objc private func tapped(_ sender: SYBaseBanner) {
-        guard presentationState == .presented else { return }
-
-        if let didTap {
-            didTap()
-            return
-        }
-        dismiss()
     }
 
     /// Handles swipe gestures on the banner.
@@ -299,6 +288,10 @@ extension SYBaseBanner {
 extension SYBaseBanner {
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
+        guard presentationState == .presented else {
+            highlighter?.stopHighlight(self)
+            return
+        }
 
         if let touch = touches.first {
             let location = touch.location(in: self)
@@ -308,6 +301,8 @@ extension SYBaseBanner {
 
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        guard presentationState == .presented else { return }
+
         if let touch = touches.first {
             let location = touch.location(in: self)
             highlighter?.highlight(self, at: location)
@@ -316,7 +311,18 @@ extension SYBaseBanner {
 
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        highlighter?.stopHighlight(self)
+         highlighter?.stopHighlight(self)
+
+        guard presentationState == .presented,
+              let touch = touches.first,
+              bounds.contains(touch.location(in: self)) else { return }
+
+        if let onDismiss = didTap {
+            onDismiss()
+            return
+        }
+
+        dismiss()
     }
 
     override open func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {

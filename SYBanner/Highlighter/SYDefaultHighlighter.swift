@@ -30,11 +30,6 @@ public class SYDefaultHighlighter: SYBannerHighlighter {
     /// - Default: `0.2`
     public var animationDuration: TimeInterval
 
-    /// The alpha value applied to the banner when it is highlighted.
-    ///
-    /// - Default: `0.8`
-    public var highlightedAlpha: CGFloat
-
     /// A flag to track whether the banner is currently highlighted.
     private var highlighted: Bool = false
 
@@ -48,10 +43,9 @@ public class SYDefaultHighlighter: SYBannerHighlighter {
     ///   - `animationDuration`: `0.2`
     ///   - `highlightedAlpha`: `0.8`
     public convenience init() {
-        self.init(tracklocation: false,
+        self.init(tracklocation: true,
                   animationScale: 0.95,
-                  animationDuration: 0.2,
-                  highlightedAlpha: 0.8)
+                  animationDuration: 0.2)
     }
 
     /// Initializes a new `SYDefaultHighlighter` with custom settings.
@@ -61,11 +55,10 @@ public class SYDefaultHighlighter: SYBannerHighlighter {
     ///   - animationScale: The scale factor applied to the banner when highlighted.
     ///   - animationDuration: The duration of the scaling animation.
     ///   - highlightedAlpha: The alpha value applied to the banner when highlighted.
-    public init(tracklocation: Bool, animationScale: CGFloat, animationDuration: TimeInterval, highlightedAlpha: CGFloat) {
+    public init(tracklocation: Bool, animationScale: CGFloat, animationDuration: TimeInterval) {
         self.tracklocation = tracklocation
         self.animationScale = animationScale
         self.animationDuration = animationDuration
-        self.highlightedAlpha = highlightedAlpha
     }
 
     // MARK: Methods
@@ -77,7 +70,6 @@ public class SYDefaultHighlighter: SYBannerHighlighter {
 
         UIView.animate(withDuration: animationDuration, animations: {
             button.transform = CGAffineTransform(scaleX: self.animationScale, y: self.animationScale)
-            button.alpha = self.highlightedAlpha
         })
     }
 
@@ -88,7 +80,6 @@ public class SYDefaultHighlighter: SYBannerHighlighter {
 
         UIView.animate(withDuration: animationDuration, animations: {
             button.transform = CGAffineTransform.identity
-            button.alpha = 1
         })
     }
 

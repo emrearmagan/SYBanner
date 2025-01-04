@@ -14,7 +14,6 @@ public class SYBanner: SYBaseBanner {
 
     private var contentConstraints: [NSLayoutConstraint] = []
 
-    private let outerStackView = UIStackView()
     private let contentStackView = UIStackView()
     private let labelStackView = UIStackView()
     private let titleLabel = UILabel()
@@ -63,14 +62,28 @@ public class SYBanner: SYBaseBanner {
         }
     }
 
-//    override public func preferredContentSize() -> CGSize {
-//        // Use system fitting size with intrinsic content
-//        return systemLayoutSizeFitting(
-//            prefferedContainerSize,
-//            withHorizontalFittingPriority: .fittingSizeLevel,
-//            verticalFittingPriority: .fittingSizeLevel
-//        )
-//    }
+    override public func preferredContentSize() -> CGSize {
+        return systemLayoutSizeFitting(prefferedContainerSize,
+                                       withHorizontalFittingPriority: .fittingSizeLevel,
+                                       verticalFittingPriority: .fittingSizeLevel)
+    }
+
+    // Auto-Layout does cannot calculate the size of an multline label therefore we define the maxWidth here
+    override public func systemLayoutSizeFitting(_ targetSize: CGSize,
+                                                 withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
+                                                 verticalFittingPriority: UILayoutPriority) -> CGSize {
+        // Calculate available width by subtracting padding and margins
+        let availableWidth = targetSize.width
+            - (configuration.icon?.size.width ?? 0)
+            - configuration.imagePadding
+
+        for item in [titleLabel, subtitleLabel] {
+            item.preferredMaxLayoutWidth = availableWidth
+            item.invalidateIntrinsicContentSize()
+        }
+
+        return super.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: horizontalFittingPriority, verticalFittingPriority: verticalFittingPriority)
+    }
 
     // MARK: Init
 
@@ -96,19 +109,17 @@ public class SYBanner: SYBaseBanner {
 
     open func setupUI() {
         // Default values
-        layoutMargins = .all(10)
+        layoutMargins = .vertical(10) + .horizontal(15)
         subtitleLabel.numberOfLines = 0
         titleLabel.numberOfLines = 1
-        outerStackView.axis = .vertical
-        contentStackView.distribution = .fill
         labelStackView.axis = .vertical
-        labelStackView.distribution = .fill
         imageView.contentMode = .scaleAspectFit
+        contentStackView.distribution = .fill
+        labelStackView.distribution = .fill
 
         addSubview(backgroundView)
-        backgroundView.addSubview(outerStackView)
+        backgroundView.addSubview(contentStackView)
 
-        outerStackView.addArrangedSubview(contentStackView)
         contentStackView.addArrangedSubview(imageView)
         contentStackView.addArrangedSubview(labelStackView)
 
@@ -117,14 +128,10 @@ public class SYBanner: SYBaseBanner {
 
         imageView.setContentHuggingPriority(.required, for: .horizontal)
         imageView.setContentHuggingPriority(.required, for: .vertical)
-        titleLabel.setContentHuggingPriority(.required, for: .vertical)
-        subtitleLabel.setContentHuggingPriority(.required, for: .vertical)
 
         updateViews()
 
         backgroundView.isUserInteractionEnabled = false
-        backgroundView.isUserInteractionEnabled = false
-        outerStackView.isUserInteractionEnabled = false
         contentStackView.isUserInteractionEnabled = false
     }
 
@@ -148,8 +155,6 @@ public class SYBanner: SYBaseBanner {
 
         contentStackView.spacing = configuration.imagePadding
         contentStackView.alignment = configuration.contentAlignment
-
-        outerStackView.alignment = configuration.textAlignment
 
         backgroundView.bgColor = configuration.backgroundColor
         backgroundView.cornerRadius = configuration.cornerRadius
@@ -180,9 +185,9 @@ public class SYBanner: SYBaseBanner {
 extension SYBanner {
     private func configureConstraints() {
         NSLayoutConstraint.deactivate(contentConstraints)
-        guard backgroundView.isDescendant(of: self), outerStackView.isDescendant(of: backgroundView) else { return }
+        guard backgroundView.isDescendant(of: self), contentStackView.isDescendant(of: backgroundView) else { return }
 
-        outerStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
 
         contentConstraints = [
@@ -191,10 +196,10 @@ extension SYBanner {
             backgroundView.topAnchor.constraint(equalTo: topAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            outerStackView.leadingAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.leadingAnchor),
-            outerStackView.trailingAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.trailingAnchor),
-            outerStackView.topAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.topAnchor),
-            outerStackView.bottomAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.bottomAnchor)
+            contentStackView.leadingAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.trailingAnchor),
+            contentStackView.topAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.topAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.bottomAnchor)
         ]
 
         if let iconSize = configuration.icon?.size {

@@ -69,7 +69,7 @@ open class SYDefaultPresenter: SYBannerPresenter {
         animator?.finishAnimation(at: .current)
     }
 
-    // Prepares the banner for presentation by setting its initial frame.
+    /// Prepares the banner for presentation by setting its initial frame.
     ///
     /// - Parameters:
     ///   - banner: The banner to prepare.
