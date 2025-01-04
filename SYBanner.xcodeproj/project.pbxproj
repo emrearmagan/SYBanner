@@ -49,6 +49,7 @@
 		D06A7D552D294447006C2548 /* UndoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D542D294444006C2548 /* UndoBanner.swift */; };
 		D06A7D572D294468006C2548 /* ReminderBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D562D294462006C2548 /* ReminderBanner.swift */; };
 		D06A7D592D295087006C2548 /* ApprovalBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D582D295083006C2548 /* ApprovalBanner.swift */; };
+		D06A7D5F2D298064006C2548 /* SYScalePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D5E2D298060006C2548 /* SYScalePresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		D06A7D542D294444006C2548 /* UndoBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoBanner.swift; sourceTree = "<group>"; };
 		D06A7D562D294462006C2548 /* ReminderBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderBanner.swift; sourceTree = "<group>"; };
 		D06A7D582D295083006C2548 /* ApprovalBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovalBanner.swift; sourceTree = "<group>"; };
+		D06A7D5E2D298060006C2548 /* SYScalePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYScalePresenter.swift; sourceTree = "<group>"; };
 		D0952395280346D8008A7E01 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EA07D8AF28D1EF2D00D47650 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,6 +175,7 @@
 				D06A7D242D26F00A006C2548 /* Extension */,
 				D06A7D1D2D26E9BC006C2548 /* Presenter */,
 				D06A7D1B2D26E83F006C2548 /* SYBannerType.swift */,
+				D055F32927FEFEBB00675E9D /* SYBaseBanner.swift */,
 				D06A7D192D26E82A006C2548 /* SYBannerDirection.swift */,
 				D055F32727FEFEBB00675E9D /* SYBannerDelegate.swift */,
 				D055F32A27FEFEBB00675E9D /* SYBannerQueue.swift */,
@@ -263,6 +266,7 @@
 		D06A7D1D2D26E9BC006C2548 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				D06A7D5E2D298060006C2548 /* SYScalePresenter.swift */,
 				D06A7D352D28656B006C2548 /* SYBannerPresenter.swift */,
 				D06A7D332D285CAA006C2548 /* SYBouncePresenter.swift */,
 				D06A7D272D2827C8006C2548 /* SYFadePresenter.swift */,
@@ -456,6 +460,7 @@
 				D055F35827FF062200675E9D /* SYCardBannerButton.swift in Sources */,
 				D06A7D502D291569006C2548 /* SYBannerHighlighter.swift in Sources */,
 				D06A7D322D2851CD006C2548 /* SYBannerFeedback.swift in Sources */,
+				D06A7D5F2D298064006C2548 /* SYScalePresenter.swift in Sources */,
 				D06A7D492D290A82006C2548 /* SYBanner+GradientLayer.swift in Sources */,
 				D055F35A27FF067A00675E9D /* SYCardBanner.swift in Sources */,
 				D06A7D342D285CAE006C2548 /* SYBouncePresenter.swift in Sources */,
