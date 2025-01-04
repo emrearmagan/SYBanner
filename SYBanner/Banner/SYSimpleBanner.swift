@@ -41,7 +41,7 @@ open class SYSimpleBanner: SYBaseBanner {
         get { titleLabel.text }
         set {
             titleLabel.text = newValue
-            setNeedsBannerDisplay()
+            setNeedsBannersDisplay()
         }
     }
 
@@ -56,7 +56,7 @@ open class SYSimpleBanner: SYBaseBanner {
         get { titleLabel.font }
         set {
             titleLabel.font = newValue
-            setNeedsBannerDisplay()
+            setNeedsBannersDisplay()
         }
     }
 
@@ -126,6 +126,6 @@ open class SYSimpleBanner: SYBaseBanner {
         ]
 
         NSLayoutConstraint.activate(contentConstraints)
-        setNeedsBannerDisplay()
+        setNeedsBannersDisplay()
     }
 }

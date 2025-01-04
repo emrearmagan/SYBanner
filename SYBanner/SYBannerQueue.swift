@@ -99,16 +99,12 @@ open class SYBannerQueue: NSObject {
 
     /// Repositions all currently presented banners.
     open func layoutPresentedBannersIfNeeded() {
-        // Recalculate positions for all presented banners.
-        //   Universal animations could be applied here for a more cohesive visual experience but for now we simply use the `present`-Function
-        //   More universal approach:
-        //   UIView.animate(withDuration: 0.3) {
-        //     for banner in presentedBanners {
-        //         banner.frame = banner.presenter.finalFrame(for: banner, in: banner.superview!)
-        //     }
-        //   }
+        // Instead of reusing the `present(placeOnQueue: false)` function, we directly adjust positions to ensure consistent animations
+        // across all banners without triggering additional presentation logic or animations.
         for banner in presentedBanners {
-            banner.present(placeOnQueue: false)
+            if let superview = banner.superview {
+                banner.presenter.adjustPosition(for: banner, in: superview)
+            }
         }
     }
 

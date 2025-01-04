@@ -216,11 +216,13 @@ open class SYBaseBanner: UIControl {
     ///
     /// Example:
     /// ```swift
+    /// banner.present()
     /// banner.text = "Hello Banner!"
-    /// banner.setNeedsBannerDisplay()
+    /// banner.setNeedsBannersDisplay()
     /// ```
-    open func setNeedsBannerDisplay() {
+    open func setNeedsBannersDisplay() {
         guard presentationState == .presented || presentationState == .presenting else { return }
+        invalidateContentSize()
         bannerQueue.layoutPresentedBannersIfNeeded()
     }
 

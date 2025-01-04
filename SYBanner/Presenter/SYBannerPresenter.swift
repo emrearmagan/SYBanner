@@ -42,6 +42,18 @@ public protocol SYBannerPresenter {
 }
 
 public extension SYBannerPresenter {
+    func adjustPosition(for banner: SYBaseBanner, in superview: UIView) {
+        // Adjusts the position of a banner within its superview.
+        // Instead of triggering the full presentation logic, we directly update the banner's frame
+        // to ensure consistent animations and avoid re-triggering any presentation side effects.
+        guard banner.presentationState == .presented || banner.presentationState == .presenting else { return }
+
+        cancel()
+        UIView.animate(withDuration: 0.3) {
+            banner.frame = finalFrame(for: banner, in: superview)
+        }
+    }
+
     /// Provides a default implementation for calculating the final frame of a banner.
     ///
     /// - Parameters:

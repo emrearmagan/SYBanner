@@ -49,7 +49,7 @@ public class SYBanner: SYBaseBanner {
         get { titleLabel.text }
         set {
             titleLabel.text = newValue
-            setNeedsBannerDisplay()
+            setNeedsBannersDisplay()
         }
     }
 
@@ -59,9 +59,18 @@ public class SYBanner: SYBaseBanner {
         set {
             subtitleLabel.text = newValue
             subtitleLabel.isHidden = newValue == nil
-            setNeedsBannerDisplay()
+            setNeedsBannersDisplay()
         }
     }
+
+//    override public func preferredContentSize() -> CGSize {
+//        // Use system fitting size with intrinsic content
+//        return systemLayoutSizeFitting(
+//            prefferedContainerSize,
+//            withHorizontalFittingPriority: .fittingSizeLevel,
+//            verticalFittingPriority: .fittingSizeLevel
+//        )
+//    }
 
     // MARK: Init
 
@@ -143,9 +152,10 @@ public class SYBanner: SYBaseBanner {
         outerStackView.alignment = configuration.textAlignment
 
         backgroundView.bgColor = configuration.backgroundColor
+        backgroundView.cornerRadius = configuration.cornerRadius
 
         configureConstraints()
-        setNeedsBannerDisplay()
+        setNeedsBannersDisplay()
     }
 
     private func updateImagePlacement() {
@@ -170,7 +180,7 @@ public class SYBanner: SYBaseBanner {
 extension SYBanner {
     private func configureConstraints() {
         NSLayoutConstraint.deactivate(contentConstraints)
-        guard backgroundView.isDescendant(of: self) else { return }
+        guard backgroundView.isDescendant(of: self), outerStackView.isDescendant(of: backgroundView) else { return }
 
         outerStackView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.translatesAutoresizingMaskIntoConstraints = false

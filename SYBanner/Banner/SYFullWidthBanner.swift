@@ -17,12 +17,6 @@
 /// banner.present()
 /// ```
 public class SYFullWidthBanner: SYBanner {
-    override open func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = 15
-        layer.masksToBounds = true
-    }
-
     override public func preferredContentSize() -> CGSize {
         return systemLayoutSizeFitting(prefferedContainerSize,
                                        withHorizontalFittingPriority: .required,

@@ -109,7 +109,7 @@ open class SYDefaultPresenter: SYBannerPresenter {
 
             switch banner.direction {
                 case .top:
-                    banner.frame.origin.y = initialRect.origin.y - offset
+                    banner.frame.origin.y = initialRect.origin.y
 
                 case .bottom:
                     banner.frame.origin.y = initialRect.origin.y + offset
