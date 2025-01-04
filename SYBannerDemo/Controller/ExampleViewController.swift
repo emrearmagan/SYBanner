@@ -22,6 +22,8 @@ enum BannerExample: Int, CaseIterable {
     case custom2
     case custom3
     case custom4
+    case card1
+    case card2
 
     var description: String {
         switch self {
@@ -38,6 +40,8 @@ enum BannerExample: Int, CaseIterable {
             case .custom2: return "Custom 2"
             case .custom3: return "Custom 3"
             case .custom4: return "Custom 4"
+            case .card1: return "Card 1"
+            case .card2: return "Card 2"
         }
     }
 }
@@ -232,6 +236,62 @@ class ExampleViewController: UIViewController {
             case .custom4:
                 let banner = ApprovalBanner()
                 banner.present(queuePosition: .front)
+
+            case .card1:
+                let startButton = SYCardBannerButton(title: "Get started", font: .systemFont(ofSize: 14, weight: .semibold), style: .default)
+                let skipButton = SYCardBannerButton(title: "Skip", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss)
+                let banner = SYCardBanner(title: "How to use", subtitle: "Simple download Notification banner and get started with your own notifcations", buttons: [skipButton, startButton])
+                banner.backgroundColor = .syDefaultColor
+                banner.setBannerOptions([
+                    .titleColor(.white),
+                    .subTitleColor(.white),
+                    .showExitButton(true),
+                    .customView(customViewGradient()),
+                    .buttonAxis(.horizontal),
+                    .titleFont(UIFont.systemFont(ofSize: 35, weight: .medium)),
+                    .buttonsHeight(50)
+                ])
+                banner.present(queuePosition: .front)
+
+            case .card2:
+                let banner = SYCardBanner(title: "Welcome 👋", subtitle: "Sign in or create a new account with us.")
+                banner.backgroundColor = .syDefaultColor
+                banner.addButton(SYCardBannerButton(title: "Sign in", font: .systemFont(ofSize: 16, weight: .semibold), style: .default) {
+                    banner.dismiss()
+                })
+                banner.addButton(SYCardBannerButton(title: "Sign up", font: .systemFont(ofSize: 16, weight: .semibold), style: .dismiss) {
+                    banner.dismiss()
+                })
+
+                banner.setBannerOptions([
+                    .showExitButton(false),
+                    .titleFont(UIFont.systemFont(ofSize: 26, weight: .semibold)),
+                    .buttonsHeight(50),
+                    .buttonAxis(.vertical)
+                ])
+                banner.present(queuePosition: .front)
         }
+    }
+}
+
+extension ExampleViewController {
+    private func customViewGradient() -> UIView {
+        let contentView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 200)))
+        contentView.layer.cornerRadius = 20
+        contentView.layer.masksToBounds = true
+
+        let colorTop = UIColor(red: 127/255.0, green: 0/255.0, blue: 255/255.0, alpha: 1.0).cgColor
+        let colorMiddle = UIColor(red: 200/255.0, green: 80/255.0, blue: 192/255.0, alpha: 1.0).cgColor
+        let colorBottom = UIColor(red: 255/255.0, green: 0/255.0, blue: 255/255.0, alpha: 1.0).cgColor
+
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop, colorMiddle, colorBottom]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        gradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: 400, height: 200))
+
+        contentView.layer.insertSublayer(gradientLayer, at:0)
+
+        return contentView
     }
 }
