@@ -18,7 +18,7 @@
 /// ```
 public class SYFullWidthBanner: SYBanner {
     override public func preferredContentSize() -> CGSize {
-        return systemLayoutSizeFitting(prefferedContainerSize,
+        return systemLayoutSizeFitting(preferredContainerSize,
                                        withHorizontalFittingPriority: .required,
                                        verticalFittingPriority: .fittingSizeLevel)
     }

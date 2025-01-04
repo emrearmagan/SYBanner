@@ -72,7 +72,7 @@ open class SYBaseBanner: UIControl {
     public private(set) var hasBeenSeen = false
 
     /// The preferred container size for the banner.
-    open var prefferedContainerSize: CGSize {
+    open var preferredContainerSize: CGSize {
         return CGSize(
             width: screenSize.width - bannerInsets.left - bannerInsets.right,
             height: screenSize.height - bannerInsets.top - bannerInsets.top
@@ -214,7 +214,7 @@ open class SYBaseBanner: UIControl {
 
     /// Returns the preferred content size for the banner. Default is the auto layout size.
     open func preferredContentSize() -> CGSize {
-        let autoLayoutSize = systemLayoutSizeFitting(prefferedContainerSize,
+        let autoLayoutSize = systemLayoutSizeFitting(preferredContainerSize,
                                                      withHorizontalFittingPriority: .required,
                                                      verticalFittingPriority: .fittingSizeLevel)
         return autoLayoutSize

@@ -63,7 +63,7 @@ public class SYBanner: SYBaseBanner {
     }
 
     override public func preferredContentSize() -> CGSize {
-        return systemLayoutSizeFitting(prefferedContainerSize,
+        return systemLayoutSizeFitting(preferredContainerSize,
                                        withHorizontalFittingPriority: .fittingSizeLevel,
                                        verticalFittingPriority: .fittingSizeLevel)
     }

@@ -104,7 +104,7 @@ open class SYSimpleBanner: SYBaseBanner {
     // MARK: Methods
 
     override open func preferredContentSize() -> CGSize {
-        return systemLayoutSizeFitting(prefferedContainerSize)
+        return systemLayoutSizeFitting(preferredContainerSize)
     }
 
     // Auto-Layout does cannot calculate the size of an multline label therefore we define the maxWidth here
