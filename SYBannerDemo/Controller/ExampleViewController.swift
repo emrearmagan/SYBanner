@@ -17,6 +17,7 @@ enum BannerExample: Int, CaseIterable {
     case stacked
     case dynamic
     case gradient
+    case sticky
     case custom1
     case custom2
     case custom3
@@ -32,6 +33,7 @@ enum BannerExample: Int, CaseIterable {
             case .stacked: return "Stacked"
             case .dynamic: return "Dynamic"
             case .gradient: return "Gradient"
+            case .sticky: return "Sticky"
             case .custom1: return "Custom 1"
             case .custom2: return "Custom 2"
             case .custom3: return "Custom 3"
@@ -199,7 +201,15 @@ class ExampleViewController: UIViewController {
 
                 let configuration = SYBanner.Configuration(backgroundColor: .gradient([topColor, bottomColor], .leftToRight))
                 let banner = SYBanner("Gradient Support", subtitle: "Add some cool gradient colors", configuration: configuration)
-                banner.present()
+                banner.present(queuePosition: .front)
+
+            case .sticky:
+                let banner = SYFullWidthBanner("Welcome to SYBanner!",
+                                               subtitle: "{sticky}",
+                                               configuration:.init(backgroundColor: .default(.red), cornerRadius: .radius(0)),
+                                               direction: .bottom)
+                banner.bannerType = .stick
+                banner.present(queuePosition: .front)
 
             case .custom1:
                 let banner = SYBanner("Game Mode", subtitle: "On", direction: .bottom, presenter: SYBouncePresenter(animationDuration: 0.5))
