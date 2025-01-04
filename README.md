@@ -164,8 +164,18 @@ The SYBannerPresenter protocol and its various implementations define how banner
 <img src="./SYBannerDemo/SupportFiles/Preview/Bounce.gif" width= 40%>
 <img src="./SYBannerDemo/SupportFiles/Preview/Fade.gif" width= 40%>
 </div>
+
 ##### Using a Presenter
 Each banner has a presenter property that determines its animation behavior. For instance, you can use the `SYDefaultPresenter` for basic animations or swap it for a more dynamic presenter like `SYBouncePresenter`.
+
+
+| Presenter | Demo |
+| -------- | ---- |
+| *Default* | <img src="./SYBannerDemo/SupportFiles/Preview/Presenter_Default.gif" width="200" align="center"> |
+| *Fade* | <img src="./SYBannerDemo/SupportFiles/Preview/Presenter_Fade.gif" width="200" align="center"> |
+| *Scale* | <img src="./SYBannerDemo/SupportFiles/Preview/Presenter_Scale.gif" width="200" align="center"> |
+| *Bounce* | <img src="./SYBannerDemo/SupportFiles/Preview/Presenter_Bounce.gif" width="200" align="center"> |
+
 
 ```swift
 let banner = SYSimpleBanner("Dynamic Banner", presenter: SYBouncePresenter(animationDuration: 0.4))
