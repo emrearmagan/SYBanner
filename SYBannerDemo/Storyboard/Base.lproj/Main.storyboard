@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2qz-kC-v9A">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2qz-kC-v9A">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,199 +11,14 @@
         <!--SYBanner-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SYBannerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ExampleViewController" customModule="SYBannerDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W33-Hx-kSH">
-                                <rect key="frame" x="50" y="310" width="314" height="50"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="vDb-51-8ax"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Custom banner 1">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showCustomBanner1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XyK-WO-69l"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCE-c6-IZg">
-                                <rect key="frame" x="50" y="240" width="314" height="50"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="l3D-gL-F4W"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Default banner">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showDefaultBanner:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WvN-vK-mhf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJ9-Gd-ypR">
-                                <rect key="frame" x="50" y="170" width="314" height="50"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="5ut-Jp-Gsd"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ybm-l0-GOB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Simple banner">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showSimpleBanner:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LtO-xC-kmD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGh-jg-Bb1">
-                                <rect key="frame" x="50" y="380" width="314" height="50"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="De1-Su-qJF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Custom banner 2">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showCustomBanner2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BHY-Pv-K6b"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MZh-mg-lAs">
-                                <rect key="frame" x="50" y="450" width="314" height="50"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="9jP-oB-qGl"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Custom banner 3">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showCustomBanner3:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ghb-8U-6Ky"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZY-FT-d29">
-                                <rect key="frame" x="50" y="520" width="314" height="50"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Nhg-9Z-xke"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Custom banner 4">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showCustomBanner4:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Pl-Bc-o63"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-Vh-PBy">
-                                <rect key="frame" x="50" y="590" width="314" height="50"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="syq-ZH-pv2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Custom banner 5">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showCustomBanner5:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zju-PK-eY2"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgf-0u-hz7">
-                                <rect key="frame" x="50" y="660" width="314" height="50"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="djj-xh-SRn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Custom banner 6">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showCustomBanner6:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7sY-vl-6he"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="backgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="MZh-mg-lAs" firstAttribute="leading" secondItem="IGh-jg-Bb1" secondAttribute="leading" id="1m1-H3-QWa"/>
-                            <constraint firstItem="WZY-FT-d29" firstAttribute="leading" secondItem="MZh-mg-lAs" secondAttribute="leading" id="5Xr-sh-L7T"/>
-                            <constraint firstItem="IGh-jg-Bb1" firstAttribute="leading" secondItem="W33-Hx-kSH" secondAttribute="leading" id="78m-3I-IzI"/>
-                            <constraint firstItem="BnD-Vh-PBy" firstAttribute="leading" secondItem="WZY-FT-d29" secondAttribute="leading" id="A0d-pf-vSf"/>
-                            <constraint firstItem="BnD-Vh-PBy" firstAttribute="trailing" secondItem="WZY-FT-d29" secondAttribute="trailing" id="Do8-gv-VsA"/>
-                            <constraint firstItem="Jgf-0u-hz7" firstAttribute="trailing" secondItem="BnD-Vh-PBy" secondAttribute="trailing" id="GGK-r5-tJv"/>
-                            <constraint firstItem="W33-Hx-kSH" firstAttribute="trailing" secondItem="bCE-c6-IZg" secondAttribute="trailing" id="Hiu-FW-BCv"/>
-                            <constraint firstItem="BnD-Vh-PBy" firstAttribute="top" secondItem="WZY-FT-d29" secondAttribute="bottom" constant="20" id="Jfj-UP-tkE"/>
-                            <constraint firstItem="Jgf-0u-hz7" firstAttribute="leading" secondItem="BnD-Vh-PBy" secondAttribute="leading" id="T4G-Vi-gUu"/>
-                            <constraint firstItem="Jgf-0u-hz7" firstAttribute="top" secondItem="BnD-Vh-PBy" secondAttribute="bottom" constant="20" id="V0c-ew-PqL"/>
-                            <constraint firstItem="WZY-FT-d29" firstAttribute="top" secondItem="MZh-mg-lAs" secondAttribute="bottom" constant="20" id="Vff-i5-hn4"/>
-                            <constraint firstItem="W33-Hx-kSH" firstAttribute="leading" secondItem="bCE-c6-IZg" secondAttribute="leading" id="WeU-z7-3aN"/>
-                            <constraint firstItem="BJ9-Gd-ypR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="bga-Yu-GS3"/>
-                            <constraint firstItem="W33-Hx-kSH" firstAttribute="top" secondItem="bCE-c6-IZg" secondAttribute="bottom" constant="20" id="em3-rF-aVw"/>
-                            <constraint firstItem="MZh-mg-lAs" firstAttribute="trailing" secondItem="IGh-jg-Bb1" secondAttribute="trailing" id="eyC-aM-QHL"/>
-                            <constraint firstItem="MZh-mg-lAs" firstAttribute="top" secondItem="IGh-jg-Bb1" secondAttribute="bottom" constant="20" id="fyd-fZ-VpQ"/>
-                            <constraint firstItem="WZY-FT-d29" firstAttribute="trailing" secondItem="MZh-mg-lAs" secondAttribute="trailing" id="kLw-7O-xnO"/>
-                            <constraint firstItem="BJ9-Gd-ypR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="liN-DM-UTS"/>
-                            <constraint firstItem="bCE-c6-IZg" firstAttribute="top" secondItem="BJ9-Gd-ypR" secondAttribute="bottom" constant="20" id="oQN-iO-jQg"/>
-                            <constraint firstItem="bCE-c6-IZg" firstAttribute="leading" secondItem="BJ9-Gd-ypR" secondAttribute="leading" id="p4V-J9-nhn"/>
-                            <constraint firstItem="IGh-jg-Bb1" firstAttribute="trailing" secondItem="W33-Hx-kSH" secondAttribute="trailing" id="pbv-fA-Hk6"/>
-                            <constraint firstItem="IGh-jg-Bb1" firstAttribute="top" secondItem="W33-Hx-kSH" secondAttribute="bottom" constant="20" id="plT-7T-8hj"/>
-                            <constraint firstItem="bCE-c6-IZg" firstAttribute="trailing" secondItem="BJ9-Gd-ypR" secondAttribute="trailing" id="rFP-0e-wAF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BJ9-Gd-ypR" secondAttribute="trailing" constant="50" id="wGr-6a-704"/>
-                        </constraints>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="SYBanner" largeTitleDisplayMode="always" id="79q-0b-QOo"/>
-                    <connections>
-                        <outlet property="defaultBannerButton" destination="bCE-c6-IZg" id="3oq-uK-txk"/>
-                        <outlet property="imageBannerButtonTopConstraint" destination="em3-rF-aVw" id="orW-7p-rXT"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -216,8 +30,15 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2qz-kC-v9A" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="waj-9B-hpk">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -229,9 +50,4 @@
             <point key="canvasLocation" x="137.68115942028987" y="128.57142857142856"/>
         </scene>
     </scenes>
-    <resources>
-        <namedColor name="backgroundColor">
-            <color red="0.94901960784313721" green="0.94509803921568625" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-    </resources>
 </document>
