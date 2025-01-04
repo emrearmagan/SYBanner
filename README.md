@@ -34,7 +34,7 @@ SYBanner is a simple and clean banner library for iOS. It supports various banne
 
 ##### SYSimpleBanner
 
-<img src="./SYBannerDemo/SupportFiles/Preview/Simple.gif" width= 23%>
+<img src="./SYBannerDemo/SupportFiles/Preview/simple.gif" width= 23%>
 
 ```swift
 let banner = SYBanner("Link copied", direction: .top)
@@ -42,7 +42,7 @@ banner.present()
 ```
 
 ##### SYBanner:
-<img src="./SYBannerDemo/SupportFiles/Preview/Default.gif" width= 23%>
+<img src="./SYBannerDemo/SupportFiles/Preview/default.gif" width= 23%>
 
 ```swift
 let banner = SYDefaultBanner("A Banner with just a text", subtitle: "{subtitle}", direction: .top)
