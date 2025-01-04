@@ -8,12 +8,6 @@
 
 import UIKit
 
-/// Protocol for defining custom haptic feedback generators.
-public protocol SYBannerFeedbackGenerator {
-    /// Executes the custom feedback.
-    func generateFeedback()
-}
-
 /// Enum to define haptic feedback for banners.
 public enum SYBannerFeedback {
     /// No haptic feedback.

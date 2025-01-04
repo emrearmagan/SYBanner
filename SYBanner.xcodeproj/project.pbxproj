@@ -51,6 +51,7 @@
 		D06A7D592D295087006C2548 /* ApprovalBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D582D295083006C2548 /* ApprovalBanner.swift */; };
 		D06A7D5B2D296DE9006C2548 /* SYCardBanner+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D5A2D296DE4006C2548 /* SYCardBanner+Options.swift */; };
 		D06A7D5F2D298064006C2548 /* SYScalePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D5E2D298060006C2548 /* SYScalePresenter.swift */; };
+		D06A7D622D2988D7006C2548 /* SYBannerFeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A7D612D2988D6006C2548 /* SYBannerFeedbackGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		D06A7D582D295083006C2548 /* ApprovalBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovalBanner.swift; sourceTree = "<group>"; };
 		D06A7D5A2D296DE4006C2548 /* SYCardBanner+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SYCardBanner+Options.swift"; sourceTree = "<group>"; };
 		D06A7D5E2D298060006C2548 /* SYScalePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYScalePresenter.swift; sourceTree = "<group>"; };
+		D06A7D612D2988D6006C2548 /* SYBannerFeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYBannerFeedbackGenerator.swift; sourceTree = "<group>"; };
 		D0952395280346D8008A7E01 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EA07D8AF28D1EF2D00D47650 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,8 +174,8 @@
 		D055F31E27FEFE6600675E9D /* SYBanner */ = {
 			isa = PBXGroup;
 			children = (
+				D06A7D602D2988CB006C2548 /* Feedback */,
 				D06A7D4E2D29155D006C2548 /* Highlighter */,
-				D06A7D312D2851C4006C2548 /* SYBannerFeedback.swift */,
 				D06A7D242D26F00A006C2548 /* Extension */,
 				D06A7D1D2D26E9BC006C2548 /* Presenter */,
 				D06A7D1B2D26E83F006C2548 /* SYBannerType.swift */,
@@ -190,10 +192,10 @@
 		D055F32627FEFE9600675E9D /* Banner */ = {
 			isa = PBXGroup;
 			children = (
+				D055F33127FEFF6800675E9D /* SYSimpleBanner.swift */,
 				D06A7D3A2D288352006C2548 /* SYFullWidthBanner.swift */,
 				D06A7D372D286F0D006C2548 /* SYBanner */,
 				D055F35627FF060C00675E9D /* SYCardBanner */,
-				D055F33127FEFF6800675E9D /* SYSimpleBanner.swift */,
 			);
 			path = Banner;
 			sourceTree = "<group>";
@@ -329,6 +331,15 @@
 			path = Banners;
 			sourceTree = "<group>";
 		};
+		D06A7D602D2988CB006C2548 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				D06A7D612D2988D6006C2548 /* SYBannerFeedbackGenerator.swift */,
+				D06A7D312D2851C4006C2548 /* SYBannerFeedback.swift */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -460,6 +471,7 @@
 				D06A7D3F2D28FE50006C2548 /* SYBanner+IconSource.swift in Sources */,
 				D06A7D232D26EC25006C2548 /* SYBannerState.swift in Sources */,
 				D055F35827FF062200675E9D /* SYCardBannerButton.swift in Sources */,
+				D06A7D622D2988D7006C2548 /* SYBannerFeedbackGenerator.swift in Sources */,
 				D06A7D502D291569006C2548 /* SYBannerHighlighter.swift in Sources */,
 				D06A7D322D2851CD006C2548 /* SYBannerFeedback.swift in Sources */,
 				D06A7D5F2D298064006C2548 /* SYScalePresenter.swift in Sources */,

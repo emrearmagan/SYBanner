@@ -16,6 +16,9 @@ SYBanner is a simple and clean banner library for iOS. It supports various banne
 <img src="./SYBannerDemo/SupportFiles/Preview/Overview.png" width= 100%>
 </div>
 
+> **⚠️ Important**  
+> The current version is still in development. There can and will be breaking changes in version updates until version 1.0.
+
 
 ## Features
 - **Multiple Banner Types**: Simple, Default, Card, FullWidth, and more.
@@ -336,6 +339,8 @@ dependencies: [
 
 ##### CocoaPods
 You can use CocoaPods to install SYBanner by adding it to your Podfile:
+> **⚠️ Caution**  
+> CocoaPods support will be dropped with version 0.1.0 Prior to that, support will be minimal. Using SPM is highly recommended.
 
     pod 'SYBanner'
 
