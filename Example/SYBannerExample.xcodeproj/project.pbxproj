@@ -15,7 +15,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D0B5C4D52D2ADEDF00D0F1CF /* Exceptions for "Example" folder in "SYBannerExample" target */ = {
+		D0B5C4D52D2ADEDF00D0F1CF /* Exceptions for "SYBanner" folder in "SYBannerExample" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Supporting Files/Info.plist",
@@ -25,12 +25,12 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D0B5C4C52D2ADEDE00D0F1CF /* Example */ = {
+		D0B5C4C52D2ADEDE00D0F1CF /* SYBanner */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D0B5C4D52D2ADEDF00D0F1CF /* Exceptions for "Example" folder in "SYBannerExample" target */,
+				D0B5C4D52D2ADEDF00D0F1CF /* Exceptions for "SYBanner" folder in "SYBannerExample" target */,
 			);
-			path = Example;
+			path = SYBanner;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -50,7 +50,7 @@
 		D0B5C4BA2D2ADEDE00D0F1CF = {
 			isa = PBXGroup;
 			children = (
-				D0B5C4C52D2ADEDE00D0F1CF /* Example */,
+				D0B5C4C52D2ADEDE00D0F1CF /* SYBanner */,
 				D0B5C4C42D2ADEDE00D0F1CF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,7 +79,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D0B5C4C52D2ADEDE00D0F1CF /* Example */,
+				D0B5C4C52D2ADEDE00D0F1CF /* SYBanner */,
 			);
 			name = SYBannerExample;
 			packageProductDependencies = (
@@ -156,7 +156,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L7BXVNN29K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "SYBanner/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -184,7 +184,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L7BXVNN29K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Example/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "SYBanner/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -346,9 +346,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		D0B5C4F72D2ADFEC00D0F1CF /* XCLocalSwiftPackageReference "../SYBanner" */ = {
+		D0B5C4F72D2ADFEC00D0F1CF /* XCLocalSwiftPackageReference "../" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../SYBanner;
+			relativePath = ../;
 		};
 /* End XCLocalSwiftPackageReference section */
 
