@@ -12,6 +12,8 @@
 
 SYBanner is a simple and clean banner library for iOS. It supports various banner types with flexible customization options, making it easy to integrate and tailor to your app's needs.
 
+[📖 Documentation](https://emrearmagan.github.io/SYBanner/)
+
 <div align="center">
 <img src="./SYBannerDemo/SupportFiles/Preview/Overview.png" width= 100%>
 </div>
