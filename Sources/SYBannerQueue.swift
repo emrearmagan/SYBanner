@@ -27,7 +27,7 @@ open class SYBannerQueue: NSObject {
     private(set) var banners: [SYBaseBanner] = []
 
     /// Banners that are currently being presented or being presented.
-    private var presentedBanners: [SYBaseBanner] {
+    public var presentedBanners: [SYBaseBanner] {
         return banners.filter { $0.presentationState == .presented || $0.presentationState == .presenting }
     }
 
@@ -130,7 +130,7 @@ open class SYBannerQueue: NSObject {
     /// Returns the first banner in the queue that is not currently displayed.
     ///
     /// - Returns: The first non-displayed banner, if any.
-    private func firstNotDisplayedBanner() -> SYBaseBanner? {
+    public func firstNotDisplayedBanner() -> SYBaseBanner? {
         return banners.filter { $0.presentationState == .idle }.first
     }
 }
