@@ -68,20 +68,33 @@ banner.addButton(SYCardBannerButton(title: "Get started", style: .default, handl
 banner.setBannerOptions([
   .showExitButton(true),
   .customView(yourCustomView()),
-  .buttonAxis(.horizontal),
-  .titleFont(UIFont.systemFont(ofSize: 35, weight: .medium)),
-  .titleColor(.gray),
-  .buttonsHeight(50),
-  .customViewInsets(.init(top: 20, left: 0, bottom: 40, right: 0)),
 ])
 
 banner.dismissOnSwipe = false
 banner.show()
 ```
 
+##### Custom Banner
+The `SYBaseBanner` allows you to create completely customized banners by overriding its properties and methods. With full control over the UI and behavior, you can design banners tailored to your needs.
+
+```swift
+class MyCustomBanner: SYBaseBanner {
+    override init(direction: SYBannerDirection, queue: SYBannerQueue = .default, on parent: UIViewController? = nil) {
+        super.init(direction: direction, queue: queue, on: parent)
+        setupUI()
+    }
+
+    func setupUI() {
+         // Create the banner's appearance
+    }
+}
+
+let banner = MyCustomBanner(direction: .top)
+banner.present()
+```
 
 ### Configuration
-SYBanner provides a flexible and centralized way to customize its appearance and behavior using Configuration. Each configuration allows you to define styles for text, background, icons, alignments, and more. You can either use the default configuration or create custom ones.
+SYBanner provides a simple way to customize its appearance and behavior using Configuration. Each configuration allows you to define styles for text, background, icons, alignments, and more. You can either use the default configuration or create custom ones.
 
 
 <div align="center">
@@ -325,6 +338,25 @@ banner.didTap = {
     // Do something on tap
 }
 ```
+
+### Options
+
+| Option Name                   | Description                                                                                   |
+|-------------------------------|-----------------------------------------------------------------------------------------------|
+| `feedback`                    | The haptic feedback to be triggered when the banner is presented (`SYBannerFeedback`, default `.impact(style: .light)`). |
+| `highlighter`                 | The highlighter responsible for handling touch interactions (`SYBannerHighlighter?`, default `SYDefaultHighlighter()`). |
+| `autoDismiss`                 | Indicates whether the banner should automatically dismiss itself after a specified interval (`Bool`, default `false`). |
+| `autoDismissInterval`         | The time interval after which the banner will automatically dismiss itself, if `autoDismiss` is enabled (`TimeInterval`, default `2` seconds). |
+| `didTap`                      | Closure executed when the banner is tapped (Default dismisses the banner). |
+| `onSwipe`                     | Closure executed when the banner is swiped (Default dismisses the banner. |
+| `direction`                   | The direction from which the banner will appear (e.g., `.top` or `.bottom`) |
+| `delegate`                    | Delegate to handle banner lifecycle events (`SYBannerDelegate?`, default `nil`). |
+| `presentationState`           | The current state of the banner during its lifecycle (`SYBannerState`, for example `.presenting` or `presented`). |
+| `bannerType`                  | The type of the banner (e.g., stick or float) (`SYBannerType`, default `.float`). |
+| `parentViewController`        | The parent view controller on which the banner is displayed (`UIViewController?`, default `nil`). |
+| `hasBeenSeen`                 | Indicates whether the banner has been shown at least once (`Bool`, default `false`). |
+| `bannerQueue`                 | The queue where the banner will be placed (`SYBannerQueue`, default `.default`). |
+
 
 ### Requirements
 - Xcode 11

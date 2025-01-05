@@ -12,8 +12,6 @@ import UIKit
 open class SYBaseBanner: UIControl {
     // MARK: Properties
 
-    let customLayoutGuide = UILayoutGuide()
-
     /// The haptic feedback to be triggered when the banner is presented. See `SYBannerFeedback` for more
     /// - Default: `.impact(style: .light)`
     public var feedback: SYBannerFeedback = .impact(style: .light)
@@ -29,6 +27,7 @@ open class SYBaseBanner: UIControl {
     /// The time interval after which the banner will automatically dismiss itself, if `autoDismiss` is enabled.
     /// - Default: `2 seconds`
     public var autoDismissInterval: TimeInterval = 2
+    
     /// Closure executed when the banner is tapped. Default dimissed the Banner
     public var didTap: (() -> Void)?
 
