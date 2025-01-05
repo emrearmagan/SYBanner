@@ -43,8 +43,12 @@ jobs:
         run: |
           swift package resolve;
           
-          xcodebuild docbuild -scheme $SCHEME -derivedDataPath /tmp/docbuild -destination 'generic/platform=iOS';
-          
+          xcodebuild docbuild \
+            -scheme $SCHEME \
+            -derivedDataPath /tmp/docbuild \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGNING_ALLOWED=NO
+
           echo "Archiving documentation..."
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphoneos/$SCHEME.doccarchive \
