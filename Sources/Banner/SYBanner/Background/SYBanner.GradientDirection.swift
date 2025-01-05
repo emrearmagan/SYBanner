@@ -6,6 +6,8 @@
 //  Copyright © 2025 Emre Armagan. All rights reserved.
 //
 
+import Foundation
+
 extension SYBannerBackgroundView {
     public enum GradientDirection {
         case leftToRight

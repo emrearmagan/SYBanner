@@ -6,6 +6,8 @@
 //  Copyright © 2025 Emre Armagan. All rights reserved.
 //
 
+import UIKit
+
 /// A specialized banner that spans the full width of its container and dynamically adjusts its height based on its content.
 ///
 /// `SYFullWidthBanner` is a subclass of `SYBanner` and overrides the `preferredContentSize` method to ensure
