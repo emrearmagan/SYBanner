@@ -15,7 +15,7 @@ SYBanner is a simple and clean banner library for iOS. It supports various banne
 [📖 Documentation](https://emrearmagan.github.io/SYBanner/)
 
 <div align="center">
-<img src="./SYBannerDemo/SupportFiles/Preview/Overview.png" width= 100%>
+<img src="./Example/Supporting Files/Preview/Overview.png" width= 100%>
 </div>
 
 > **⚠️ Important**  
@@ -36,7 +36,7 @@ SYBanner is a simple and clean banner library for iOS. It supports various banne
 
 ##### SYSimpleBanner
 
-<img src="./SYBannerDemo/SupportFiles/Preview/Simple.gif" width= 30%>
+<img src="./Example/Supporting Files/Preview/Simple.gif" width= 30%>
 
 ```swift
 let banner = SYBanner("Link copied", direction: .top)
@@ -44,7 +44,7 @@ banner.present()
 ```
 
 ##### SYBanner:
-<img src="./SYBannerDemo/SupportFiles/Preview/Default.gif" width= 30%>
+<img src="./Example/Supporting Files/Preview/Default.gif" width= 30%>
 
 ```swift
 let banner = SYDefaultBanner("A Banner with just a text", subtitle: "{subtitle}", direction: .top)
@@ -52,7 +52,7 @@ banner.present()
 ```
 
 ##### SYCardBanner
-<img src="./SYBannerDemo/SupportFiles/Preview/CardView.png" width= 30%>
+<img src="./Example/Supporting Files/Preview/CardView.png" width= 30%>
 
 The `SYCardBanner` provides a customizable and visually appealing card-style banner that can include titles, subtitles, buttons, and custom views. It is designed to offer a clean and engaging way to present information or actions to users. However, it's important to note that this is still a banner and can be dismissed by the user at any time. Your app should not depend on the `SYCardBanner` for critical actions or information. If you need to present a modal page where the user cannot leave, please check out [ModalKit](https://github.com/emrearmagan/ModalKit) which may be more suited.
 
@@ -100,9 +100,9 @@ SYBanner provides a simple way to customize its appearance and behavior using Co
 
 
 <div align="center">
-<img src="./SYBannerDemo/SupportFiles/Preview/Info.gif" width= 33%>
-<img src="./SYBannerDemo/SupportFiles/Preview/Success.gif" width= 33%>
-<img src="./SYBannerDemo/SupportFiles/Preview/Warning.gif" width= 33%>
+<img src="./Example/Supporting Files/Preview/Info.gif" width= 33%>
+<img src="./Example/Supporting Files/Preview/Success.gif" width= 33%>
+<img src="./Example/Supporting Files/Preview/Warning.gif" width= 33%>
 </div>
 
 
@@ -149,8 +149,8 @@ banner.present()
 The SYBannerQueue system provides queue management to handle multiple banners. It ensures that banners are displayed sequentially, limits the number of banners visible at a time, and automatically adjusts the position of banners when others are dismissed.
 
 <div align="center">
-<img src="./SYBannerDemo/SupportFiles/Preview/Stacking.gif" width= 40%>
-<img src="./SYBannerDemo/SupportFiles/Preview/Dynamic.gif" width= 40%>
+<img src="./Example/Supporting Files/Preview/Stacking.gif" width= 40%>
+<img src="./Example/Supporting Files/Preview/Dynamic.gif" width= 40%>
 </div>
 
 - **Stacking**: Manage multiple banners and define how many can appear simultaneously.
@@ -184,8 +184,8 @@ banner.dismiss()
 ### Presenter
 The SYBannerPresenter protocol and its various implementations define how banners are presented and dismissed with animations. Presenters control the lifecycle of banners and provide the flexibility to customize their animations for a wide range of use cases.
 <div align="center">
-<img src="./SYBannerDemo/SupportFiles/Preview/Bounce.gif" width= 40%>
-<img src="./SYBannerDemo/SupportFiles/Preview/Fade.gif" width= 40%>
+<img src="./Example/Supporting Files/Preview/Bounce.gif" width= 40%>
+<img src="./Example/Supporting Files/Preview/Fade.gif" width= 40%>
 </div>
 
 ##### Using a Presenter
@@ -194,10 +194,10 @@ Each banner has a presenter property that determines its animation behavior. For
 
 | Presenter | Demo |
 | -------- | ---- |
-| *Default* | <img src="./SYBannerDemo/SupportFiles/Preview/Presenter_Default.gif" width="200" align="center"> |
-| *Fade* | <img src="./SYBannerDemo/SupportFiles/Preview/Presenter_Fade.gif" width="200" align="center"> |
-| *Scale* | <img src="./SYBannerDemo/SupportFiles/Preview/Presenter_Scale.gif" width="200" align="center"> |
-| *Bounce* | <img src="./SYBannerDemo/SupportFiles/Preview/Presenter_Bounce.gif" width="200" align="center"> |
+| *Default* | <img src="./Example/Supporting Files/Preview/Presenter_Default.gif" width="200" align="center"> |
+| *Fade* | <img src="./Example/Supporting Files/Preview/Presenter_Fade.gif" width="200" align="center"> |
+| *Scale* | <img src="./Example/Supporting Files/Preview/Presenter_Scale.gif" width="200" align="center"> |
+| *Bounce* | <img src="./Example/Supporting Files/Preview/Presenter_Bounce.gif" width="200" align="center"> |
 
 
 ```swift
@@ -236,7 +236,7 @@ class CustomSlidePresenter: SYDefaultPresenter {
 Highlighters define the visual feedback when users interact with a banner, such as touch events like taps or drags. They are used to provide animations that emphasize the interaction, such as scaling or alpha changes.
 `SYBanner` includes the `SYBannerHighlighter` protocol, which allows developers to define custom highlighter behavior. It also provides a default implementation, SYDefaultHighlighter, for standard highlighting effects.
 
-<img src="./SYBannerDemo/SupportFiles/Preview/Highlighter.gif" width= 40%>
+<img src="./Example/Supporting Files/Preview/Highlighter.gif" width= 40%>
 
 ##### Using a Highlighter
 You can assign a highlighter to a banner by setting its highlighter property. By default, banners use SYDefaultHighlighter.
