@@ -27,6 +27,6 @@ jobs:
     - name: Build and Test with xcodebuild
       run: |
         xcodebuild test \
-          -scheme SYBanner \
+          -scheme Notifly \
           -destination "platform=iOS Simulator,name=iPhone 16,OS=18.1"
 
