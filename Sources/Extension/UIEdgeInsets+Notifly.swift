@@ -1,5 +1,5 @@
 //
-//  UIEdgeInsets+SYBanner.swift
+//  UIEdgeInsets+Notifly.swift
 //  Notifly
 //
 //  Created by Emre Armagan on 02.01.25.

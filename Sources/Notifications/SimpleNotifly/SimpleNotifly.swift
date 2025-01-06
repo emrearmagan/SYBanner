@@ -1,47 +1,47 @@
 //
-//  SYSimpleBanner.swift
-//  SYBanner
+//  SimpleNotifly.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 06.04.22.
 //
 
 import UIKit
 
-/// A simple banner implementation that displays a customizable text message.
-/// `SYSimpleBanner` is lightweight and versatile, allowing you to customize the text, font, color, and layout.
+/// A simple notification implementation that displays a customizable text message.
+/// `SimpleNotifly` is lightweight and versatile, allowing you to customize the text, font, color, and layout.
 ///
 /// Example usage:
 /// ```swift
-/// let banner = SYSimpleBanner(
-///     "Welcome to SYBanner!",
+/// let notification = SimpleNotifly(
+///     "Welcome to Notifly!",
 ///     backgroundColor: .systemBlue,
 ///     direction: .top,
 ///     type: .float(.all(10)),
 ///     on: self
 /// )
 ///
-/// banner.present()
+/// notification.present()
 /// ```
-open class SYSimpleBanner: SYBaseBanner {
+open class SimpleNotifly: NotiflyBase {
     // MARK: Properties
 
-    /// Constraints for the content within the banner.
+    /// Constraints for the content within the notification.
     var contentConstraints: [NSLayoutConstraint] = []
 
-    /// The label used to display the message text within the banner.
+    /// The label used to display the message text within the notification.
     open var titleLabel = UILabel()
 
-    /// Insets applied around the content of the banner.
+    /// Insets applied around the content of the notification.
     open var contentInsets: UIEdgeInsets = .vertical(10) + .horizontal(30) {
         didSet { configureConstraints() }
     }
 
-    /// The message text displayed in the banner.
+    /// The message text displayed in the notification.
     open var text: String? {
         get { titleLabel.text }
         set {
             titleLabel.text = newValue
-            setNeedsBannersDisplay()
+            setNeedsNotificationsDisplay()
         }
     }
 
@@ -56,32 +56,32 @@ open class SYSimpleBanner: SYBaseBanner {
         get { titleLabel.font }
         set {
             titleLabel.font = newValue
-            setNeedsBannersDisplay()
+            setNeedsNotificationsDisplay()
         }
     }
 
     // MARK: Init
 
-    /// Initializes a new `SYSimpleBanner` with customizable properties.
+    /// Initializes a new `NotiflySimpleNotification` with customizable properties.
     ///
     /// - Parameters:
-    ///   - message: The message to display in the banner.
-    ///   - backgroundColor: The background color of the banner.
-    ///   - direction: The direction from which the banner will appear. Defaults to `.bottom`.
-    ///   - type: The banner's presentation type (e.g., `.stick` or `.float`). Defaults to `.float`.
-    ///   - parent: The parent view controller where the banner will be displayed. Defaults to `nil`.
-    ///   - queue: The queue managing the banner. Defaults to `.default`.
+    ///   - message: The message to display in the notification.
+    ///   - backgroundColor: The background color of the notification.
+    ///   - direction: The direction from which the notification will appear. Defaults to `.bottom`.
+    ///   - type: The notification's presentation type (e.g., `.stick` or `.float`). Defaults to `.float`.
+    ///   - parent: The parent view controller where the notification will be displayed. Defaults to `nil`.
+    ///   - queue: The queue managing the notification. Defaults to `.default`.
     public init(
         _ message: String,
-        backgroundColor: UIColor = .syDefaultColor,
-        direction: SYBannerDirection = .bottom,
-        presenter: SYBannerPresenter = SYDefaultPresenter(),
-        type: SYBannerType = .float(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)),
+        backgroundColor: UIColor = .notiflyDefaultColor,
+        direction: NotiflyDirection = .bottom,
+        presenter: NotiflyPresenter = NotiflyDefaultPresenter(),
+        type: NotiflyType = .float(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)),
         on parent: UIViewController? = nil,
-        queue: SYBannerQueue = .default
+        queue: NotiflyQueue = .default
     ) {
         super.init(direction: direction, presentation: presenter, queue: queue, on: parent)
-        bannerType = type
+        self.type = type
 
         self.backgroundColor = backgroundColor
         text = message
@@ -107,14 +107,14 @@ open class SYSimpleBanner: SYBaseBanner {
         return systemLayoutSizeFitting(preferredContainerSize)
     }
 
-    // Auto-Layout does cannot calculate the size of an multline label therefore we define the maxWidth here
+    // Auto-Layout does not calculate the size of a multiline label, so we define the maxWidth here
     override open func systemLayoutSizeFitting(_ targetSize: CGSize) -> CGSize {
         titleLabel.preferredMaxLayoutWidth = targetSize.width
         titleLabel.invalidateIntrinsicContentSize()
         return super.systemLayoutSizeFitting(targetSize)
     }
 
-    /// Sets up the banner's user interface.
+    /// Sets up the notification's user interface.
     open func setupUI() {
         if !titleLabel.isDescendant(of: self) {
             addSubview(titleLabel)
@@ -140,6 +140,6 @@ open class SYSimpleBanner: SYBaseBanner {
         ]
 
         NSLayoutConstraint.activate(contentConstraints)
-        setNeedsBannersDisplay()
+        setNeedsNotificationsDisplay()
     }
 }

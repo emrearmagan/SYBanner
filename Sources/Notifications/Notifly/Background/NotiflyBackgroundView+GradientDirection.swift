@@ -1,6 +1,6 @@
 //
-//  SYBanner.GradientDirection.swift
-//  SYBanner
+//  NotiflyBackgroundView+GradientDirection.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 04.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension SYBannerBackgroundView {
+extension NotiflyBackgroundView {
     public enum GradientDirection {
         case leftToRight
         case rightToLeft
@@ -21,7 +21,7 @@ extension SYBannerBackgroundView {
     }
 }
 
-extension SYBannerBackgroundView.GradientDirection {
+extension NotiflyBackgroundView.GradientDirection {
     /// The corresponding start point for the gradient in the unit coordinate space.
     var startPoint: CGPoint {
         switch self {

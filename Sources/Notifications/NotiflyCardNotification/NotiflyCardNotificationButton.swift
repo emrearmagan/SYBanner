@@ -1,13 +1,13 @@
 //
-//  SYCardBannerButton.swift
-//  SYBanner
+//  NotiflyCardNotificationButton.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 07.04.22.
 //
 
 import UIKit
 
-public class SYCardBannerButton: UIButton {
+public class NotiflyCardNotificationButton: UIButton {
     public enum Style: Int {
         case `default` = 0
         case dismiss = 1
@@ -26,12 +26,12 @@ public class SYCardBannerButton: UIButton {
 
     /// Closure that will be executed if the button is tapped
     var handler: (() -> Void)?
-    private(set) var style: SYCardBannerButton.Style = .default
+    private(set) var style: NotiflyCardNotificationButton.Style = .default
 
-    /// currently selected index
+    /// Currently selected index
     public private(set) var selectedIndex: Int = 0
 
-    public convenience init(title: String, font: UIFont = .systemFont(ofSize: 16), cornerRadius: CGFloat = 10, style: SYCardBannerButton.Style, tintColor: UIColor? = nil, handler: (() -> Void)? = nil) {
+    public convenience init(title: String, font: UIFont = .systemFont(ofSize: 16), cornerRadius: CGFloat = 10, style: NotiflyCardNotificationButton.Style, tintColor: UIColor? = nil, handler: (() -> Void)? = nil) {
         self.init(frame: .zero)
         self.title = title
         self.style = style

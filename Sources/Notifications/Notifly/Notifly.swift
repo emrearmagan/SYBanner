@@ -1,15 +1,15 @@
 //
-//  SYBanner.swift
-//  SYBanner
+//  Notifly.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 06.04.22.
 //
 
 import UIKit
 
-/// A banner that displays an icon on the left and a title with a subtitle vertically on the right.
-/// This banner is a subclass of `SYSimpleBanner` and extends its functionality to include an icon and additional labels.
-public class SYBanner: SYBaseBanner {
+/// A notification that displays an icon on the left and a title with a subtitle vertically on the right.
+/// This notification is a subclass of `NotiflyBase` and extends its functionality to include an icon and additional labels.
+public class Notifly: NotiflyBase {
     // MARK: Properties
 
     private var contentConstraints: [NSLayoutConstraint] = []
@@ -20,7 +20,7 @@ public class SYBanner: SYBaseBanner {
     private let subtitleLabel = UILabel()
     private let imageView = UIImageView()
 
-    public let backgroundView = SYBannerBackgroundView()
+    public let backgroundView = NotiflyBackgroundView()
 
     override open var layoutMargins: UIEdgeInsets {
         get { backgroundView.layoutMargins }
@@ -37,18 +37,18 @@ public class SYBanner: SYBaseBanner {
         set { backgroundView.insetsLayoutMarginsFromSafeArea = newValue }
     }
 
-    public var configuration: SYBanner.Configuration = .default {
+    public var configuration: Notifly.Configuration = .default {
         didSet {
             updateViews()
         }
     }
 
-    /// The message text displayed in the banner.
+    /// The message text displayed in the notification.
     open var title: String? {
         get { titleLabel.text }
         set {
             titleLabel.text = newValue
-            setNeedsBannersDisplay()
+            setNeedsNotificationsDisplay()
         }
     }
 
@@ -58,7 +58,7 @@ public class SYBanner: SYBaseBanner {
         set {
             subtitleLabel.text = newValue
             subtitleLabel.isHidden = newValue == nil
-            setNeedsBannersDisplay()
+            setNeedsNotificationsDisplay()
         }
     }
 
@@ -68,11 +68,9 @@ public class SYBanner: SYBaseBanner {
                                        verticalFittingPriority: .fittingSizeLevel)
     }
 
-    // Auto-Layout does cannot calculate the size of an multline label therefore we define the maxWidth here
     override public func systemLayoutSizeFitting(_ targetSize: CGSize,
                                                  withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
                                                  verticalFittingPriority: UILayoutPriority) -> CGSize {
-        // Calculate available width by subtracting padding and margins
         let availableWidth = targetSize.width
             - (configuration.icon?.size.width ?? 0)
             - configuration.imagePadding
@@ -90,12 +88,12 @@ public class SYBanner: SYBaseBanner {
     public init(
         _ title: String,
         subtitle: String? = nil,
-        configuration: SYBanner.Configuration = .default,
-        direction: SYBannerDirection = .bottom,
-        presenter: SYBannerPresenter = SYDefaultPresenter(),
-        type: SYBannerType = .float(UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)),
+        configuration: Notifly.Configuration = .default,
+        direction: NotiflyDirection = .bottom,
+        presenter: NotiflyPresenter = NotiflyDefaultPresenter(),
+        type: NotiflyType = .float(UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)),
         on parent: UIViewController? = nil,
-        queue: SYBannerQueue = .default
+        queue: NotiflyQueue = .default
     ) {
         self.configuration = configuration
 
@@ -108,7 +106,6 @@ public class SYBanner: SYBaseBanner {
     // MARK: Methods
 
     open func setupUI() {
-        // Default values
         layoutMargins = .vertical(10) + .horizontal(15)
         subtitleLabel.numberOfLines = 0
         titleLabel.numberOfLines = 1
@@ -160,7 +157,7 @@ public class SYBanner: SYBaseBanner {
         backgroundView.cornerRadius = configuration.cornerRadius
 
         configureConstraints()
-        setNeedsBannersDisplay()
+        setNeedsNotificationsDisplay()
     }
 
     private func updateImagePlacement() {
@@ -182,7 +179,7 @@ public class SYBanner: SYBaseBanner {
 
 // MARK: UI
 
-extension SYBanner {
+extension Notifly {
     private func configureConstraints() {
         NSLayoutConstraint.deactivate(contentConstraints)
         guard backgroundView.isDescendant(of: self), contentStackView.isDescendant(of: backgroundView) else { return }

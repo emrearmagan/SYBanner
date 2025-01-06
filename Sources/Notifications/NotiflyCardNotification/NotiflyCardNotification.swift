@@ -1,14 +1,14 @@
 //
-//  SYCardBanner.swift
-//  SYBanner
+//  NotiflyCardNotification.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 07.04.22.
 //
 
 import UIKit
 
-// TODO: Use SYBanner.Configuration
-public class SYCardBanner: SYBaseBanner {
+// TODO: Use Notifly.Configuration
+public class NotiflyCardNotification: NotiflyBase {
     // MARK: Properties
 
     /// Constraints for the content
@@ -60,10 +60,10 @@ public class SYCardBanner: SYBaseBanner {
         }
     }
 
-    /// The number of drag necessary for the view to be dismissed. Only works if isDismissable is set to true
+    /// The number of drags necessary for the view to be dismissed. Only works if isDismissable is set to true
     public var dismissableOrigin: CGFloat = 100
 
-    /// If set to true, a exit button will be drawn on the top right corner
+    /// If set to true, an exit button will be drawn on the top right corner
     public var addExitButton: Bool = false {
         didSet {
             setNeedsDisplay()
@@ -71,15 +71,13 @@ public class SYCardBanner: SYBaseBanner {
     }
 
     /// The size of the top right exit button. Only visible if addExitButton is true
-
     public var exitButtonSize = CGSize(width: 9, height: 9) {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    /// The custom view in the banner
-
+    /// The custom view in the notification
     public var customView: UIView? {
         didSet {
             if let oldValue = oldValue {
@@ -90,7 +88,7 @@ public class SYCardBanner: SYBaseBanner {
     }
 
     /// Closure that will be executed if a button is tapped
-    public var didTapButton: ((_: SYCardBannerButton) -> Void)?
+    public var didTapButton: ((_: NotiflyCardNotificationButton) -> Void)?
     /// Closure that will be executed if the exit button is tapped
     public var didTapExitButton: (() -> Void)?
 
@@ -98,19 +96,18 @@ public class SYCardBanner: SYBaseBanner {
 
     public convenience init(title: String? = nil,
                             subtitle: String? = nil,
-                            direction: SYBannerDirection = .bottom,
-                            queue: SYBannerQueue = .default,
-                            buttons: [SYCardBannerButton] = []) {
+                            direction: NotiflyDirection = .bottom,
+                            queue: NotiflyQueue = .default,
+                            buttons: [NotiflyCardNotificationButton] = []) {
         self.init(title, subtitle: subtitle, direction: direction, queue: queue, buttons: buttons, on: nil)
     }
 
     private init(_ title: String?,
                  subtitle: String?,
-                 direction: SYBannerDirection,
-                 queue: SYBannerQueue,
-                 buttons: [SYCardBannerButton],
-                 on: UIViewController?
-    ) {
+                 direction: NotiflyDirection,
+                 queue: NotiflyQueue,
+                 buttons: [NotiflyCardNotificationButton],
+                 on: UIViewController?) {
         super.init(direction: direction, queue: queue, on: on)
         setTitle(title)
         setSubTitle(subtitle)
@@ -159,13 +156,13 @@ public class SYCardBanner: SYBaseBanner {
         refreshView()
     }
 
-    public func addButton(_ button: SYCardBannerButton) {
+    public func addButton(_ button: NotiflyCardNotificationButton) {
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
         buttonsStackView.addArrangedSubview(button)
         refreshView()
     }
 
-    @objc private func didTapButton(_ button: SYCardBannerButton) {
+    @objc private func didTapButton(_ button: NotiflyCardNotificationButton) {
         if button.style == .dismiss {
             dismiss()
         }
@@ -175,7 +172,7 @@ public class SYCardBanner: SYBaseBanner {
 
 // MARK: - UI
 
-extension SYCardBanner {
+extension NotiflyCardNotification {
     private func setupUI() {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
@@ -272,7 +269,7 @@ extension SYCardBanner {
 
 // MARK: - Exit button
 
-public extension SYCardBanner {
+public extension NotiflyCardNotification {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         guard addExitButton else { return }
@@ -310,40 +307,7 @@ public extension SYCardBanner {
 
 // MARK: - Appearance
 
-public extension SYCardBanner {
-    func setBannerOptions(_ options: [Options]) {
-        for option in options {
-            switch option {
-                case let .backgroundColor(color):
-                    backgroundColor = color
-                case let .showExitButton(value):
-                    addExitButton = value
-                case let .titleFont(font):
-                    titleFont = font
-                case let .titleColor(color):
-                    titleTextColor = color
-                case let .subTitleFont(font):
-                    subtitleFont = font
-                case let .subTitleColor(color):
-                    subtitleTextColor = color
-                case let .subTitleSpacing(spacing):
-                    titleSubtitleSpacing = spacing
-                case let .contentInsets(insets):
-                    contentInsets = insets
-                case let .cornerRounding(cornerRadius):
-                    self.cornerRadius = cornerRadius
-                case let .customView(view):
-                    customView = view
-                case let .customViewInsets(insets):
-                    customViewInsets = insets
-                case let .buttonsHeight(height):
-                    _buttonsHeight = height
-                case let .buttonAxis(value):
-                    buttonsAxis = value
-            }
-        }
-    }
-
+public extension NotiflyCardNotification {
     /// Title font
     dynamic var titleFont: UIFont {
         get { return titleLabel.font }
@@ -422,4 +386,56 @@ public extension SYCardBanner {
             refreshView()
         }
     }
+}
+
+extension NotiflyCardNotification {
+    public enum Options {
+        case backgroundColor(UIColor)
+        case buttonsHeight(CGFloat)
+        case cornerRounding(CGFloat)
+        case titleFont(UIFont)
+        case titleColor(UIColor)
+        case subTitleFont(UIFont)
+        case subTitleColor(UIColor)
+        case subTitleSpacing(CGFloat)
+        case customView(UIView)
+        case customViewInsets(UIEdgeInsets)
+        case contentInsets(UIEdgeInsets)
+        case showExitButton(Bool)
+        case buttonAxis(NSLayoutConstraint.Axis)
+    }
+    
+    func setNotificationOptions(_ options: [Options]) {
+        for option in options {
+            switch option {
+                case let .backgroundColor(color):
+                    backgroundColor = color
+                case let .showExitButton(value):
+                    addExitButton = value
+                case let .titleFont(font):
+                    titleFont = font
+                case let .titleColor(color):
+                    titleTextColor = color
+                case let .subTitleFont(font):
+                    subtitleFont = font
+                case let .subTitleColor(color):
+                    subtitleTextColor = color
+                case let .subTitleSpacing(spacing):
+                    titleSubtitleSpacing = spacing
+                case let .contentInsets(insets):
+                    contentInsets = insets
+                case let .cornerRounding(cornerRadius):
+                    self.cornerRadius = cornerRadius
+                case let .customView(view):
+                    customView = view
+                case let .customViewInsets(insets):
+                    customViewInsets = insets
+                case let .buttonsHeight(height):
+                    _buttonsHeight = height
+                case let .buttonAxis(value):
+                    buttonsAxis = value
+            }
+        }
+    }
+
 }

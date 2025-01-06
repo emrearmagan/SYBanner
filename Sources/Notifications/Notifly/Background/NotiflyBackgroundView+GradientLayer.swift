@@ -1,6 +1,6 @@
 //
-//  SYBanner+GradientLayer.swift
-//  SYBanner
+//  NotiflyBackgroundView+GradientLayer.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 04.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension SYBannerBackgroundView {
+extension NotiflyBackgroundView {
     class GradientLayer: CAGradientLayer {
         var gradientColors: [UIColor]? {
             didSet {

@@ -1,6 +1,6 @@
 //
-//  SYBanner+BackgroundView.swift
-//  SYBanner
+//  Notifly+BackgroundView.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 04.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-/// Manages the background appearance of the banner, supporting solid colors and gradients.
-public class SYBannerBackgroundView: UIView {
+/// Manages the background appearance of the notification, supporting solid colors and gradients.
+public class NotiflyBackgroundView: UIView {
     // MARK: Properties
 
-    private var gradienLayer: GradientLayer?
+    private var gradientLayer: GradientLayer?
 
     private var gradientColors: [UIColor]? {
         didSet {
@@ -20,7 +20,7 @@ public class SYBannerBackgroundView: UIView {
         }
     }
 
-    /// The background color or gradient applied to the view
+    /// The background color or gradient applied to the view.
     public var bgColor: BackgroundColor? {
         didSet {
             switch bgColor {
@@ -53,8 +53,8 @@ public class SYBannerBackgroundView: UIView {
 
     override public var backgroundColor: UIColor? {
         didSet {
-            gradienLayer?.removeFromSuperlayer()
-            gradienLayer = nil
+            gradientLayer?.removeFromSuperlayer()
+            gradientLayer = nil
         }
     }
 
@@ -64,7 +64,7 @@ public class SYBannerBackgroundView: UIView {
         super.layoutSubviews()
         setupBorder()
 
-        if let layer = gradienLayer {
+        if let layer = gradientLayer {
             layer.frame = bounds
             layer.cornerRadius = self.layer.cornerRadius
         }
@@ -73,16 +73,16 @@ public class SYBannerBackgroundView: UIView {
     // MARK: Methods
 
     private func setupGradientBackground() {
-        if gradienLayer == nil {
+        if gradientLayer == nil {
             let gradient = GradientLayer()
             gradient.bounds = frame
             layer.insertSublayer(gradient, at: 0)
-            gradienLayer = gradient
+            gradientLayer = gradient
         }
 
-        gradienLayer?.gradientColors = gradientColors
-        gradienLayer?.gradientDirection = gradientDirection
-        gradienLayer?.gradientLocations = gradientLocations
+        gradientLayer?.gradientColors = gradientColors
+        gradientLayer?.gradientDirection = gradientDirection
+        gradientLayer?.gradientLocations = gradientLocations
     }
 
     private func setupBorder() {

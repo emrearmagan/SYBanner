@@ -211,7 +211,7 @@ open class NotiflyBase: UIControl {
         delegate?.notificationDidDisappear(self)
     }
 
-    /// Returns the preferred content size for the banner. Default is the auto layout size.
+    /// Returns the preferred content size for the notifications. Default is the auto layout size.
     open func preferredContentSize() -> CGSize {
         let autoLayoutSize = systemLayoutSizeFitting(preferredContainerSize,
                                                      withHorizontalFittingPriority: .required,
@@ -277,13 +277,11 @@ extension NotiflyBase {
 // MARK: - Gesture Handling
 
 extension NotiflyBase {
-    /// Adds gesture recognizers for interaction with the banner.
     private func addGestureRecognizers() {
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeGestureRecognizer(sender:)))
         addGestureRecognizer(swipeUpGesture)
     }
 
-    /// Handles swipe gestures on the banner.
     @objc open func onSwipeGestureRecognizer(sender: UISwipeGestureRecognizer) {
         guard presentationState == .presented else { return }
         if let onSwipe {
