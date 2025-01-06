@@ -13,20 +13,24 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Select Xcode 16.0
+    - name: Select Xcode 16.2
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.0.0'
+        xcode-version: '16.2.0'
 
     - name: Display versions
       run: |
          swift --version
          xcodebuild -version
-         
+    
+    - name: Display Available Simulators
+      run:
+        xcrun simctl list devices
+
     # Run tests using xcodebuild if the package includes UIKit or other iOS frameworks
     - name: Build and Test with xcodebuild
       run: |
         xcodebuild test \
-          -scheme SYBanner \
+          -scheme Notifly \
           -destination "platform=iOS Simulator,name=iPhone 16,OS=18.1"
 
