@@ -1,6 +1,6 @@
 //
-//  SYBannerFeedback.swift
-//  SYBanner
+//  NotiflyFeedback.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 03.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// Enum to define haptic feedback for banners.
-public enum SYBannerFeedback {
+/// Enum to define haptic feedback for notifications.
+public enum NotiflyFeedback {
     /// No haptic feedback.
     case none
 
@@ -23,7 +23,7 @@ public enum SYBannerFeedback {
     case notification(type: UINotificationFeedbackGenerator.FeedbackType)
 
     /// Custom feedback generator provided by the user.
-    case custom(generator: SYBannerFeedbackGenerator)
+    case custom(generator: NotiflyFeedbackGenerator)
 
     /// Executes the feedback.
     public func generate() {

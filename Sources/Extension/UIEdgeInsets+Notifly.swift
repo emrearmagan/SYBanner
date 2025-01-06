@@ -1,6 +1,6 @@
 //
 //  UIEdgeInsets+SYBanner.swift
-//  SYBanner
+//  Notifly
 //
 //  Created by Emre Armagan on 02.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
