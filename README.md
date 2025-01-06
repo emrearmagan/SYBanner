@@ -12,7 +12,7 @@
 
 Notifly is a lightweight notification library for iOS. It provides multiple notifications types and customization options, making it straightforward to integrate and adapt to your requirements.
 
-[📖 Documentation](https://emrearmagan.github.io/NotiflyExample/)
+[📖 Documentation](https://emrearmagan.github.io/Notifly/)
 
 <div align="center">
 <img src="./Example/NotiflyExample/Supporting Files/Preview/Overview.png" width= 100%>
