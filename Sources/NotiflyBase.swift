@@ -1,6 +1,6 @@
 //
-//  SYBaseBanner.swift
-//  SYBanner
+//  NotiflyBase.swift
+//  Notifly
 //
 //  Created by Emre Armagan on 06.04.22.
 //
@@ -8,81 +8,81 @@
 import Foundation
 import UIKit
 
-/// The base class for all banners, providing functionality for presentation, dismissal, and interaction.
-open class SYBaseBanner: UIControl {
+/// The base class for all notifications, providing functionality for presentation, dismissal, and interaction.
+open class NotiflyBase: UIControl {
     // MARK: Properties
 
-    /// The haptic feedback to be triggered when the banner is presented. See `SYBannerFeedback` for more
+    /// The haptic feedback to be triggered when the notification is presented. See `SYNotificationFeedback` for more
     /// - Default: `.impact(style: .light)`
-    public var feedback: SYBannerFeedback = .impact(style: .light)
+    public var feedback: NotiflyFeedback = .impact(style: .light)
 
-    /// The highlighter responsible for handling touch interactions such as highlighting and unhighlighting the banner.
+    /// The highlighter responsible for handling touch interactions such as highlighting and unhighlighting the notification.
     /// - Default: `SYDefaultHighlighter`
-    public var highlighter: SYBannerHighlighter? = SYDefaultHighlighter()
+    public var highlighter: NotiflyHighlighter? = NotiflyDefaultHighlighter()
 
-    /// Indicates whether the banner should automatically dismiss itself after a specified interval.
+    /// Indicates whether the notification should automatically dismiss itself after a specified interval.
     /// - Default: `true`
     public var autoDismiss: Bool = false
 
-    /// The time interval after which the banner will automatically dismiss itself, if `autoDismiss` is enabled.
+    /// The time interval after which the notification will automatically dismiss itself, if `autoDismiss` is enabled.
     /// - Default: `2 seconds`
     public var autoDismissInterval: TimeInterval = 2
-    
-    /// Closure executed when the banner is tapped. Default dimissed the Banner
+
+    /// Closure executed when the notification is tapped. Default dismisses the notification.
     public var didTap: (() -> Void)?
 
-    /// Closure executed when the banner is swiped. Default dimissed the Banner
+    /// Closure executed when the notification is swiped. Default dismisses the notification.
     public var onSwipe: ((UISwipeGestureRecognizer) -> Void)?
 
-    /// The direction from which the banner will appear (e.g., `.top` or `.bottom`).
-    public var direction: SYBannerDirection
+    /// The direction from which the notification will appear (e.g., `.top` or `.bottom`).
+    public var direction: NotiflyDirection
 
-    /// Delegate to handle banner lifecycle events.
-    public weak var delegate: SYBannerDelegate?
+    /// Delegate to handle notification lifecycle events.
+    public weak var delegate: NotiflyDelegate?
 
-    /// The current state of the banner during its lifecycle.
-    public var presentationState: SYBannerState {
+    /// The current state of the notification during its lifecycle.
+    public var presentationState: NotiflyState {
         presenter.state
     }
 
-    /// The type of the banner (e.g., stick or float).
-    public var bannerType: SYBannerType = .float(.vertical(5) + .horizontal(10))
+    /// The type of the notification (e.g., stick or float).
+    public var type: NotiflyType = .float(.vertical(5) + .horizontal(10))
 
-    /// The insets applied to the banner based on its type.
-    public var bannerInsets: UIEdgeInsets {
-        switch bannerType {
+    /// The insets applied to the notification based on its type.
+    public var notificationInsets: UIEdgeInsets {
+        switch type {
             case .stick:
                 return .all(0)
 
             case let .float(insets):
-                var bannerInsets = insets
-                bannerInsets += .bottom(parentSafeArea.bottom) + .top(parentSafeArea.top) + .left(parentSafeArea.left) + .right(parentSafeArea.right)
-                return bannerInsets
+                var notificationInsets = insets
+                notificationInsets += .bottom(parentSafeArea.bottom) + .top(parentSafeArea.top) + .left(parentSafeArea.left) + .right(parentSafeArea.right)
+                return notificationInsets
 
             case let .ignoringSafeArea(inset):
                 return inset
         }
     }
 
-    /// The parent view controller in which the banner is displayed.
+    /// The parent view controller in which the notification is displayed.
     open weak var parentViewController: UIViewController?
 
-    /// Indicates whether the banner has been shown at least once.
+    /// Indicates whether the notification has been shown at least once.
     public private(set) var hasBeenSeen = false
 
-    /// The preferred container size for the banner.
+    /// The preferred container size for the notification.
     open var preferredContainerSize: CGSize {
         return CGSize(
-            width: screenSize.width - bannerInsets.left - bannerInsets.right,
-            height: screenSize.height - bannerInsets.top - bannerInsets.top
+            width: screenSize.width - notificationInsets.left - notificationInsets.right,
+            height: screenSize.height - notificationInsets.top - notificationInsets.top
         )
     }
 
-    /// The queue where the banner will be placed.
-    public private(set) var bannerQueue: SYBannerQueue
+    /// The queue where the notification will be placed.
+    public private(set) var notificationQueue: NotiflyQueue
 
-    /// The presenter responsible for animating the banner.
-    let presenter: SYBannerPresenter
+    /// The presenter responsible for animating the notification.
+    let presenter: NotiflyPresenter
 
     /// The screen size of the device.
     private let screenSize: CGSize = UIScreen.main.bounds.size
@@ -90,7 +90,7 @@ open class SYBaseBanner: UIControl {
     /// A work item representing the scheduled auto-dismiss task.
     private var autoDismissTask: DispatchWorkItem?
 
-    /// The main application window used for placing the banner.
+    /// The main application window used for placing the notification.
     private weak var appWindow: UIView? = (UIApplication.shared.connectedScenes
         .filter { $0.activationState == .foregroundActive }
         .compactMap { $0 as? UIWindowScene }
@@ -99,21 +99,21 @@ open class SYBaseBanner: UIControl {
 
     // MARK: - Init
 
-    /// Initializes a new instance of `SYBaseBanner`.
+    /// Initializes a new instance of `NotiflyBase`.
     ///
     /// - Parameters:
-    ///   - direction: The direction from which the banner will appear.
-    ///   - presentation: The presenter responsible for animating the banner. Defaults to `SYFadePresenter`.
-    ///   - queue: The queue managing the banner. Defaults to `.default`.
-    ///   - parent: The parent view controller where the banner will be displayed.
-    public init(direction: SYBannerDirection,
-                presentation: SYBannerPresenter = SYDefaultPresenter(),
-                queue: SYBannerQueue = .default,
+    ///   - direction: The direction from which the notification will appear.
+    ///   - presentation: The presenter responsible for animating the notification. Defaults to `SYFadePresenter`.
+    ///   - queue: The queue managing the notification. Defaults to `.default`.
+    ///   - parent: The parent view controller where the notification will be displayed.
+    public init(direction: NotiflyDirection,
+                presentation: NotiflyPresenter = NotiflyDefaultPresenter(),
+                queue: NotiflyQueue = .default,
                 on parent: UIViewController? = nil) {
         self.direction = direction
         presenter = presentation
         parentViewController = parent
-        bannerQueue = queue
+        notificationQueue = queue
 
         super.init(frame: .zero)
         insetsLayoutMarginsFromSafeArea = false
@@ -126,38 +126,38 @@ open class SYBaseBanner: UIControl {
 
     // MARK: - Functions
 
-    /// Presents the banner, optionally adding it to a queue.
+    /// Presents the notification, optionally adding it to a queue.
     ///
     /// - Parameters:
-    ///   - placeOnQueue: Whether the banner should be added to the queue. Defaults to `true`.
-    ///   - queuePosition: The position in the queue where the banner should be added. Defaults to `.back`.
-    ///   - completion: A closure executed after the banner is presented.
+    ///   - placeOnQueue: Whether the notification should be added to the queue. Defaults to `true`.
+    ///   - queuePosition: The position in the queue where the notification should be added. Defaults to `.back`.
+    ///   - completion: A closure executed after the notification is presented.
     public final func present(
         placeOnQueue: Bool = true,
-        queuePosition: SYBannerQueue.QueuePosition = .back,
+        queuePosition: NotiflyQueue.QueuePosition = .back,
         _ completion: (() -> Void)? = nil
     ) {
         if placeOnQueue {
-            bannerQueue.addBanner(self, queuePosition: queuePosition)
+            notificationQueue.addNotification(self, queuePosition: queuePosition)
         } else {
-            presentBanner(completion: completion)
+            presentNotification(completion: completion)
         }
     }
 
-    /// Dismisses the banner and removes it from its parent view.
+    /// Dismisses the notification and removes it from its parent view.
     ///
     /// - Parameters:
-    ///   - showNext: Whether to show the next banner in the queue. Defaults to `true`.
-    ///   - completion: A closure executed after the banner is dismissed.
+    ///   - showNext: Whether to show the next notification in the queue. Defaults to `true`.
+    ///   - completion: A closure executed after the notification is dismissed.
     public final func dismiss(showNext: Bool = true, completion: (() -> Void)? = nil) {
-        dismissBanner(showNext: showNext, completion)
+        dismissNotification(showNext: showNext, completion)
     }
 
-    /// Presents the banner without adding it to a queue. Used internally by the queue.
-    private func presentBanner(completion: (() -> Void)?) {
+    /// Presents the notification without adding it to a queue. Used internally by the queue.
+    private func presentNotification(completion: (() -> Void)?) {
         if !Thread.isMainThread {
             DispatchQueue.main.async { [weak self] in
-                self?.presentBanner(completion: completion)
+                self?.presentNotification(completion: completion)
             }
             return
         }
@@ -171,23 +171,23 @@ open class SYBaseBanner: UIControl {
             superview.bringSubviewToFront(self)
         }
 
-        delegate?.bannerWillAppear(self)
+        delegate?.notificationWillAppear(self)
         feedback.generate()
-        presenter.present(banner: self, in: superview) { [weak self] in
+        presenter.present(notification: self, in: superview) { [weak self] in
             guard let self = self else { return }
             self.addGestureRecognizers()
             self.hasBeenSeen = true
             self.scheduleAutoDismiss()
-            self.delegate?.bannerDidAppear(self)
+            self.delegate?.notificationDidAppear(self)
             completion?()
         }
     }
 
-    /// Dismisses the banner without removing it from the queue. Used internally by the queue.
-    private func dismissBanner(showNext: Bool, _ completion: (() -> Void)?) {
+    /// Dismisses the notification without removing it from the queue. Used internally by the queue.
+    private func dismissNotification(showNext: Bool, _ completion: (() -> Void)?) {
         if !Thread.isMainThread {
             DispatchQueue.main.async { [weak self] in
-                self?.dismissBanner(showNext: showNext, completion)
+                self?.dismissNotification(showNext: showNext, completion)
             }
             return
         }
@@ -195,20 +195,20 @@ open class SYBaseBanner: UIControl {
         autoDismissTask?.cancel()
         autoDismissTask = nil
 
-        delegate?.bannerWillDisappear(self)
-        bannerQueue.removeBanner(self, showNextInQueue: showNext)
+        delegate?.notificationWillDisappear(self)
+        notificationQueue.removeNotification(self, showNextInQueue: showNext)
 
         if let superview = superview {
-            presenter.dismiss(banner: self, in: superview) { [weak self] in
+            presenter.dismiss(notification: self, in: superview) { [weak self] in
                 defer { completion?() }
                 guard let self = self else { return }
                 self.removeFromSuperview()
-                self.delegate?.bannerDidDisappear(self)
+                self.delegate?.notificationDidDisappear(self)
             }
             return
         }
 
-        delegate?.bannerDidDisappear(self)
+        delegate?.notificationDidDisappear(self)
     }
 
     /// Returns the preferred content size for the banner. Default is the auto layout size.
@@ -219,33 +219,33 @@ open class SYBaseBanner: UIControl {
         return autoLayoutSize
     }
 
-    /// Requests the banner to re-evaluate its layout and adjust its position.
+    /// Requests the notification to re-evaluate its layout and adjust its position.
     ///
-    /// This method ensures that any banners currently presented or in the process of being presented
-    /// (`.presented` or `.presenting` states) are re-aligned within the queue. It triggers the banner queue
-    /// to layout all presented banners if necessary, maintaining correct stacking and alignment.
+    /// This method ensures that any notifications currently presented or in the process of being presented
+    /// (`.presented` or `.presenting` states) are re-aligned within the queue. It triggers the notification queue
+    /// to layout all presented notifications if necessary, maintaining correct stacking and alignment.
     ///
-    /// Use this method when the banner's content, size, or layout changes, and you need to update its
-    /// position relative to other banners in the queue.
+    /// Use this method when the notification's content, size, or layout changes, and you need to update its
+    /// position relative to other notifications in the queue.
     ///
     /// Example:
     /// ```swift
-    /// banner.present()
-    /// banner.text = "Hello Banner!"
-    /// banner.setNeedsBannersDisplay()
+    /// notification.present()
+    /// notification.text = "Hello Notification!"
+    /// notification.setNeedsNotificationsDisplay()
     /// ```
-    open func setNeedsBannersDisplay() {
+    open func setNeedsNotificationsDisplay() {
         guard presentationState == .presented || presentationState == .presenting else { return }
         invalidateContentSize()
-        bannerQueue.layoutPresentedBannersIfNeeded()
+        notificationQueue.layoutPresentedNotificationsIfNeeded()
     }
 
-    /// Invalidates the banner's content size and updates its frame size.
+    /// Invalidates the notification's content size and updates its frame size.
     private func invalidateContentSize() {
         frame.size = preferredContentSize()
     }
 
-    /// Schedules the automatic dismissal of the banner after the specified interval.
+    /// Schedules the automatic dismissal of the notification after the specified interval.
     private func scheduleAutoDismiss() {
         autoDismissTask?.cancel()
         guard autoDismiss else { return }
@@ -262,8 +262,8 @@ open class SYBaseBanner: UIControl {
 
 // MARK: - Helper
 
-extension SYBaseBanner {
-    /// The parent view where the banner will be displayed.
+extension NotiflyBase {
+    /// The parent view where the notification will be displayed.
     public var parentView: UIView? {
         parentViewController?.view ?? appWindow
     }
@@ -276,7 +276,7 @@ extension SYBaseBanner {
 
 // MARK: - Gesture Handling
 
-extension SYBaseBanner {
+extension NotiflyBase {
     /// Adds gesture recognizers for interaction with the banner.
     private func addGestureRecognizers() {
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeGestureRecognizer(sender:)))
@@ -297,7 +297,7 @@ extension SYBaseBanner {
 
 // MARK: - Touch
 
-extension SYBaseBanner {
+extension NotiflyBase {
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         guard presentationState == .presented else {
