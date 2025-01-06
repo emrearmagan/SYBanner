@@ -25,8 +25,8 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testAddNotification() {
         let queue = NotiflyQueue(maxNotificationsOnScreen: 2)
-        let notification1 = SimpleNotification("Notification 1")
-        let notification2 = SimpleNotification("Notification 2")
+        let notification1 = Notifly("Notification 1")
+        let notification2 = Notifly("Notification 2")
 
         queue.addNotification(notification1, queuePosition: .back)
         queue.addNotification(notification2, queuePosition: .back)
@@ -38,7 +38,7 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testRemoveNotification() {
         let queue = NotiflyQueue()
-        let notification = SimpleNotification("Test Notification")
+        let notification = Notifly("Test Notification")
 
         queue.addNotification(notification, queuePosition: .back)
         XCTAssertEqual(queue.numberOfNotifications, 1)
@@ -49,8 +49,8 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testMaxNotificationsOnScreen() {
         let queue = NotiflyQueue(maxNotificationsOnScreen: 1)
-        let notification1 = SimpleNotification("Notification 1", on: testingViewController)
-        let notification2 = SimpleNotification("Notification 2", on: testingViewController)
+        let notification1 = Notifly("Notification 1", on: testingViewController)
+        let notification2 = Notifly("Notification 2", on: testingViewController)
 
         queue.addNotification(notification1, queuePosition: .back)
         queue.addNotification(notification2, queuePosition: .back)
@@ -62,9 +62,9 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testMaxNotificationsOnScreenSimultaneously() {
         let queue = NotiflyQueue(maxNotificationsOnScreen: 2)
-        let notification1 = SimpleNotification("Notification 1", on: testingViewController)
-        let notification2 = SimpleNotification("Notification 2", on: testingViewController)
-        let notification3 = SimpleNotification("Notification 3", on: testingViewController)
+        let notification1 = Notifly("Notification 1", on: testingViewController)
+        let notification2 = Notifly("Notification 2", on: testingViewController)
+        let notification3 = Notifly("Notification 3", on: testingViewController)
 
         queue.addNotification(notification1, queuePosition: .back)
         queue.addNotification(notification2, queuePosition: .back)
@@ -78,9 +78,9 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testDismissAllNotifications() {
         let queue = NotiflyQueue(maxNotificationsOnScreen: 3)
-        let notification1 = SimpleNotification("Notification 1", on: testingViewController)
-        let notification2 = SimpleNotification("Notification 2", on: testingViewController)
-        let notification3 = SimpleNotification("Notification 3", on: testingViewController)
+        let notification1 = Notifly("Notification 1", on: testingViewController)
+        let notification2 = Notifly("Notification 2", on: testingViewController)
+        let notification3 = Notifly("Notification 3", on: testingViewController)
 
         queue.addNotification(notification1, queuePosition: .back)
         queue.addNotification(notification2, queuePosition: .back)
@@ -93,8 +93,8 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testAddNotificationToFront() {
         let queue = NotiflyQueue(maxNotificationsOnScreen: 1)
-        let notification1 = SimpleNotification("Notification 1", on: testingViewController)
-        let notification2 = SimpleNotification("Notification 2", on: testingViewController)
+        let notification1 = Notifly("Notification 1", on: testingViewController)
+        let notification2 = Notifly("Notification 2", on: testingViewController)
 
         queue.addNotification(notification1, queuePosition: .back)
         queue.addNotification(notification2, queuePosition: .front)
@@ -105,8 +105,8 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testAddNotificationToBack() {
         let queue = NotiflyQueue(maxNotificationsOnScreen: 1)
-        let notification1 = SimpleNotification("Notification 1", on: testingViewController)
-        let notification2 = SimpleNotification("Notification 2", on: testingViewController)
+        let notification1 = Notifly("Notification 1", on: testingViewController)
+        let notification2 = Notifly("Notification 2", on: testingViewController)
 
         queue.addNotification(notification1, queuePosition: .back)
         queue.addNotification(notification2, queuePosition: .front)
@@ -118,8 +118,8 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testFirstDisplayedNotification() {
         let queue = NotiflyQueue(maxNotificationsOnScreen: 1)
-        let notification1 = SimpleNotification("Notification 1", on: testingViewController)
-        let notification2 = SimpleNotification("Notification 2", on: testingViewController)
+        let notification1 = Notifly("Notification 1", on: testingViewController)
+        let notification2 = Notifly("Notification 2", on: testingViewController)
 
         queue.addNotification(notification1, queuePosition: .back)
         queue.addNotification(notification2, queuePosition: .back)
@@ -129,8 +129,8 @@ final class NotiflyQueueTests: XCTestCase {
 
     func testFirstNotDisplayedNotification() {
         let queue = NotiflyQueue(maxNotificationsOnScreen: 1)
-        let notification1 = SimpleNotification("Notification 1", on: testingViewController)
-        let notification2 = SimpleNotification("Notification 2", on: testingViewController)
+        let notification1 = Notifly("Notification 1", on: testingViewController)
+        let notification2 = Notifly("Notification 2", on: testingViewController)
 
         queue.addNotification(notification1, queuePosition: .back)
         queue.addNotification(notification2, queuePosition: .back)
