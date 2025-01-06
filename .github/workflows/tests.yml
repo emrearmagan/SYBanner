@@ -22,7 +22,11 @@ jobs:
       run: |
          swift --version
          xcodebuild -version
-         
+    
+    - name: Display Available Simulators
+      run:
+        xcrun simctl list devices
+
     # Run tests using xcodebuild if the package includes UIKit or other iOS frameworks
     - name: Build and Test with xcodebuild
       run: |
