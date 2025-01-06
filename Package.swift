@@ -2,22 +2,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "SYBanner",
+    name: "Notifly",
     platforms: [
         .iOS(.v13)
     ],
     products: [
-        .library(name: "SYBanner", targets: ["SYBanner"])
+        .library(name: "Notifly", targets: ["Notifly"])
     ],
     targets: [
         .target(
-            name: "SYBanner",
+            name: "Notifly",
             dependencies: [],
             path: "Sources"
         ),
         .testTarget(
-            name: "SYBannerTests",
-            dependencies: ["SYBanner"],
+            name: "NotiflyTests",
+            dependencies: ["Notifly"],
             path: "Tests"
         )
     ],
