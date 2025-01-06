@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class NotiflyCardNotificationButton: UIButton {
+public class NotiflyCardButton: UIButton {
     public enum Style: Int {
         case `default` = 0
         case dismiss = 1
@@ -26,12 +26,12 @@ public class NotiflyCardNotificationButton: UIButton {
 
     /// Closure that will be executed if the button is tapped
     var handler: (() -> Void)?
-    private(set) var style: NotiflyCardNotificationButton.Style = .default
+    private(set) var style: NotiflyCardButton.Style = .default
 
     /// Currently selected index
     public private(set) var selectedIndex: Int = 0
 
-    public convenience init(title: String, font: UIFont = .systemFont(ofSize: 16), cornerRadius: CGFloat = 10, style: NotiflyCardNotificationButton.Style, tintColor: UIColor? = nil, handler: (() -> Void)? = nil) {
+    public convenience init(title: String, font: UIFont = .systemFont(ofSize: 16), cornerRadius: CGFloat = 10, style: NotiflyCardButton.Style, tintColor: UIColor? = nil, handler: (() -> Void)? = nil) {
         self.init(frame: .zero)
         self.title = title
         self.style = style

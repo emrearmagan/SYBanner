@@ -1,5 +1,5 @@
 //
-//  NotiflyCardNotification.swift
+//  NotiflyCard.swift
 //  Notifly
 //
 //  Created by Emre Armagan on 07.04.22.
@@ -8,7 +8,7 @@
 import UIKit
 
 // TODO: Use Notifly.Configuration
-public class NotiflyCardNotification: NotiflyBase {
+public class NotiflyCard: NotiflyBase {
     // MARK: Properties
 
     /// Constraints for the content
@@ -88,7 +88,7 @@ public class NotiflyCardNotification: NotiflyBase {
     }
 
     /// Closure that will be executed if a button is tapped
-    public var didTapButton: ((_: NotiflyCardNotificationButton) -> Void)?
+    public var didTapButton: ((_: NotiflyCardButton) -> Void)?
     /// Closure that will be executed if the exit button is tapped
     public var didTapExitButton: (() -> Void)?
 
@@ -98,7 +98,7 @@ public class NotiflyCardNotification: NotiflyBase {
                             subtitle: String? = nil,
                             direction: NotiflyDirection = .bottom,
                             queue: NotiflyQueue = .default,
-                            buttons: [NotiflyCardNotificationButton] = []) {
+                            buttons: [NotiflyCardButton] = []) {
         self.init(title, subtitle: subtitle, direction: direction, queue: queue, buttons: buttons, on: nil)
     }
 
@@ -106,7 +106,7 @@ public class NotiflyCardNotification: NotiflyBase {
                  subtitle: String?,
                  direction: NotiflyDirection,
                  queue: NotiflyQueue,
-                 buttons: [NotiflyCardNotificationButton],
+                 buttons: [NotiflyCardButton],
                  on: UIViewController?) {
         super.init(direction: direction, queue: queue, on: on)
         setTitle(title)
@@ -156,13 +156,13 @@ public class NotiflyCardNotification: NotiflyBase {
         refreshView()
     }
 
-    public func addButton(_ button: NotiflyCardNotificationButton) {
+    public func addButton(_ button: NotiflyCardButton) {
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
         buttonsStackView.addArrangedSubview(button)
         refreshView()
     }
 
-    @objc private func didTapButton(_ button: NotiflyCardNotificationButton) {
+    @objc private func didTapButton(_ button: NotiflyCardButton) {
         if button.style == .dismiss {
             dismiss()
         }
@@ -172,7 +172,7 @@ public class NotiflyCardNotification: NotiflyBase {
 
 // MARK: - UI
 
-extension NotiflyCardNotification {
+extension NotiflyCard {
     private func setupUI() {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
@@ -269,7 +269,7 @@ extension NotiflyCardNotification {
 
 // MARK: - Exit button
 
-public extension NotiflyCardNotification {
+public extension NotiflyCard {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         guard addExitButton else { return }
@@ -307,7 +307,7 @@ public extension NotiflyCardNotification {
 
 // MARK: - Appearance
 
-public extension NotiflyCardNotification {
+public extension NotiflyCard {
     /// Title font
     dynamic var titleFont: UIFont {
         get { return titleLabel.font }
@@ -388,7 +388,7 @@ public extension NotiflyCardNotification {
     }
 }
 
-extension NotiflyCardNotification {
+extension NotiflyCard {
     public enum Options {
         case backgroundColor(UIColor)
         case buttonsHeight(CGFloat)
@@ -404,7 +404,7 @@ extension NotiflyCardNotification {
         case showExitButton(Bool)
         case buttonAxis(NSLayoutConstraint.Axis)
     }
-    
+
     func setNotificationOptions(_ options: [Options]) {
         for option in options {
             switch option {
@@ -437,5 +437,4 @@ extension NotiflyCardNotification {
             }
         }
     }
-
 }
