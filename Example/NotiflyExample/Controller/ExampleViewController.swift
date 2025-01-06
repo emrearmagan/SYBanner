@@ -1,14 +1,14 @@
 //
 //  ExampleViewController.swift
-//  SYBannerDemo
+//  NotiflyExample
 //
 //  Created by Emre Armagan on 07.04.22.
 //
 
-import SYBanner
+import Notifly
 import UIKit
 
-enum BannerExample: Int, CaseIterable {
+enum NotifcationExample: Int, CaseIterable {
     case simple
     case `default`
     case info
@@ -51,8 +51,8 @@ class ExampleViewController: UIViewController {
 
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
-    private let max3BannersQueue = SYBannerQueue(maxBannersOnScreen: 3)
-    private let defaultQueue = SYBannerQueue.default
+    private let max3BannersQueue = NotiflyQueue(maxNotificationsOnScreen: 3)
+    private let defaultQueue = NotiflyQueue.default
 
     // MARK: - Lifecycle
 
@@ -91,13 +91,13 @@ class ExampleViewController: UIViewController {
     }
 
     private func configureButtons() {
-        for type in BannerExample.allCases {
+        for type in NotifcationExample.allCases {
             let button = createButton(for: type)
             stackView.addArrangedSubview(button)
         }
     }
 
-    private func createButton(for type: BannerExample) -> UIButton {
+    private func createButton(for type: NotifcationExample) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(type.description, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
@@ -114,64 +114,64 @@ class ExampleViewController: UIViewController {
     // MARK: - Actions
 
     @objc private func didTapButton(_ sender: UIButton) {
-        guard let type = BannerExample(rawValue: sender.tag) else { return }
+        guard let type = NotifcationExample(rawValue: sender.tag) else { return }
         showExample(type)
     }
 
-    private func showExample(_ example: BannerExample) {
+    private func showExample(_ example: NotifcationExample) {
         max3BannersQueue.dismissAll()
 
         switch example {
             case .simple:
-                let banner = SYSimpleBanner("Link copied", direction: .top)
+                let banner = SimpleNotifly("Link copied", direction: .top)
                 banner.present(queuePosition: .front)
 
             case .default:
-                let banner = SYBanner("Welcome to SYBanner!", subtitle: "{subtitle}", direction: .bottom)
+                let banner = Notifly("Welcome to SYBanner!", subtitle: "{subtitle}", direction: .bottom)
                 banner.configuration.titleFont = .systemFont(ofSize: 17, weight: .semibold)
                 banner.present(queuePosition: .front)
 
             case .info:
-                let banner = SYFullWidthBanner("Information",
-                                               subtitle: "This is an informational banner...",
-                                               configuration: .info(),
-                                               direction: .top)
+                let banner = NotiflyFullWidth("Information",
+                                                          subtitle: "This is an informational banner...",
+                                                          configuration: .info(),
+                                                          direction: .top)
                 banner.present(queuePosition: .front)
 
             case .warning:
-                let banner = SYFullWidthBanner("Warning message",
-                                               subtitle: "Proceeding further may lead to potential issues...",
-                                               configuration: .warning(),
-                                               direction: .top)
+                let banner = NotiflyFullWidth("Warning message",
+                                                          subtitle: "Proceeding further may lead to potential issues...",
+                                                          configuration: .warning(),
+                                                          direction: .top)
                 banner.present(queuePosition: .front)
 
             case .success:
-                let banner = SYFullWidthBanner("Successfully uploaded",
-                                               subtitle: "Your file has been successfully uploaded...",
-                                               configuration: .success(),
-                                               direction: .top)
+                let banner = NotiflyFullWidth("Successfully uploaded",
+                                                          subtitle: "Your file has been successfully uploaded...",
+                                                          configuration: .success(),
+                                                          direction: .top)
                 banner.present(queuePosition: .front)
 
             case .stacked:
                 defaultQueue.dismissAll()
 
                 let banners = [
-                    SYFullWidthBanner(
+                    NotiflyFullWidth(
                         "🚀 Blast Off!",
                         subtitle: "The rocket has launched successfully into orbit.",
                         queue: max3BannersQueue
                     ),
-                    SYFullWidthBanner(
+                    NotiflyFullWidth(
                         "🔥 Stay Alert!",
                         subtitle: "A wildfire warning has been issued for your area.",
                         queue: max3BannersQueue
                     ),
-                    SYFullWidthBanner(
+                    NotiflyFullWidth(
                         "✌️ Keep it Chill",
                         subtitle: "Take it easy and enjoy a peaceful moment.",
                         queue: max3BannersQueue
                     ),
-                    SYFullWidthBanner(
+                    NotiflyFullWidth(
                         "🎉 Overflow Banner",
                         subtitle: "This banner waits its turn to appear on the screen.",
                         queue: max3BannersQueue
@@ -184,8 +184,8 @@ class ExampleViewController: UIViewController {
                 }
 
             case .dynamic:
-                let banner1 = ReminderBanner(queue: max3BannersQueue)
-                let banner2 = ReminderBanner(queue: max3BannersQueue)
+                let banner1 = ReminderNotifaction(queue: max3BannersQueue)
+                let banner2 = ReminderNotifaction(queue: max3BannersQueue)
                 for banner in [banner1, banner2] {
                     banner.autoDismiss = false
                     banner.highlighter = nil
@@ -203,46 +203,46 @@ class ExampleViewController: UIViewController {
                 let topColor = UIColor(red: 0.55, green: 0.43, blue: 0.95, alpha: 1.0)
                 let bottomColor = UIColor(red: 0.75, green: 0.64, blue: 1.0, alpha: 1.0)
 
-                let configuration = SYBanner.Configuration(backgroundColor: .gradient([topColor, bottomColor], .leftToRight))
-                let banner = SYBanner("Gradient Support", subtitle: "Add some cool gradient colors", configuration: configuration)
+                let configuration = Notifly.Configuration(backgroundColor: .gradient([topColor, bottomColor], .leftToRight))
+                let banner = Notifly("Gradient Support", subtitle: "Add some cool gradient colors", configuration: configuration)
                 banner.present(queuePosition: .front)
 
             case .sticky:
-                let banner = SYFullWidthBanner("Welcome to SYBanner!",
-                                               subtitle: "{sticky}",
-                                               configuration:.init(backgroundColor: .default(.red), cornerRadius: .radius(0)),
-                                               direction: .bottom)
-                banner.bannerType = .stick
+                let banner = NotiflyFullWidth("Welcome to SYBanner!",
+                                                          subtitle: "{sticky}",
+                                                          configuration:.init(backgroundColor: .default(.red), cornerRadius: .radius(0)),
+                                                          direction: .bottom)
+                banner.type = .stick
                 banner.present(queuePosition: .front)
 
             case .custom1:
-                let banner = SYBanner("Game Mode", subtitle: "On", direction: .bottom, presenter: SYBouncePresenter(animationDuration: 0.5))
-                banner.configuration = SYBanner.Configuration(icon: .init(image: .init(systemName: "gamecontroller.fill"), tintColor: .systemBlue))
+                let banner = Notifly("Game Mode", subtitle: "On", direction: .bottom, presenter: NotiflyBouncePresenter(animationDuration: 0.5))
+                banner.configuration = Notifly.Configuration(icon: .init(image: .init(systemName: "gamecontroller.fill"), tintColor: .systemBlue))
                 banner.configuration.imagePadding = 20
                 banner.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 30)
                 banner.present(queuePosition: .front)
 
             case .custom2:
-                let banner = SYBanner("Sending message....", direction: .bottom, presenter: SYFadePresenter(animationDuration: 0.5))
-                banner.configuration = SYBanner.Configuration(icon: .init(image: .init(systemName: "paperplane.circle.fill"), tintColor: .white))
+                let banner = Notifly("Sending message....", direction: .bottom, presenter: NotiflyFadePresenter(animationDuration: 0.5))
+                banner.configuration = Notifly.Configuration(icon: .init(image: .init(systemName: "paperplane.circle.fill"), tintColor: .white))
                 banner.configuration.imagePadding = 10
                 banner.layoutMargins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 30)
                 banner.present(queuePosition: .front)
 
             case .custom3:
-                let banner = UndoBanner()
+                let banner = UndoNotifaction()
                 banner.present(queuePosition: .front)
 
             case .custom4:
-                let banner = ApprovalBanner()
+                let banner = ApprovalNotification()
                 banner.present(queuePosition: .front)
 
             case .card1:
-                let startButton = SYCardBannerButton(title: "Get started", font: .systemFont(ofSize: 14, weight: .semibold), style: .default)
-                let skipButton = SYCardBannerButton(title: "Skip", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss)
-                let banner = SYCardBanner(title: "How to use", subtitle: "Simple download Notification banner and get started with your own notifcations", buttons: [skipButton, startButton])
-                banner.backgroundColor = .syDefaultColor
-                banner.setBannerOptions([
+                let startButton = NotiflyCardButton(title: "Get started", font: .systemFont(ofSize: 14, weight: .semibold), style: .default)
+                let skipButton = NotiflyCardButton(title: "Skip", font: .systemFont(ofSize: 14, weight: .semibold), style: .dismiss)
+                let banner = NotiflyCard(title: "How to use", subtitle: "Simple download Notification banner and get started with your own notifcations", buttons: [skipButton, startButton])
+                banner.backgroundColor = .notiflyDefaultColor
+                banner.setNotificationOptions([
                     .titleColor(.white),
                     .subTitleColor(.white),
                     .showExitButton(true),
@@ -254,16 +254,16 @@ class ExampleViewController: UIViewController {
                 banner.present(queuePosition: .front)
 
             case .card2:
-                let banner = SYCardBanner(title: "Welcome 👋", subtitle: "Sign in or create a new account with us.")
-                banner.backgroundColor = .syDefaultColor
-                banner.addButton(SYCardBannerButton(title: "Sign in", font: .systemFont(ofSize: 16, weight: .semibold), style: .default) {
+                let banner = NotiflyCard(title: "Welcome 👋", subtitle: "Sign in or create a new account with us.")
+                banner.backgroundColor = .notiflyDefaultColor
+                banner.addButton(NotiflyCardButton(title: "Sign in", font: .systemFont(ofSize: 16, weight: .semibold), style: .default) {
                     banner.dismiss()
                 })
-                banner.addButton(SYCardBannerButton(title: "Sign up", font: .systemFont(ofSize: 16, weight: .semibold), style: .dismiss) {
+                banner.addButton(NotiflyCardButton(title: "Sign up", font: .systemFont(ofSize: 16, weight: .semibold), style: .dismiss) {
                     banner.dismiss()
                 })
 
-                banner.setBannerOptions([
+                banner.setNotificationOptions([
                     .showExitButton(false),
                     .titleFont(UIFont.systemFont(ofSize: 26, weight: .semibold)),
                     .buttonsHeight(50),

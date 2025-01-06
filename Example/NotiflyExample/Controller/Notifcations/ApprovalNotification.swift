@@ -1,15 +1,15 @@
 //
-//  ApprovalBanner.swift
-//  SYBanner
+//  ApprovalNotification.swift
+//  NotiflyExample
 //
 //  Created by Emre Armagan on 04.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
 //
 
-import SYBanner
+import Notifly
 import UIKit
 
-final class ApprovalBanner: SYBaseBanner {
+final class ApprovalNotification: NotiflyBase {
     private let profileImageView = UIImageView()
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()

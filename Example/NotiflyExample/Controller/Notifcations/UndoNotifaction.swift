@@ -1,15 +1,15 @@
 //
-//  UndoBanner.swift
-//  SYBanner
+//  UndoNotifaction.swift
+//  NotiflyExample
 //
 //  Created by Emre Armagan on 04.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
 //
 
-import SYBanner
+import Notifly
 import UIKit
 
-final class UndoBanner: SYBaseBanner {
+final class UndoNotifaction: NotiflyBase {
     private let titleLabel = UILabel()
     private let undoButton = UIButton()
 
@@ -19,7 +19,7 @@ final class UndoBanner: SYBaseBanner {
         titleLabel.text = "3 Repositories deleted"
         titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 
-        backgroundColor = .syDefaultColor
+        backgroundColor = .notiflyDefaultColor
 
         if #available(iOS 15.0, *) {
             var config = UIButton.Configuration.filled()

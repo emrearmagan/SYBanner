@@ -1,5 +1,5 @@
 //
-//  NotiflyFullWidthNotification.swift
+//  NotiflyFullWidth.swift
 //  Notifly
 //
 //  Created by Emre Armagan on 03.01.25.
@@ -15,10 +15,10 @@ import UIKit
 ///
 /// Example Usage:
 /// ```swift
-/// let notification = NotiflyFullWidthNotification("Dynamic Notification")
+/// let notification = NotiflyFullWidth("Dynamic Notification")
 /// notification.present()
 /// ```
-public class NotiflyFullWidthNotification: Notifly {
+public class NotiflyFullWidth: Notifly {
     override public func preferredContentSize() -> CGSize {
         return systemLayoutSizeFitting(preferredContainerSize,
                                        withHorizontalFittingPriority: .required,

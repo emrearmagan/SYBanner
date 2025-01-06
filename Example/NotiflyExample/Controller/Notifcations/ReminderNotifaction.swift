@@ -1,15 +1,15 @@
 //
-//  ReminderBanner.swift
-//  SYBanner
+//  ReminderNotifaction.swift
+//  NotiflyExample
 //
 //  Created by Emre Armagan on 04.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
 //
 
-import SYBanner
+import Notifly
 import UIKit
 
-class ReminderBanner: SYBaseBanner {
+class ReminderNotifaction: NotiflyBase {
     var isExpanded: Bool = false {
         didSet {
             toggleLayout()
@@ -71,7 +71,7 @@ class ReminderBanner: SYBaseBanner {
     private let mainContentStackView = UIStackView()
     private let combinedContentStackView = UIStackView()
 
-    convenience init(queue: SYBannerQueue) {
+    convenience init(queue: NotiflyQueue) {
         self.init(direction: .top, queue: queue)
         setupUI()
     }
@@ -127,6 +127,6 @@ class ReminderBanner: SYBaseBanner {
 
     private func toggleLayout() {
         mainContentStackView.isHidden = !isExpanded
-        setNeedsBannersDisplay()
+        setNeedsNotificationsDisplay()
     }
 }

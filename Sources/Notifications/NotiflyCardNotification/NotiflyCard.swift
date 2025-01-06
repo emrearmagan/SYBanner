@@ -405,7 +405,7 @@ extension NotiflyCard {
         case buttonAxis(NSLayoutConstraint.Axis)
     }
 
-    func setNotificationOptions(_ options: [Options]) {
+    public func setNotificationOptions(_ options: [Options]) {
         for option in options {
             switch option {
                 case let .backgroundColor(color):

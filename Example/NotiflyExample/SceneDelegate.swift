@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  SYBannerExample
+//  NotiflyExample
 //
-//  Created by Emre Armagan on 05.01.25.
+//  Created by Emre Armagan on 06.01.25.
 //  Copyright © 2025 Emre Armagan. All rights reserved.
 //
 
