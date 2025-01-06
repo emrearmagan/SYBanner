@@ -98,6 +98,7 @@ xcuserdata
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
+.swiftpm
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
 
